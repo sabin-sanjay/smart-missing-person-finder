@@ -1,0 +1,26 @@
+# ---- Secrets: NEVER upload these ----
+.env
+.env.*
+!.env.example
+# Firebase / Google service-account key files (backend only)
+*serviceAccount*.json
+firebase-adminsdk*.json
+
+# ---- Installed packages (can always be re-downloaded with npm install) ----
+node_modules/
+
+# ---- Build output (re-created by npm run build) ----
+dist/
+dev-dist/
+
+# ---- Python backend ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ---- Editor / OS junk ----
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

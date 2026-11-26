@@ -1,0 +1,18 @@
+# Python packages the backend needs. Install with:
+#   pip install -r requirements.txt
+# Versions are fixed ("==") so Hugging Face installs exactly what was tested.
+
+# Web server
+fastapi==0.165.0          # the web server framework
+uvicorn[standard]==0.54.0 # runs the FastAPI app
+python-multipart==0.0.34  # lets FastAPI receive uploaded photos
+
+# Talking to other services
+httpx==0.28.1             # talks to Supabase and SMS services over the internet
+firebase-admin==7.8.0     # sends push notifications through Firebase Cloud Messaging
+python-dotenv==1.2.4      # reads secret settings from the .env file on your computer
+
+# Face recognition
+deepface==0.0.105         # face detection + Facenet512 face embeddings
+tensorflow==2.21.0        # the AI engine DeepFace runs on
+tf-keras==2.21.0          # needed by DeepFace with this TensorFlow version

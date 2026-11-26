@@ -1,0 +1,91 @@
+{
+  "app": { "title": "Smart Missing Person Finder", "switchLanguage": "हिंदी" },
+  "nav": { "home": "Home", "map": "Map", "report": "Report", "login": "Login", "profile": "Profile" },
+  "common": { "loading": "Loading…", "goHome": "Go to Home" },
+  "gender": { "male": "Male", "female": "Female", "other": "Other" },
+  "time": {
+    "justNow": "just now",
+    "minutes_one": "{{count}} min ago",
+    "minutes_other": "{{count}} min ago",
+    "hours_one": "{{count}} hour ago",
+    "hours_other": "{{count}} hours ago",
+    "days_one": "{{count}} day ago",
+    "days_other": "{{count}} days ago"
+  },
+  "status": {
+    "pending": "⏳ Waiting for police approval",
+    "active": "📢 Active: alerts are being sent",
+    "rejected": "✖ Rejected",
+    "found": "✅ Found"
+  },
+  "home": {
+    "heroTitle": "Help bring them home",
+    "heroText": "Get alerts when someone goes missing near you, and report it if you see them. Every sighting helps.",
+    "reportBtn": "📍 Report a sighting",
+    "mapBtn": "🗺️ View live map",
+    "whoTitle": "🔍 Found someone who seems lost?",
+    "whoText": "Check their photo against missing-person reports.",
+    "currentlyMissing": "Currently missing",
+    "noCases": "✅ Connected. No active cases right now.",
+    "lastSeen": "Last seen: {{place}}",
+    "locationOnMap": "location on map"
+  },
+  "alerts": {
+    "title": "🔔 Alerts near you",
+    "onPush": "✅ On: notifications. You’ll be alerted if someone goes missing near you.",
+    "onSms": "✅ On: SMS. You’ll be alerted if someone goes missing near you.",
+    "addPhone": "Add your mobile number in <link>Profile</link> to receive SMS alerts.",
+    "turnOff": "Turn off alerts",
+    "intro": "Get a notification when someone goes missing within a few km of you. Your exact location is never shown to anyone.",
+    "turnOn": "Turn on alerts",
+    "turningOn": "Turning on…",
+    "offDone": "Alerts are off on this phone.",
+    "msg": {
+      "noLocation": "Please allow location access. Alerts are only sent for people missing near you.",
+      "blocked": "Notifications are blocked or not supported on this phone. Log in and add your mobile number to get SMS alerts instead.",
+      "saveFailed": "Could not turn on alerts: {{detail}}",
+      "onPush": "Alerts are ON. You’ll get a notification if someone goes missing near you.",
+      "onSms": "Notifications are blocked, so you’ll get SMS alerts on the number in your profile."
+    }
+  },
+  "case": {
+    "notAvailable": "This case is not available.",
+    "lastSeenLine": "<b>Last seen</b> {{ago}} ({{date}})",
+    "near": " near <b>{{place}}</b>",
+    "iSawThem": "📍 I have seen this person",
+    "lastSeenLocation": "Last-seen location",
+    "emergency": "In an emergency, call the police on <link>112</link>."
+  },
+  "report": {
+    "thankYou": "Thank you!",
+    "thankText": "Your sighting has been sent to the police. If you can safely stay nearby, please do. In an emergency, call <link>112</link>.",
+    "backHome": "Back to Home",
+    "whoDidYouSee": "Who did you see?",
+    "nearestFirst": "Nearest cases first.",
+    "noActive": "There are no active missing-person cases right now.",
+    "fromYou": "{{distance}} from you",
+    "title": "Report a sighting",
+    "notThem": "Not them? Choose someone else",
+    "where": "Where did you see them? *",
+    "when": "When? *",
+    "details": "Details",
+    "detailsPlaceholder": "What were they wearing? Were they with anyone? Which direction did they go?",
+    "photo": "Photo (only if it’s safe to take one)",
+    "send": "Send to police",
+    "sending": "Sending…",
+    "errNoPoint": "Please mark on the map where you saw the person.",
+    "errTime": "Please enter a time that is not in the future.",
+    "errUpload": "Photo upload failed: {{detail}}",
+    "errSend": "Could not send the report: {{detail}}",
+    "errLoad": "Could not load cases: {{detail}}"
+  },
+  "picker": {
+    "useMyLocation": "🎯 Use my current location",
+    "finding": "Finding you…",
+    "noGeo": "This phone/browser cannot share location. Tap the map instead.",
+    "denied": "Location permission was denied. Tap the map to choose the spot instead.",
+    "failed": "Could not get your location. Tap the map to choose the spot instead.",
+    "pinAt": "Pin at {{lat}}, {{lng}}. Tap the map to move it.",
+    "tapHint": "Tap the map to choose the spot."
+  }
+}
