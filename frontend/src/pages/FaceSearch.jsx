@@ -9,7 +9,16 @@ import { supabase, casePhotoUrl } from '../lib/supabase'
 import { compressImage } from '../lib/compressImage'
 import { timeAgo } from '../lib/dates'
 
-const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || '').replace(/\/$/, '')
+// Where is the backend? It runs on a laptop behind a free tunnel whose address
+// changes every time it starts, so the backend saves its current address in
+// Supabase (table app_config). We read it from there each time.
+// If that's empty, we fall back to VITE_BACKEND_URL from .env (e.g. localhost).
+async function getBackendUrl() {
+  const { data } = await supabase
+    .from('app_config').select('value').eq('key', 'backend_url').maybeSingle()
+  const url = data?.value || import.meta.env.VITE_BACKEND_URL || ''
+  return url.replace(/\/$/, '')
+}
 
 export default function FaceSearch() {
   const [preview, setPreview] = useState('')
@@ -23,13 +32,11 @@ export default function FaceSearch() {
     setError('')
     setResult(null)
 
-    if (!BACKEND_URL) {
-      setError('The backend address is not set. Add VITE_BACKEND_URL to frontend/.env.')
-      return
-    }
-
     setBusy(true)
     try {
+      const BACKEND_URL = await getBackendUrl()
+      if (!BACKEND_URL) throw new Error('The face-matching server is switched off right now. Please try again later.')
+
       const small = await compressImage(file)
       setPreview(URL.createObjectURL(small))
 
