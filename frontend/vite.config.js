@@ -50,6 +50,9 @@ export default defineConfig(({ mode }) => ({
         globIgnores: [
           // The push worker is separate and must always be fetched fresh
           '**/firebase-messaging-sw.js',
+          // The big 512px app icon (~100 KB) is only needed when installing the app,
+          // and the phone fetches it itself then. No need to pre-download it.
+          '**/pwa-512x512.png',
           // Big extras only police use (PDF maker and its helpers, about 600 KB).
           // Not downloaded in advance; fetched the first time someone makes a PDF.
           '**/jspdf*.js',
