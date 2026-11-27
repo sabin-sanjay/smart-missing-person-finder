@@ -79,7 +79,7 @@ export default function Layout() {
         className="fixed inset-x-0 bottom-0 px-3 z-10"
         style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.7rem)' }}
       >
-        <ul className="flex max-w-md mx-auto rounded-full p-1.5 bg-ink shadow-[0_12px_30px_-10px_rgb(19_18_29/0.55)]">
+        <ul className="flex max-w-md mx-auto rounded-full p-1.5 bk-liquid">
           {menuItems.map((item) => (
             <li key={item.to} className="flex-1">
               {/* NavLink knows which page is open. "end" = Home only on exactly "/". */}
@@ -88,7 +88,7 @@ export default function Layout() {
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   'flex flex-col items-center gap-0.5 rounded-full py-2 text-[10px] font-bold uppercase tracking-[0.06em] transition-colors ' +
-                  (isActive ? 'bg-tangerine text-ink' : 'text-white/70 active:bg-white/10')
+                  (isActive ? 'bg-tangerine text-ink' : 'text-white/80 active:bg-white/10')
                 }
               >
                 <Icon name={item.icon} className="w-[21px] h-[21px]" strokeWidth={1.8} />
