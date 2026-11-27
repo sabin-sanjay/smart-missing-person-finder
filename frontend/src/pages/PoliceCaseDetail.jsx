@@ -10,6 +10,8 @@ import { Link, useParams } from 'react-router'
 import { supabase, casePhotoUrl } from '../lib/supabase'
 import StatusBadge from '../components/StatusBadge'
 import CaseSightings from '../components/CaseSightings'
+import CaseTimeline from '../components/CaseTimeline'
+import SharePosterButton from '../components/SharePosterButton'
 import { downloadCasePdf } from '../lib/casePdf'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
@@ -136,6 +138,10 @@ export default function PoliceCaseDetail() {
       {/* Sightings reported by the public (only for cases that went live) */}
       {(c.status === 'active' || c.status === 'found') && (
         <CaseSightings caseId={c.id} lastSeen={{ lat: c.last_seen_lat, lng: c.last_seen_lng }} />
+      )}
+      <CaseTimeline caseId={c.id} />
+      {c.status === 'active' && (
+        <SharePosterButton c={c} />
       )}
 
       {error && <p className="text-red-600 text-sm bg-red-50 rounded-lg p-3">{error}</p>}

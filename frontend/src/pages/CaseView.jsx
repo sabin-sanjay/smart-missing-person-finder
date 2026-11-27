@@ -9,6 +9,7 @@ import { supabase, casePhotoUrl } from '../lib/supabase'
 import { timeAgo } from '../lib/dates'
 import StatusBadge from '../components/StatusBadge'
 import SharePosterButton from '../components/SharePosterButton'
+import CaseTimeline from '../components/CaseTimeline'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
 
@@ -23,7 +24,7 @@ export default function CaseView() {
     // from the public, so those simply come back as "not found".
     supabase
       .from('missing_persons')
-      .select('id, full_name, age, gender, height_cm, description, photo_path, status, last_seen_at, last_seen_address, last_seen_lat, last_seen_lng')
+      .select('id, full_name, age, gender, height_cm, description, photo_path, status, last_seen_at, last_seen_address, last_seen_lat, last_seen_lng, created_at, found_at')
       .eq('id', id)
       .maybeSingle()
       .then(({ data }) => {
@@ -45,8 +46,26 @@ export default function CaseView() {
   // Dates written the local way, e.g. "26/11/2026, 9:30 pm" or the Hindi equivalent
   const date = new Date(c.last_seen_at).toLocaleString(i18n.language === 'hi' ? 'hi-IN' : 'en-IN')
 
+  // How long it took to find them, in hours or days
+  const foundAfter = c.found_at && (() => {
+    const hours = Math.max(1, Math.round((new Date(c.found_at) - new Date(c.created_at)) / 3600000))
+    return hours < 48 ? `${hours} ${t('time.shortHours')}` : `${Math.round(hours / 24)} ${t('time.shortDays')}`
+  })()
+
   return (
     <div className="space-y-4">
+      {/* Found: a "Reunited" panel at the top */}
+      {c.status === 'found' && (
+        <section className="bk-panel">
+          <span className="bk-chip bk-chip-blue">🎉 {t('reunited.chip')}</span>
+          <h2 className="text-[1.9rem] leading-tight tracking-[-0.02em] text-sky-ink mt-3">
+            {t('reunited.title', { name: c.full_name })}
+          </h2>
+          {foundAfter && <p className="bk-num text-2xl mt-2">{t('reunited.after', { time: foundAfter })}</p>}
+          <p className="text-sm text-white/75 mt-2">{t('reunited.thanks')}</p>
+        </section>
+      )}
+
       <section className="bk-sheet space-y-3">
         <img src={casePhotoUrl(c.photo_path)} alt={c.full_name}
           className="w-full max-h-96 object-contain rounded-lg bg-slate-100" />
@@ -83,6 +102,8 @@ export default function CaseView() {
           <LocationPicker value={{ lat: c.last_seen_lat, lng: c.last_seen_lng }} readOnly />
         </Suspense>
       </section>
+
+      <CaseTimeline caseId={c.id} />
 
       <p className="text-xs text-muted text-center">
         <Trans i18nKey="case.emergency" components={{ link: <a href="tel:112" className="underline" /> }} />

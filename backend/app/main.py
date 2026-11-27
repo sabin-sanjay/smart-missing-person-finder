@@ -36,7 +36,12 @@ async def run_worker_once() -> dict:
     """One round of all background work: faces first (so scores are ready), then alerts."""
     async with _worker_lock:
         result = {}
-        for name, job in (("faces", face_jobs.run_face_jobs_once), ("alerts", alerts.run_alerts_once)):
+        jobs = (
+            ("faces", face_jobs.run_face_jobs_once),
+            ("alerts", alerts.run_alerts_once),
+            ("found", alerts.run_found_notices_once),  # "has been found" notifications
+        )
+        for name, job in jobs:
             try:
                 result[name] = await job()
             except Exception as e:

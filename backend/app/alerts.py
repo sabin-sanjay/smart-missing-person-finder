@@ -137,3 +137,34 @@ async def run_alerts_once() -> dict:
         }
         log.info("Alert round: %s", summary)
         return summary
+
+
+async def run_found_notices_once() -> dict:
+    """
+    "Reunited" round: for cases the police just marked FOUND, tell the family
+    and everyone who got an alert that the person has been found (once).
+    """
+    if not db.is_configured():
+        return {"error": "Supabase is not configured."}
+
+    rows = await db.rpc("pending_found_notices", {"p_limit": 500}) or []
+    if not rows:
+        return {"cases": 0, "push_sent": 0}
+
+    with_phone = [r for r in rows if r.get("fcm_token")]
+    messages = [{
+        "token": r["fcm_token"],
+        "title": f"🎉 {r['full_name']} has been found",
+        "body": "Thank you for helping. Alerts for this case have stopped.",
+        "url": f"{config.APP_URL}/case/{r['case_id']}",
+        "tag": f"case-{r['case_id']}",  # replaces the old "missing" alert on the phone
+    } for r in with_phone]
+    results = await asyncio.to_thread(push.send_many, messages) if messages else []
+
+    # Mark every case as announced, even if nobody had a phone to tell
+    case_ids = sorted({r["case_id"] for r in rows})
+    await db.rpc("mark_found_notified", {"p_ids": case_ids})
+
+    summary = {"cases": len(case_ids), "push_sent": sum(1 for x in results if x["ok"])}
+    log.info("Found notices: %s", summary)
+    return summary

@@ -141,5 +141,22 @@
     "shareText": "MISSING: {{name}}. Last seen: {{place}}. Seen them? Report here: {{url}}",
     "downloaded": "Poster downloaded and link copied. Share it on WhatsApp.",
     "failed": "Could not make the poster. Please try again."
+  },
+  "timeline": {
+    "title": "Timeline",
+    "reported": "Case reported",
+    "approved": "Approved by police: alerts started",
+    "alerts_one": "Alert sent within {{km}} km ({{count}} phone)",
+    "alerts_other": "Alerts sent within {{km}} km ({{count}} phones)",
+    "sighting": "Sighting reported",
+    "found": "Found: reunited 🎉",
+    "moreSightings_one": "+ {{count}} more sighting",
+    "moreSightings_other": "+ {{count}} more sightings"
+  },
+  "reunited": {
+    "chip": "Reunited",
+    "title": "{{name}} has been found",
+    "after": "Found after {{time}}.",
+    "thanks": "Thank you to everyone who shared, looked out and reported. Alerts for this case have stopped."
   }
 }
