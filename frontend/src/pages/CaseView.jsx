@@ -10,6 +10,7 @@ import { timeAgo } from '../lib/dates'
 import StatusBadge from '../components/StatusBadge'
 import SharePosterButton from '../components/SharePosterButton'
 import CaseTimeline from '../components/CaseTimeline'
+import { dateLocale } from '../i18n'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
 
