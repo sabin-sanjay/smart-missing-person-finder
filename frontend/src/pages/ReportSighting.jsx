@@ -124,14 +124,14 @@ export default function ReportSighting() {
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-700'
+    'bk-input'
 
   // ---- Thank-you screen ----
   if (done) {
     return (
-      <div className="bg-white rounded-xl p-6 shadow-sm ring-1 ring-slate-200/80 text-center space-y-3">
+      <div className="bk-sheet !p-6 text-center space-y-3">
         <p className="text-5xl">🙏</p>
-        <h2 className="text-xl font-bold">{t('report.thankYou')}</h2>
+        <h2 className="bk-liquid bk-title">{t('report.thankYou')}</h2>
         <p className="text-muted text-sm">
           <Trans i18nKey="report.thankText" components={{ link: <a href="tel:112" className="underline" /> }} />
         </p>
@@ -144,7 +144,7 @@ export default function ReportSighting() {
   if (!selected) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-bold">{t('report.whoDidYouSee')}</h2>
+        <h2 className="bk-liquid bk-title">{t('report.whoDidYouSee')}</h2>
         {myLocation && <p className="text-xs text-muted">{t('report.nearestFirst')}</p>}
         {error && <p className="text-red-600 text-sm">{error}</p>}
         {loadingCases && <p className="text-muted text-sm">{t('common.loading')}</p>}
@@ -156,7 +156,7 @@ export default function ReportSighting() {
             <li key={c.id}>
               <button
                 onClick={() => setSearchParams({ case: c.id })}
-                className="w-full bg-white rounded-xl p-3 shadow-sm ring-1 ring-slate-200/80 flex gap-3 text-left active:bg-slate-50"
+                className="w-full bk-sheet !p-3.5 flex gap-3 text-left active:opacity-80"
               >
                 <img src={casePhotoUrl(c.photo_path)} alt={c.full_name} loading="lazy"
                   className="w-16 h-16 rounded-lg object-cover bg-slate-200 shrink-0" />
@@ -182,10 +182,10 @@ export default function ReportSighting() {
   // ---- Step 2: the sighting form ----
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <h2 className="text-xl font-bold">{t('report.title')}</h2>
+      <h2 className="bk-liquid bk-title">{t('report.title')}</h2>
 
       {/* The person they chose, with a way to change it */}
-      <section className="bg-white rounded-xl p-3 shadow-sm ring-1 ring-slate-200/80 flex gap-3 items-center">
+      <section className="bk-sheet !p-3.5 flex gap-3 items-center">
         <img src={casePhotoUrl(selected.photo_path)} alt={selected.full_name}
           className="w-16 h-16 rounded-lg object-cover bg-slate-200 shrink-0" />
         <div className="text-sm flex-1 min-w-0">
@@ -196,7 +196,7 @@ export default function ReportSighting() {
         </div>
       </section>
 
-      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
+      <section className="bk-sheet space-y-3">
         <div>
           <label className="block text-sm font-semibold mb-1">{t('report.where')}</label>
           <Suspense fallback={<div className="h-64 rounded-lg bg-slate-100" />}>
@@ -224,7 +224,7 @@ export default function ReportSighting() {
       {error && <p className="text-red-600 text-sm bg-red-50 rounded-lg p-3">{error}</p>}
 
       <button type="submit" disabled={busy}
-        className="w-full bg-flame-600 text-white rounded-xl py-4 font-semibold text-lg disabled:opacity-60 active:bg-flame-700">
+        className="w-full bk-btn bk-btn-orange !py-4 !text-sm">
         {busy ? t('report.sending') : t('report.send')}
       </button>
     </form>

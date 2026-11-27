@@ -97,11 +97,11 @@ export default function Login() {
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-700'
+    'bk-input'
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-4">
-      <h2 className="text-xl font-bold">
+    <div className="bk-sheet space-y-4">
+      <h2 className="bk-liquid bk-title">
         {mode === 'signin' ? 'Log in' : mode === 'signup' ? 'Create account' : 'Reset your password'}
       </h2>
 
@@ -160,7 +160,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={busy}
-          className="w-full bg-brand-700 text-white rounded-lg py-3 font-semibold disabled:opacity-60 active:bg-brand-800"
+          className="w-full bk-btn bk-btn-ink"
         >
           {busy ? 'Please wait…' : mode === 'signin' ? 'Log in' : mode === 'signup' ? 'Create account' : 'Send reset link'}
         </button>

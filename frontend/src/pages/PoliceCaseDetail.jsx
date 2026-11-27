@@ -91,11 +91,11 @@ export default function PoliceCaseDetail() {
       </div>
 
       {/* Photo and main details */}
-      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
+      <section className="bk-sheet space-y-3">
         <img src={casePhotoUrl(c.photo_path)} alt={c.full_name}
           className="w-full max-h-80 object-contain rounded-lg bg-slate-100" />
         <div>
-          <h2 className="text-xl font-bold">
+          <h2 className="bk-liquid bk-title">
             {c.full_name}{c.age != null && <span className="font-normal text-muted">, {c.age}</span>}
           </h2>
           <StatusBadge status={c.status} />
@@ -115,7 +115,7 @@ export default function PoliceCaseDetail() {
       </section>
 
       {/* Who reported it, so police can call them to verify */}
-      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 text-sm">
+      <section className="bk-sheet text-sm">
         <h3 className="font-semibold mb-1">Reported by</h3>
         <p>{c.reporter?.full_name || 'Name not given'}</p>
         {c.reporter?.phone ? (
@@ -126,7 +126,7 @@ export default function PoliceCaseDetail() {
       </section>
 
       {/* Last-seen location */}
-      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80">
+      <section className="bk-sheet">
         <h3 className="font-semibold mb-2 text-sm">Last-seen location</h3>
         <Suspense fallback={<div className="h-64 rounded-lg bg-slate-100" />}>
           <LocationPicker value={{ lat: c.last_seen_lat, lng: c.last_seen_lng }} readOnly />
@@ -156,7 +156,7 @@ export default function PoliceCaseDetail() {
       )}
 
       {c.status === 'pending' && showReject && (
-        <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-2">
+        <section className="bk-sheet space-y-2">
           <label className="block text-sm font-semibold">Reason for rejecting (the family will see this)</label>
           <textarea rows="3" maxLength={500} value={reason} onChange={(e) => setReason(e.target.value)}
             className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"

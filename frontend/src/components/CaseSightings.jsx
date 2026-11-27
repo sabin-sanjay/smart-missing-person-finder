@@ -76,7 +76,7 @@ export default function CaseSightings({ caseId, lastSeen }) {
   }
 
   return (
-    <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
+    <section className="bk-sheet space-y-3">
       <h3 className="font-semibold">Sightings ({sightings.length})</h3>
       {error && <p className="text-red-600 text-sm">{error}</p>}
       {loading && <p className="text-muted text-sm">Loading…</p>}

@@ -34,7 +34,7 @@ export default function CaseView() {
   if (loading) return <p className="text-muted text-sm">{t('common.loading')}</p>
   if (!c) {
     return (
-      <div className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 text-center space-y-2">
+      <div className="bk-sheet text-center space-y-2">
         <p>{t('case.notAvailable')}</p>
         <Link to="/" className="text-brand-700 underline">{t('common.goHome')}</Link>
       </div>
@@ -46,11 +46,11 @@ export default function CaseView() {
 
   return (
     <div className="space-y-4">
-      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
+      <section className="bk-sheet space-y-3">
         <img src={casePhotoUrl(c.photo_path)} alt={c.full_name}
           className="w-full max-h-96 object-contain rounded-lg bg-slate-100" />
         <div>
-          <h2 className="text-2xl font-bold">
+          <h2 className="bk-liquid bk-title">
             {c.full_name}{c.age != null && <span className="font-normal text-muted">, {c.age}</span>}
           </h2>
           <StatusBadge status={c.status} />
@@ -70,12 +70,12 @@ export default function CaseView() {
 
       {c.status === 'active' && (
         <Link to={`/report?case=${c.id}`}
-          className="block bg-flame-600 text-white rounded-xl py-4 text-center font-semibold text-lg active:bg-flame-700">
+          className="w-full bk-btn bk-btn-orange !py-4 !text-sm">
           {t('case.iSawThem')}
         </Link>
       )}
 
-      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80">
+      <section className="bk-sheet">
         <h3 className="font-semibold mb-2 text-sm">{t('case.lastSeenLocation')}</h3>
         <Suspense fallback={<div className="h-64 rounded-lg bg-slate-100" />}>
           <LocationPicker value={{ lat: c.last_seen_lat, lng: c.last_seen_lng }} readOnly />

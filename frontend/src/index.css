@@ -297,7 +297,12 @@ body {
   .bk-btn:disabled { opacity: 0.6; }
 
   .bk-btn-ghost { border: 1.5px solid rgb(255 255 255 / 0.55); color: #fff; }       /* on dark */
-  .bk-btn-ink { background: var(--color-ink); color: #fff; }                       /* on light */
+  .bk-btn-ink {                                                                    /* on light: olive liquid */
+    color: #fff;
+    background: radial-gradient(80% 90% at 30% 0%, rgb(203 214 107 / 0.35), transparent 60%),
+                linear-gradient(180deg, #5f6f2b 0%, #4b5a1f 55%, #37441a 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3), 0 8px 18px -10px rgb(47 58 18 / 0.8);
+  }
   .bk-btn-line { border: 1.5px solid var(--color-ink); color: var(--color-ink); }   /* on light */
 
   /* LIQUID ORANGE: a soft, deeper orange gradient with a glossy top highlight
@@ -316,6 +321,37 @@ body {
       0 8px 18px -10px rgb(185 80 31 / 0.75);
     text-shadow: 0 1px 1px rgb(110 38 8 / 0.25);
   }
+
+  /* Light outlined card for forms and lists on the other screens */
+  .bk-sheet {
+    background: #fbfaf7;
+    border: 1.5px solid rgb(35 42 18 / 0.13);
+    border-radius: 1.75rem;
+    padding: 1.25rem;
+  }
+  /* Page title: an olive glass panel with a big light-blue heading */
+  .bk-title {
+    border-radius: 1.75rem;
+    padding: 1.35rem 1.4rem 1.45rem;
+    font-size: 1.8rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    color: var(--color-sky-ink);
+  }
+  .bk-title .text-muted { color: rgb(255 255 255 / 0.6); }
+
+  /* Text boxes */
+  .bk-input {
+    width: 100%;
+    background: #fff;
+    border: 1.5px solid rgb(35 42 18 / 0.16);
+    border-radius: 1rem;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    color: var(--color-ink);
+  }
+  .bk-input:focus { outline: none; border-color: var(--color-olive); box-shadow: 0 0 0 3px rgb(75 90 31 / 0.15); }
 
   /* Tiny grey label above a value ("Best score") */
   .bk-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.01em; color: rgb(255 255 255 / 0.62); }

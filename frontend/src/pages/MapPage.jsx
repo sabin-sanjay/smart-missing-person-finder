@@ -214,7 +214,7 @@ export default function MapPage() {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between gap-2">
-        <h2 className="text-xl font-bold">Live map</h2>
+        <h2 className="bk-liquid bk-title">Live map</h2>
         <span className="text-xs text-green-700 font-semibold">● Live</span>
       </div>
 
