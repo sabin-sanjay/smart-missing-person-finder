@@ -22,9 +22,9 @@
   --color-flame-800: #8c1f2d;
 
   /* Premium extras */
-  --color-ink: #3a0b12;      /* very deep wine (instead of black): text, dark pills */
-  --color-olive: #8e1b26;    /* crimson glass panels (name kept so old code still works) */
-  --color-olive-deep: #4e0c15;
+  --color-ink: #161214;      /* soft black: text, dark pills */
+  --color-olive: #121012;    /* black glass panels (name kept so old code still works) */
+  --color-olive-deep: #0a090a;
   --color-lime-glow: #ff9a9a;
   --color-muted: #7b5f64;    /* soft grey-violet for secondary text */
   --color-violet-glow: #7c5cff;
@@ -32,7 +32,7 @@
   --color-teal-glow: #2bd4c4;
   --color-paper: #f9eceb;    /* soft blush page behind the red panels */
   --color-tangerine: #ffa29c;/* light coral: accent numbers and rings on the red panels */
-  --color-sky-ink: #ffd6d2;  /* light pink: headlines on red panels */
+  --color-sky-ink: #fff3f2;  /* near-white: headlines on black panels */
 
   /* Fonts: Outfit first, then the phone's own fonts (incl. Hindi) */
   --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -200,13 +200,12 @@ body {
     position: relative;
     isolation: isolate;
     color: #fff;
-    /* RED LIQUID CRYSTAL: deep wine top-left, crimson middle, a soft
-       pink glow bottom-right, plus a glossy sheen (::before below). */
+    /* BLACK + RED LIQUID GLASS: black glass with a deep red glow in the
+       top-left corner and a glossy sheen (::before below). */
     background:
-      radial-gradient(60% 55% at 92% 100%, rgb(255 160 155 / 0.55), transparent 70%),
-      radial-gradient(55% 50% at 0% 0%, rgb(60 4 12 / 0.55), transparent 70%),
-      linear-gradient(160deg, #6f0f1b 0%, #9c1d2a 50%, #c2414a 100%);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22), 0 16px 34px -18px rgb(110 15 27 / 0.7);
+      radial-gradient(260px 200px at 0% 0%, rgb(214 24 36 / 0.95), rgb(150 14 26 / 0.45) 45%, transparent 100%),
+      linear-gradient(160deg, #221517 0%, #141113 55%, #0c0b0c 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 16px 34px -18px rgb(10 5 6 / 0.65);
   }
   .bk-panel { border-radius: 1.75rem; padding: 1.25rem 1.4rem; }
   .bk-panel::before,
@@ -216,13 +215,15 @@ body {
     inset: 0 0 50% 0;
     z-index: -1;              /* behind the text, above the olive */
     border-radius: inherit;
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.2), transparent);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.1), transparent);
     pointer-events: none;
   }
+  /* lower panels of a joined stack: plain black (no red glow), so the joins stay seamless */
+  .bk-stack > .bk-panel:not(:first-child) { background: linear-gradient(180deg, #121012 0%, #0c0b0c 100%); }
   /* only the top panel of a joined stack gets the sheen, so the joins stay seamless */
   .bk-stack > .bk-panel:not(:first-child)::before { display: none; }
   /* ...and no light top edge or shadow on the lower panels (no visible seam) */
-  .bk-stack > .bk-panel:not(:first-child) { box-shadow: 0 16px 34px -18px rgb(110 15 27 / 0.7); }
+  .bk-stack > .bk-panel:not(:first-child) { box-shadow: 0 16px 34px -18px rgb(10 5 6 / 0.65); }
   .bk-stack > .bk-panel:not(:last-child) { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18); }
   .bk-stack > .bk-panel:not(:first-child):not(:last-child) { box-shadow: none; }
 
@@ -260,7 +261,7 @@ body {
     gap: 0.75rem;
     padding: 1rem 1.25rem;
     border-radius: 1.4rem;
-    border: 1.5px solid rgb(58 11 18 / 0.16);
+    border: 1.5px solid rgb(22 18 20 / 0.16);
     background: #fffafa;
     color: var(--color-ink);
   }
@@ -299,11 +300,11 @@ body {
   .bk-btn:disabled { opacity: 0.6; }
 
   .bk-btn-ghost { border: 1.5px solid rgb(255 255 255 / 0.55); color: #fff; }       /* on dark */
-  .bk-btn-ink {                                                                    /* on light: olive liquid */
+  .bk-btn-ink {                                                                    /* on light: black liquid */
     color: #fff;
-    background: radial-gradient(80% 90% at 30% 0%, rgb(203 214 107 / 0.35), transparent 60%),
-                linear-gradient(180deg, #5f6f2b 0%, #4b5a1f 55%, #37441a 100%);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3), 0 8px 18px -10px rgb(47 58 18 / 0.8);
+    background: radial-gradient(80% 90% at 30% 0%, rgb(255 255 255 / 0.16), transparent 60%),
+                linear-gradient(180deg, #2a2427 0%, #171315 55%, #0b0a0b 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 8px 18px -10px rgb(10 5 6 / 0.8);
   }
   .bk-btn-line { border: 1.5px solid var(--color-ink); color: var(--color-ink); }   /* on light */
 
@@ -327,7 +328,7 @@ body {
   /* Light outlined card for forms and lists on the other screens */
   .bk-sheet {
     background: #fffafa;
-    border: 1.5px solid rgb(58 11 18 / 0.13);
+    border: 1.5px solid rgb(22 18 20 / 0.13);
     border-radius: 1.75rem;
     padding: 1.25rem;
   }
@@ -347,7 +348,7 @@ body {
   .bk-input {
     width: 100%;
     background: #fff;
-    border: 1.5px solid rgb(58 11 18 / 0.16);
+    border: 1.5px solid rgb(22 18 20 / 0.16);
     border-radius: 1rem;
     padding: 0.8rem 1rem;
     font-size: 1rem;

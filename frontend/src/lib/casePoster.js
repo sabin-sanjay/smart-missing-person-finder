@@ -11,10 +11,10 @@ import { casePhotoUrl } from './supabase'
 const W = 1080
 const H = 1350
 const PAPER = '#f9eceb'
-const INK = '#3a0b12'
+const INK = '#161214'
 const MUTED = '#7b5f64'
-const OLIVE = '#9c1d2a'
-const SKY = '#ffd6d2'
+const OLIVE = '#141113'
+const SKY = '#fff3f2'
 const ORANGE = '#dc3441'
 const SANS = '"Outfit Variable", system-ui, "Noto Sans Devanagari", sans-serif'
 const MONO = '"Geist Mono Variable", ui-monospace, monospace'
@@ -25,16 +25,16 @@ function rounded(ctx, x, y, w, h, r) {
   ctx.roundRect(x, y, w, h, r)
 }
 
-// A red "liquid crystal" panel: crimson + pink glow + soft top sheen
+// A black glass panel: black + red glow in the corner + soft top sheen
 function olivePanel(ctx, x, y, w, h, r) {
   ctx.save()
   rounded(ctx, x, y, w, h, r)
   ctx.clip()
   ctx.fillStyle = OLIVE
   ctx.fillRect(x, y, w, h)
-  const glow = ctx.createRadialGradient(x + w * 0.85, y + h * 0.6, 0, x + w * 0.85, y + h * 0.6, w * 0.45)
-  glow.addColorStop(0, 'rgba(255,160,155,0.55)')
-  glow.addColorStop(1, 'rgba(255,160,155,0)')
+  const glow = ctx.createRadialGradient(x, y, 0, x, y, w * 0.6)
+  glow.addColorStop(0, 'rgba(200,22,34,0.6)')
+  glow.addColorStop(1, 'rgba(200,22,34,0)')
   ctx.fillStyle = glow
   ctx.fillRect(x, y, w, h)
   const sheen = ctx.createLinearGradient(0, y, 0, y + h * 0.5)
