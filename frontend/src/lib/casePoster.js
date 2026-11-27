@@ -1,5 +1,5 @@
 // casePoster.js: draws a "MISSING" poster for one case, as a JPEG picture,
-// in the Lumen style (olive panels, orange chip, photo, details, QR code).
+// in the Lumen style (red panels, ruby chip, photo, details, QR code).
 // The QR code opens the case page, where people can report a sighting.
 //
 // Everything is drawn on the phone (an invisible <canvas>). Nothing is uploaded.
@@ -10,12 +10,12 @@ import { casePhotoUrl } from './supabase'
 
 const W = 1080
 const H = 1350
-const PAPER = '#f3f2ee'
-const INK = '#232a12'
-const MUTED = '#6e6b80'
-const OLIVE = '#4b5a1f'
-const SKY = '#b8d0ff'
-const ORANGE = '#d8652f'
+const PAPER = '#f9eceb'
+const INK = '#3a0b12'
+const MUTED = '#7b5f64'
+const OLIVE = '#9c1d2a'
+const SKY = '#ffd6d2'
+const ORANGE = '#dc3441'
 const SANS = '"Outfit Variable", system-ui, "Noto Sans Devanagari", sans-serif'
 const MONO = '"Geist Mono Variable", ui-monospace, monospace'
 
@@ -25,7 +25,7 @@ function rounded(ctx, x, y, w, h, r) {
   ctx.roundRect(x, y, w, h, r)
 }
 
-// An olive "liquid glass" panel: olive + lime glow + soft top sheen
+// A red "liquid crystal" panel: crimson + pink glow + soft top sheen
 function olivePanel(ctx, x, y, w, h, r) {
   ctx.save()
   rounded(ctx, x, y, w, h, r)
@@ -33,8 +33,8 @@ function olivePanel(ctx, x, y, w, h, r) {
   ctx.fillStyle = OLIVE
   ctx.fillRect(x, y, w, h)
   const glow = ctx.createRadialGradient(x + w * 0.85, y + h * 0.6, 0, x + w * 0.85, y + h * 0.6, w * 0.45)
-  glow.addColorStop(0, 'rgba(203,214,107,0.55)')
-  glow.addColorStop(1, 'rgba(203,214,107,0)')
+  glow.addColorStop(0, 'rgba(255,160,155,0.55)')
+  glow.addColorStop(1, 'rgba(255,160,155,0)')
   ctx.fillStyle = glow
   ctx.fillRect(x, y, w, h)
   const sheen = ctx.createLinearGradient(0, y, 0, y + h * 0.5)
@@ -109,7 +109,7 @@ export async function makePoster(c, words, url) {
   const chip = words.missing.toUpperCase()
   const chipW = ctx.measureText(chip).width + 48
   const chipGrad = ctx.createLinearGradient(0, 84, 0, 140)
-  chipGrad.addColorStop(0, '#ec8a55'); chipGrad.addColorStop(1, '#b9501f')
+  chipGrad.addColorStop(0, '#f2646c'); chipGrad.addColorStop(1, '#b41f2e')
   ctx.fillStyle = chipGrad
   rounded(ctx, 88, 84, chipW, 56, 16); ctx.fill()
   ctx.fillStyle = '#fff'
@@ -181,7 +181,7 @@ export async function makePoster(c, words, url) {
   ctx.fillStyle = '#fff'
   ctx.font = `400 30px ${SANS}`
   ctx.fillText(words.scan, 280, by + 124)
-  ctx.fillStyle = '#ffb48a'
+  ctx.fillStyle = '#ffc2bd'
   ctx.font = `600 28px ${MONO}`
   ctx.fillText(words.emergency.toUpperCase(), 280, by + 172)
 

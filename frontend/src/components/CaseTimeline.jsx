@@ -12,7 +12,7 @@ const DOTS = {
   approved: 'bk-btn-ink',
   alerts: 'bk-liquid-orange',
   sighting: 'bg-tangerine',
-  found: 'bg-[#9bb84a]',
+  found: 'bg-ink',
 }
 
 export default function CaseTimeline({ caseId }) {
@@ -41,7 +41,7 @@ export default function CaseTimeline({ caseId }) {
           <li key={i} className="relative flex gap-3 pb-4 last:pb-0">
             {/* the line joining the dots */}
             {i < list.length - 1 && <span className="absolute left-[7px] top-4 bottom-0 w-[2px] bg-ink/12" aria-hidden="true" />}
-            <span className={`relative mt-1 w-4 h-4 rounded-full shrink-0 ring-4 ring-[#fbfaf7] ${DOTS[e.kind] || 'bg-ink/30'}`} />
+            <span className={`relative mt-1 w-4 h-4 rounded-full shrink-0 ring-4 ring-[#fffafa] ${DOTS[e.kind] || 'bg-ink/30'}`} />
             <div className="min-w-0">
               <p className="text-[15px] leading-snug">
                 {e.kind === 'alerts'

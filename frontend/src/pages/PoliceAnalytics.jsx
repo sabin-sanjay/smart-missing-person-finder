@@ -25,9 +25,9 @@ function duration(ms) {
 }
 
 const STATUS_COLOURS = {
-  pending: '#b8d0ff',  // light blue
-  active: '#d8652f',   // orange
-  found: '#9bb84a',    // olive-lime
+  pending: '#f5b5b0',  // light pink
+  active: '#d6343f',   // red
+  found: '#5a0f17',    // deep wine
   rejected: '#9a9aa5', // grey
 }
 
@@ -224,7 +224,7 @@ function HotspotMap({ cases }) {
     const points = cases.map((c) => [c.last_seen_lat, c.last_seen_lng])
     cases.forEach((c) => {
       L.circle([c.last_seen_lat, c.last_seen_lng], {
-        radius: 1500, stroke: false, fillOpacity: 0.28, fillColor: STATUS_COLOURS[c.status] || '#d8652f',
+        radius: 1500, stroke: false, fillOpacity: 0.28, fillColor: STATUS_COLOURS[c.status] || '#d6343f',
       }).addTo(map)
     })
     if (points.length) map.fitBounds(points, { padding: [30, 30], maxZoom: 12 })
