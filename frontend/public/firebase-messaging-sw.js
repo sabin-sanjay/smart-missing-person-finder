@@ -28,6 +28,10 @@ const messaging = firebase.messaging()
 
 // An alert arrived while the app is closed or in the background
 messaging.onBackgroundMessage((payload) => {
+  // Newer alerts carry a ready-made notification, which Firebase shows by itself
+  // (iPhones need this). Only build one ourselves for older data-only alerts,
+  // so the phone never shows the same alert twice.
+  if (payload.notification) return
   const d = payload.data || {}
   self.registration.showNotification(d.title || 'Missing person alert', {
     body: d.body || '',
@@ -44,6 +48,8 @@ messaging.onBackgroundMessage((payload) => {
 
 // The user tapped the notification: open (or focus) the case page
 self.addEventListener('notificationclick', (event) => {
+  // Notifications Firebase showed by itself: Firebase opens the link for us
+  if (event.notification.data?.FCM_MSG) return
   event.notification.close()
   const url = event.notification.data?.url || '/'
   event.waitUntil(

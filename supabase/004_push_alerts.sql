@@ -193,7 +193,7 @@ as $$
   left join profiles p on p.id = s.user_id
   where m.status = 'active'
     and s.updated_at > now() - interval '14 days'
-    and s.user_id is distinct from m.reported_by
+    and (m.reported_by is null or s.user_id is distinct from m.reported_by)
     and not exists (
       select 1 from alert_log l where l.case_id = m.id and l.subscription_id = s.id
     )
