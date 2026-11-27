@@ -5,11 +5,9 @@
 import { StrictMode, lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
-// Premium font, stored inside the app (no Google Fonts call). One 32 KB file
-// covers every weight; Hindi text uses the phone's own Devanagari font.
-import '@fontsource-variable/outfit'
-// Geist Mono (23 KB): labels, chips, buttons, menu and big numbers
-import '@fontsource-variable/geist-mono'
+// Figtree: the app's font, stored inside the app (no Google Fonts call).
+// One small file covers every weight; Hindi uses the phone's Devanagari font.
+import '@fontsource-variable/figtree'
 import './index.css'
 import './i18n' // load translations before anything is shown
 

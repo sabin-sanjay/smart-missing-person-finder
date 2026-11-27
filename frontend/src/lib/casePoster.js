@@ -16,8 +16,8 @@ const MUTED = '#7b5f64'
 const OLIVE = '#141113'
 const SKY = '#fff3f2'
 const ORANGE = '#dc3441'
-const SANS = '"Outfit Variable", system-ui, "Noto Sans Devanagari", sans-serif'
-const MONO = '"Geist Mono Variable", ui-monospace, monospace'
+const SANS = '"Figtree Variable", system-ui, "Noto Sans Devanagari", sans-serif'
+const MONO = '"Figtree Variable", system-ui, sans-serif'
 
 // Rounded rectangle path
 function rounded(ctx, x, y, w, h, r) {

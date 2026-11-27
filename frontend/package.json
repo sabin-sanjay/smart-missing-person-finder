@@ -10,8 +10,7 @@
     "preview": "vite preview --host"
   },
   "dependencies": {
-    "@fontsource-variable/geist-mono": "^5.3.0",
-    "@fontsource-variable/outfit": "^5.3.0",
+    "@fontsource-variable/figtree": "^5.3.0",
     "@supabase/supabase-js": "^2.119.2",
     "firebase": "^13.4.0",
     "i18next": "^27.2.9",
