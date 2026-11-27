@@ -57,7 +57,8 @@ export default function CaseView() {
       {/* Found: a "Reunited" panel at the top */}
       {c.status === 'found' && (
         <section className="bk-panel overflow-hidden">
-          <HeartPulse className="absolute -right-2 -top-1 w-28 h-28 pointer-events-none" />
+          <img src="/art/caring-hands.webp" alt="" className="photo-bg opacity-70" />
+          <div className="photo-shade" aria-hidden="true" />
           <span className="bk-chip bk-chip-blue">🎉 {t('reunited.chip')}</span>
           <h2 className="relative text-[1.9rem] leading-tight tracking-[-0.02em] text-sky-ink mt-3 max-w-[70%]">
             {t('reunited.title', { name: c.full_name })}
