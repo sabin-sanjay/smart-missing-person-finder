@@ -33,7 +33,7 @@ messaging.onBackgroundMessage((payload) => {
   // so the phone never shows the same alert twice.
   if (payload.notification) return
   const d = payload.data || {}
-  self.registration.showNotification(d.title || 'Missing person alert', {
+  self.registration.showNotification(d.title || 'Lumen: missing person alert', {
     body: d.body || '',
     icon: '/pwa-192x192.png',
     badge: '/pwa-192x192.png',

@@ -63,7 +63,7 @@ async def lifespan(app: FastAPI):
         task.cancel()
 
 
-app = FastAPI(title="Smart Missing Person Finder: backend", lifespan=lifespan)
+app = FastAPI(title="Lumen: backend", lifespan=lifespan)
 
 # Which websites may call this backend from a browser: our app, plus local
 # testing addresses (localhost and home Wi-Fi addresses like 192.168.x.x).

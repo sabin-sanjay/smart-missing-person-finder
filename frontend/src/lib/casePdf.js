@@ -67,7 +67,7 @@ export async function downloadCasePdf(c) {
   doc.setFont('helvetica', 'bold').setFontSize(18).text('Missing Person Case Report', left, y)
   y += 6
   doc.setFont('helvetica', 'normal').setFontSize(9).setTextColor(100)
-    .text(`Smart Missing Person Finder | Case ID: ${c.id} | Generated ${fmt(new Date())}`, left, y)
+    .text(`Lumen | Case ID: ${c.id} | Generated ${fmt(new Date())}`, left, y)
   doc.setTextColor(0)
   y += 8
 

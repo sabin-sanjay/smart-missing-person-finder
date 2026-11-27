@@ -1,5 +1,5 @@
 {
-  "app": { "title": "स्मार्ट गुमशुदा व्यक्ति खोजक", "switchLanguage": "English" },
+  "app": { "title": "Lumen", "switchLanguage": "English" },
   "nav": { "home": "होम", "map": "नक्शा", "report": "रिपोर्ट", "login": "लॉगिन", "profile": "प्रोफ़ाइल" },
   "common": { "loading": "लोड हो रहा है…", "goHome": "होम पर जाएँ" },
   "gender": { "male": "पुरुष", "female": "महिला", "other": "अन्य" },

@@ -28,8 +28,8 @@ export default defineConfig(({ mode }) => ({
       // The "manifest" tells Android how to show the app once installed:
       // its name, icon, colour, and that it opens full-screen like a real app.
       manifest: {
-        name: 'Smart Missing Person Finder',
-        short_name: 'FindThem',
+        name: 'Lumen: Missing Person Finder',
+        short_name: 'Lumen',
         description: 'Help find missing people near you with alerts, sightings and a live map.',
         theme_color: '#065f46',
         background_color: '#ffffff',

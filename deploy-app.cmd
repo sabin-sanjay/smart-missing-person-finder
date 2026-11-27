@@ -2,7 +2,7 @@
 rem Double-click this file to publish the latest version of the app to
 rem https://missing-person-finder.sabin-sanjay.workers.dev  (Cloudflare, free)
 rem (The first time on a computer, it opens Chrome and asks you to log in to Cloudflare.)
-title Missing Person Finder - publish app
+title Lumen - publish app
 cd /d "%~dp0frontend"
 call npm run build || goto :failed
 call npx --yes wrangler deploy || goto :failed

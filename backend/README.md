@@ -1,5 +1,5 @@
 ---
-title: Missing Person Finder API
+title: Lumen API
 emoji: 🔎
 colorFrom: blue
 colorTo: red
@@ -8,9 +8,9 @@ app_port: 7860
 pinned: false
 ---
 
-# Smart Missing Person Finder: backend
+# Lumen: backend
 
-FastAPI server for the Smart Missing Person Finder app:
+FastAPI server for the Lumen app:
 
 - **Face matching** (DeepFace, Facenet512): compares sighting photos with case photos,
   and searches active cases by photo (`POST /faces/search`).

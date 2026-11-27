@@ -1,5 +1,5 @@
 {
-  "app": { "title": "Smart Missing Person Finder", "switchLanguage": "हिंदी" },
+  "app": { "title": "Lumen", "switchLanguage": "हिंदी" },
   "nav": { "home": "Home", "map": "Map", "report": "Report", "login": "Login", "profile": "Profile" },
   "common": { "loading": "Loading…", "goHome": "Go to Home" },
   "gender": { "male": "Male", "female": "Female", "other": "Other" },

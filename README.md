@@ -1,4 +1,4 @@
-# Smart Missing Person Finder
+# Lumen: Smart Missing Person Finder
 
 An AI-powered Progressive Web App (PWA) that helps find missing people using
 geo-targeted alerts, crowd-sourced sightings, a live map and face recognition.

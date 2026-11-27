@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- App logo: Reunite (dot-matrix person in a face-scan frame) -->
+<!-- App logo: Lumen (dot-matrix person in a face-scan frame) -->
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
 <defs>
 <linearGradient id="bg" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="0.55" stop-color="#FCFAF1"></stop><stop offset="1" stop-color="#F2EDDC"></stop></linearGradient>

@@ -61,7 +61,7 @@ def _sms_text(r: dict) -> str:
     name = r["full_name"] + (f", {r['age']}" if r.get("age") is not None else "")
     place = f" near {r['last_seen_address']}" if r.get("last_seen_address") else ""
     return (
-        f"MISSING PERSON ALERT: {name}. Last seen {r['distance_km']:.1f} km from you{place}. "
+        f"LUMEN - MISSING PERSON ALERT: {name}. Last seen {r['distance_km']:.1f} km from you{place}. "
         f"Seen them? {config.APP_URL}/case/{r['case_id']} or call 112"
     )
 
