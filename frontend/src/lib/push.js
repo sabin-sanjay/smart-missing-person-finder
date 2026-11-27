@@ -11,6 +11,7 @@
 
 import { supabase } from './supabase'
 import { getCurrentPosition } from './geo'
+import i18n from '../i18n'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -106,6 +107,7 @@ export async function enableAlerts({ isLoggedIn }) {
 
   const mode = token ? 'push' : 'sms'
   saveAlertState({ mode, token, lastSaved: Date.now() })
+  syncAlertLanguage()
   return { ok: true, mode, code: token ? 'onPush' : 'onSms' }
 }
 
@@ -136,7 +138,21 @@ export async function refreshAlertLocation() {
   const { error } = await supabase.rpc('save_alert_subscription', {
     p_token: token, p_lat: position.lat, p_lng: position.lng,
   })
-  if (!error) saveAlertState({ ...state, token, lastSaved: Date.now() })
+  if (!error) {
+    saveAlertState({ ...state, token, lastSaved: Date.now() })
+    syncAlertLanguage()
+  }
+}
+
+/**
+ * Tell the backend which language this phone's notifications should be in
+ * (the app's current language). Called when alerts are turned on, when the
+ * location is refreshed, and when the language is changed.
+ */
+export async function syncAlertLanguage(lang = i18n.resolvedLanguage) {
+  const token = getSavedAlertState()?.token
+  if (!token) return
+  await supabase.rpc('set_alert_language', { p_token: token, p_lang: lang }).then(() => {}, () => {})
 }
 
 /**

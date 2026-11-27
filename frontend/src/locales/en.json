@@ -120,7 +120,11 @@
     "errTime": "Please enter a time that is not in the future.",
     "errUpload": "Photo upload failed: {{detail}}",
     "errSend": "Could not send the report: {{detail}}",
-    "errLoad": "Could not load cases: {{detail}}"
+    "errLoad": "Could not load cases: {{detail}}",
+    "savedOffline": "No internet right now. Your report is saved on this phone and will be sent by itself as soon as you're back online.",
+    "queued_one": "{{count}} report waiting for internet",
+    "queued_other": "{{count}} reports waiting for internet",
+    "sendNow": "Send now"
   },
   "picker": {
     "useMyLocation": "🎯 Use my current location",
@@ -201,5 +205,34 @@
     "possible": "Possible match: {{name}} ({{pct}}%)",
     "noMatch": "No match yet. We keep checking as new cases are added.",
     "viewCase": "View case"
+  },
+  "safety": {
+    "rowTitle": "Safety card",
+    "rowText": "QR card for a child or elder",
+    "title": "QR safety card",
+    "intro": "Make a card for a child or an elderly person. If they get lost, anyone who scans the QR code can call you straight away, with no app needed.",
+    "name": "Their name *",
+    "age": "Age",
+    "guardian": "Your name (parent / carer)",
+    "phone": "Your phone number *",
+    "phone2": "Second phone (optional)",
+    "note": "Note: language they speak, medical needs…",
+    "make": "Create card",
+    "download": "Save card",
+    "print": "Print",
+    "privacy": "Nothing is saved on our servers. The details live only inside the QR code.",
+    "errRequired": "Please enter their name and a valid phone number.",
+    "cardTitle": "Safety card",
+    "cardScan": "If I am lost, please scan",
+    "cardCall": "Please call my family",
+    "cardEmergency": "Emergency 112"
+  },
+  "sos": {
+    "title": "I may be lost. Please help me.",
+    "callFamily": "Call my family",
+    "call112": "Call 112 (emergency)",
+    "registerFound": "Register me as found",
+    "stay": "Please stay with me in a safe, public place until my family or the police arrive.",
+    "invalid": "This safety card link is not valid."
   }
 }

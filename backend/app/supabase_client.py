@@ -36,6 +36,14 @@ async def rpc(function_name: str, params: dict | None = None):
         return r.json() if r.content else None
 
 
+async def select(table: str, query: str) -> list[dict]:
+    """Read rows, e.g. select('alert_subscriptions', 'select=fcm_token,language&language=neq.en')."""
+    async with httpx.AsyncClient(timeout=30) as client:
+        r = await client.get(f"{config.SUPABASE_URL}/rest/v1/{table}?{query}", headers=_headers())
+        r.raise_for_status()
+        return r.json()
+
+
 async def insert(table: str, rows: list[dict], on_conflict: str | None = None) -> None:
     """Insert rows. If on_conflict is given, rows that already exist are skipped."""
     if not rows:

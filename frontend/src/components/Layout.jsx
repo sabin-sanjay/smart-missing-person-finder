@@ -4,13 +4,14 @@
 //   - the current page in the middle (<Outlet /> is where it appears)
 //   - a bottom menu, easy to reach with your thumb on a phone
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, Outlet } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
-import { refreshAlertLocation, listenForForegroundAlerts } from '../lib/push'
+import { refreshAlertLocation, listenForForegroundAlerts, syncAlertLanguage } from '../lib/push'
 import Icon from './Icons'
+import { flushQueue, pendingCount, onQueueChange } from '../lib/offlineQueue'
 import { LANGUAGES, LANGUAGE_NAMES } from '../i18n'
 
 export default function Layout() {
@@ -20,10 +21,23 @@ export default function Layout() {
   // Change the language. If logged in, also save it to the profile.
   function changeLanguage(next) {
     i18n.changeLanguage(next)
+    syncAlertLanguage(next) // notifications in the new language too
     if (session) {
       supabase.from('profiles').update({ preferred_language: next }).eq('id', session.user.id).then(() => {})
     }
   }
+
+  // Sighting reports saved without internet: send them when the internet is back
+  const [waiting, setWaiting] = useState(0)
+  useEffect(() => {
+    const update = () => pendingCount().then(setWaiting)
+    const send = () => { if (session) flushQueue().then(update) }
+    update()
+    send()
+    window.addEventListener('online', send)
+    const stop = onQueueChange(update)
+    return () => { window.removeEventListener('online', send); stop() }
+  }, [session])
 
   // When the app opens: if alerts are on, update this phone's location
   // (at most every 30 min) and show alerts that arrive while the app is open.
@@ -84,6 +98,13 @@ export default function Layout() {
       {/* The current page appears here. Extra space at the bottom (pb-28)
           stops the menu from covering the content. */}
       <main className="relative z-[1] flex-1 w-full max-w-xl mx-auto px-3 pt-1 pb-28">
+        {waiting > 0 && (
+          <div className="bk-row !rounded-2xl !p-3 mb-3 text-sm">
+            <span>📶 {t('report.queued', { count: waiting })}</span>
+            <button type="button" onClick={() => flushQueue().then(() => pendingCount().then(setWaiting))}
+              className="bk-btn bk-btn-ghost !py-2 !px-3 !text-xs">{t('report.sendNow')}</button>
+          </div>
+        )}
         <Outlet />
       </main>
 

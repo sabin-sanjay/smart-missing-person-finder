@@ -133,6 +133,13 @@ export default function Home() {
         </span>
         <Icon name="chevron" className="w-5 h-5 text-white/70" />
       </Link>
+      <Link to="/safety-card" className="bk-row">
+        <span className="flex items-center gap-3">
+          <span className="icon-circle"><Icon name="scan" className="w-5 h-5" /></span>
+          <span>{t('safety.rowTitle')} <span className="text-muted text-sm">· {t('safety.rowText')}</span></span>
+        </span>
+        <Icon name="chevron" className="w-5 h-5 text-white/70" />
+      </Link>
       <Link to="/map" className="bk-row">
         <span className="flex items-center gap-3">
           <span className="icon-circle"><Icon name="map" className="w-5 h-5" /></span>

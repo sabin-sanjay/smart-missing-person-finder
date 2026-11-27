@@ -14,6 +14,11 @@ import { randomId } from '../lib/randomId'
 import { nowForInput } from '../lib/dates'
 import { distanceKm, formatDistance, getCurrentPosition } from '../lib/geo'
 import { useAuth } from '../context/AuthContext'
+import { queueSighting, isNetworkError } from '../lib/offlineQueue'
+
+// The last list of cases is kept on the phone, so a sighting can be reported
+// even with no internet (it is sent later, see lib/offlineQueue.js)
+const CASES_KEY = 'lumen-cases-cache'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
 
@@ -34,6 +39,7 @@ export default function ReportSighting() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
+  const [savedOffline, setSavedOffline] = useState(false)
 
   // Load active cases, and try to get the phone's location at the same time
   useEffect(() => {
@@ -44,8 +50,15 @@ export default function ReportSighting() {
       .order('created_at', { ascending: false })
       .limit(100)
       .then(({ data, error }) => {
-        if (error) setError(t('report.errLoad', { detail: error.message }))
-        else setCases(data)
+        if (error) {
+          // no internet? use the cases saved on the phone last time
+          const cached = JSON.parse(localStorage.getItem(CASES_KEY) || 'null')
+          if (cached) setCases(cached)
+          else setError(t('report.errLoad', { detail: error.message }))
+        } else {
+          setCases(data)
+          try { localStorage.setItem(CASES_KEY, JSON.stringify(data)) } catch { /* storage full: ignore */ }
+        }
         setLoadingCases(false)
       })
 
@@ -88,6 +101,19 @@ export default function ReportSighting() {
 
     setBusy(true)
 
+    const report = {
+      userId: user.id, case_id: selected.id, seen_at: new Date(seenAt).toISOString(),
+      lat: point.lat, lng: point.lng, notes: notes.trim() || null, photo,
+    }
+    // No internet: keep the report on the phone and send it later by itself
+    async function saveForLater() {
+      await queueSighting(report)
+      setBusy(false)
+      setSavedOffline(true)
+      setDone(true)
+    }
+    if (!navigator.onLine) return saveForLater()
+
     // 1) Upload the photo (optional) to the PRIVATE sighting-photos bucket
     let photoPath = null
     if (photo) {
@@ -96,6 +122,7 @@ export default function ReportSighting() {
         .from('sighting-photos')
         .upload(photoPath, photo, { contentType: 'image/jpeg' })
       if (upload.error) {
+        if (isNetworkError(upload.error)) return saveForLater()
         setError(t('report.errUpload', { detail: upload.error.message }))
         setBusy(false)
         return
@@ -113,6 +140,7 @@ export default function ReportSighting() {
     })
 
     if (insertError) {
+      if (isNetworkError(insertError)) return saveForLater()
       if (photoPath) await supabase.storage.from('sighting-photos').remove([photoPath])
       setError(t('report.errSend', { detail: insertError.message }))
       setBusy(false)
@@ -132,6 +160,7 @@ export default function ReportSighting() {
       <div className="bk-sheet !p-6 text-center space-y-3">
         <p className="text-5xl">🙏</p>
         <h2 className="bk-liquid bk-title">{t('report.thankYou')}</h2>
+        {savedOffline && <p className="bk-row !rounded-2xl !p-3 text-sm text-left">📶 {t('report.savedOffline')}</p>}
         <p className="text-muted text-sm">
           <Trans i18nKey="report.thankText" components={{ link: <a href="tel:112" className="underline" /> }} />
         </p>

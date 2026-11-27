@@ -678,3 +678,11 @@ body {
   .call-label { font-size: 0.72rem; color: rgb(255 255 255 / 0.75); }
   .call-tile:first-child .call-label { color: rgb(255 255 255 / 0.9); }
 }
+
+@layer components {
+  .call-tile-red {
+    background: linear-gradient(180deg, #f0262e 0%, #c50e16 100%);
+    box-shadow: 0 8px 20px -10px rgb(225 20 28 / 0.9);
+  }
+  .call-tile-red .call-label { color: rgb(255 255 255 / 0.9); }
+}

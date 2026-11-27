@@ -58,6 +58,8 @@ const ReportSighting = lazyPage(() => import('./pages/ReportSighting.jsx'))
 const CaseView = lazyPage(() => import('./pages/CaseView.jsx'))
 const FaceSearch = lazyPage(() => import('./pages/FaceSearch.jsx'))
 const FoundSomeone = lazyPage(() => import('./pages/FoundSomeone.jsx'))
+const SafetyCard = lazyPage(() => import('./pages/SafetyCard.jsx'))
+const Sos = lazyPage(() => import('./pages/Sos.jsx'))
 const PoliceFound = lazyPage(() => import('./pages/PoliceFound.jsx'))
 const Login = lazyPage(() => import('./pages/Login.jsx'))
 const ResetPassword = lazyPage(() => import('./pages/ResetPassword.jsx'))
@@ -84,6 +86,8 @@ const router = createBrowserRouter([
       // Open to everyone
       { index: true, element: <Home /> },
       { path: 'map', element: page(<MapPage />) },
+      { path: 'safety-card', element: page(<SafetyCard />) },
+      { path: 'sos', element: page(<Sos />) },
       { path: 'case/:id', element: page(<CaseView />) },
       { path: 'login', element: page(<Login />) },
       { path: 'reset-password', element: page(<ResetPassword />) },

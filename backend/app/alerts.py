@@ -15,11 +15,25 @@ import asyncio
 import logging
 from datetime import datetime, timezone
 
-from . import config, push, sms
+from . import config, messages, push, sms
 from . import supabase_client as db
 
 log = logging.getLogger("alerts")
 _lock = asyncio.Lock()  # stops two runs happening at the same time
+
+
+async def _languages() -> dict[str, str]:
+    """push token -> language, for every phone that chose a language other than English."""
+    try:
+        rows = await db.select("alert_subscriptions", "select=fcm_token,language&language=neq.en&fcm_token=not.is.null")
+        return {r["fcm_token"]: r["language"] for r in rows}
+    except Exception:
+        return {}  # (before supabase/013 is run there is no language column: use English)
+
+
+def _minutes_since(iso_text: str) -> int:
+    seen = datetime.fromisoformat(iso_text.replace("Z", "+00:00"))
+    return int((datetime.now(timezone.utc) - seen).total_seconds() // 60)
 
 
 def _time_ago(iso_text: str) -> str:
@@ -40,16 +54,14 @@ def _photo_url(photo_path: str | None) -> str:
     return f"{config.SUPABASE_URL}/storage/v1/object/public/case-photos/{photo_path}"
 
 
-def _push_text(r: dict) -> dict:
+def _push_text(r: dict, lang: str = "en") -> dict:
     name = r["full_name"] + (f", {r['age']}" if r.get("age") is not None else "")
-    place = f" near {r['last_seen_address']}" if r.get("last_seen_address") else ""
+    place = messages.text("near", lang, place=r["last_seen_address"]) if r.get("last_seen_address") else ""
     return {
         "token": r["fcm_token"],
-        "title": f"🚨 Missing: {name}",
-        "body": (
-            f"Last seen {_time_ago(r['last_seen_at'])}{place}, {r['distance_km']:.1f} km from you. "
-            "Tap to see the photo or report a sighting."
-        ),
+        "title": messages.text("alert_title", lang, name=name),
+        "body": messages.text("alert_body", lang, ago=messages.time_ago(_minutes_since(r["last_seen_at"]), lang),
+                              place=place, km=f"{r['distance_km']:.1f}"),
         "url": f"{config.APP_URL}/case/{r['case_id']}",
         "image": _photo_url(r.get("photo_path")),
         "tag": f"case-{r['case_id']}",  # a newer alert for the same case replaces the old one
@@ -99,7 +111,8 @@ async def run_alerts_once() -> dict:
 
         # 3) Push notifications. firebase-admin is not async, so it runs in a thread.
         push_rows = [r for r in rows if r.get("fcm_token")]
-        results = await asyncio.to_thread(push.send_many, [_push_text(r) for r in push_rows])
+        langs = await _languages()
+        results = await asyncio.to_thread(push.send_many, [_push_text(r, langs.get(r["fcm_token"], "en")) for r in push_rows])
         for r, res in zip(push_rows, results):
             if res["ok"]:
                 add_log(r, "push")
@@ -152,14 +165,15 @@ async def run_found_notices_once() -> dict:
         return {"cases": 0, "push_sent": 0}
 
     with_phone = [r for r in rows if r.get("fcm_token")]
-    messages = [{
+    langs = await _languages()
+    msgs = [{
         "token": r["fcm_token"],
-        "title": f"🎉 {r['full_name']} has been found",
-        "body": "Thank you for helping. Alerts for this case have stopped.",
+        "title": messages.text("found_title", langs.get(r["fcm_token"]), name=r["full_name"]),
+        "body": messages.text("found_body", langs.get(r["fcm_token"])),
         "url": f"{config.APP_URL}/case/{r['case_id']}",
         "tag": f"case-{r['case_id']}",  # replaces the old "missing" alert on the phone
     } for r in with_phone]
-    results = await asyncio.to_thread(push.send_many, messages) if messages else []
+    results = await asyncio.to_thread(push.send_many, msgs) if msgs else []
 
     # Mark every case as announced, even if nobody had a phone to tell
     case_ids = sorted({r["case_id"] for r in rows})
@@ -182,14 +196,15 @@ async def run_sighting_notices_once() -> dict:
     if not rows:
         return {"sightings": 0, "push_sent": 0}
 
-    messages = [{
+    langs = await _languages()
+    msgs = [{
         "token": r["fcm_token"],
-        "title": f"👀 Someone reported seeing {r['full_name']}",
-        "body": "The police have the details and are checking it now.",
+        "title": messages.text("sighting_title", langs.get(r["fcm_token"]), name=r["full_name"]),
+        "body": messages.text("sighting_body", langs.get(r["fcm_token"])),
         "url": f"{config.APP_URL}/case/{r['case_id']}",
         "tag": f"sighting-{r['sighting_id']}",
     } for r in rows if r.get("fcm_token")]
-    results = await asyncio.to_thread(push.send_many, messages) if messages else []
+    results = await asyncio.to_thread(push.send_many, msgs) if msgs else []
 
     ids = sorted({r["sighting_id"] for r in rows})
     await db.rpc("mark_sighting_notified", {"p_ids": ids})
@@ -209,28 +224,30 @@ async def run_match_notices_once() -> dict:
     if not rows:
         return {"matches": 0, "push_sent": 0}
 
-    messages = []
+    langs = await _languages()
+    msgs = []
     for r in rows:
         if not r.get("fcm_token"):
             continue
         pct = round(float(r["score"]) * 100)
+        lang = langs.get(r["fcm_token"])
         if r["for_finder"]:
-            messages.append({
+            msgs.append({
                 "token": r["fcm_token"],
-                "title": "🔎 Possible match for the person you found",
-                "body": f"They may be {r['full_name']} ({pct}% face match). Police have been told.",
+                "title": messages.text("match_finder_title", lang),
+                "body": messages.text("match_finder_body", lang, name=r["full_name"], pct=pct),
                 "url": f"{config.APP_URL}/found-someone",
                 "tag": f"found-{r['found_id']}",
             })
         else:
-            messages.append({
+            msgs.append({
                 "token": r["fcm_token"],
-                "title": f"🔎 Found person may be {r['full_name']}",
-                "body": f"{pct}% face match with a registered missing person. Please check.",
+                "title": messages.text("match_police_title", lang, name=r["full_name"]),
+                "body": messages.text("match_police_body", lang, pct=pct),
                 "url": f"{config.APP_URL}/police/found",
                 "tag": f"found-{r['found_id']}",
             })
-    results = await asyncio.to_thread(push.send_many, messages) if messages else []
+    results = await asyncio.to_thread(push.send_many, msgs) if msgs else []
 
     ids = sorted({r["found_id"] for r in rows})
     await db.rpc("mark_match_notified", {"p_ids": ids})
