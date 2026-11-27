@@ -44,7 +44,7 @@ export default function AlertsCard({ className = '' }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-lg text-sky-ink">{t('alerts.statTitle')}</p>
-          <p className="bk-label">{t('alerts.intro').split('.')[0]}.</p>
+          <p className="text-[0.8rem] text-white/60 mt-0.5">{t('alerts.intro').split('.')[0]}.</p>
         </div>
         <span className={`bk-chip ${state ? 'bk-chip-blue' : ''}`}>
           <Icon name="bell" className="w-3.5 h-3.5" strokeWidth={2.2} />
@@ -53,7 +53,7 @@ export default function AlertsCard({ className = '' }) {
       </div>
 
       <div className="flex items-end justify-between gap-3 mt-4">
-        <p className="text-6xl font-light tracking-tight leading-none">
+        <p className="bk-num text-6xl leading-none">
           {state ? t('alerts.statOn') : t('alerts.statOff')}
         </p>
         {state ? (

@@ -87,7 +87,7 @@ export default function Layout() {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  'flex flex-col items-center gap-0.5 rounded-full py-2 text-[10px] font-bold uppercase tracking-[0.06em] transition-colors ' +
+                  'font-mono flex flex-col items-center gap-0.5 rounded-full py-2 text-[10px] font-semibold uppercase tracking-[0.04em] transition-colors ' +
                   (isActive ? 'bk-liquid-orange' : 'text-white/80 active:bg-white/10')
                 }
               >

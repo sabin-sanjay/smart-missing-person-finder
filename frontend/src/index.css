@@ -35,6 +35,7 @@
   --color-sky-ink: #b8d0ff;  /* light blue: headlines on dark panels */
 
   /* Fonts: Outfit first, then the phone's own fonts (incl. Hindi) */
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --font-sans: "Outfit Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", "Noto Sans", sans-serif;
 }
 
@@ -264,6 +265,7 @@ body {
 
   /* Small label: "71 LEVEL" chip */
   .bk-chip {
+    font-family: var(--font-mono);
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
@@ -279,6 +281,7 @@ body {
 
   /* Small uppercase buttons ("START GAME" / "VIEW LEADERS") */
   .bk-btn {
+    font-family: var(--font-mono);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -315,5 +318,8 @@ body {
   }
 
   /* Tiny grey label above a value ("Best score") */
-  .bk-label { font-size: 0.78rem; color: rgb(255 255 255 / 0.6); }
+  .bk-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.01em; color: rgb(255 255 255 / 0.62); }
+
+  /* Big numbers ("2,435", "319 ms") in thin mono */
+  .bk-num { font-family: var(--font-mono); font-weight: 300; letter-spacing: -0.04em; }
 }

@@ -92,11 +92,11 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4 mt-6">
             <div>
               <p className="bk-label">{t('home.statMissing')}</p>
-              <p className="text-3xl font-light mt-0.5">{loading ? '–' : cases.length}</p>
+              <p className="bk-num text-3xl mt-0.5">{loading ? '–' : cases.length}</p>
             </div>
             <div>
               <p className="bk-label">{t('home.newToday')}</p>
-              <p className="text-3xl font-light mt-0.5 text-tangerine">{loading ? '–' : newToday}</p>
+              <p className="bk-num text-3xl mt-0.5 text-tangerine">{loading ? '–' : newToday}</p>
             </div>
           </div>
         </section>
@@ -136,7 +136,7 @@ export default function Home() {
         <div className="flex gap-1.5 overflow-x-auto" role="group" aria-label={t('home.casesTitle')}>
           {Object.keys(FILTERS).map((key) => (
             <button key={key} onClick={() => setFilter(key)} aria-pressed={filter === key}
-              className={'rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap border ' +
+              className={'font-mono rounded-full px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide whitespace-nowrap border ' +
                 (filter === key ? 'bg-ink text-white border-ink' : 'border-ink/20 text-ink')}>
               {t(`home.filter${key[0].toUpperCase()}${key.slice(1)}`)}
             </button>
@@ -172,7 +172,7 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="bk-label">{t('home.missingFor')}</p>
-                  <p className="text-4xl font-light leading-none mt-1 text-sky-ink">
+                  <p className="bk-num text-4xl leading-none mt-1 text-sky-ink">
                     {gone.value}<span className="text-base ml-1 text-white/70">{gone.unit}</span>
                   </p>
                 </div>
