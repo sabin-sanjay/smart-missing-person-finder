@@ -5,7 +5,7 @@
 //   - a bottom menu, easy to reach with your thumb on a phone
 
 import { useEffect } from 'react'
-import { NavLink, Outlet } from 'react-router'
+import { NavLink, Outlet, useLocation } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
@@ -42,6 +42,10 @@ export default function Layout() {
       ? { to: '/profile', label: t('nav.profile'), icon: 'user' }
       : { to: '/login', label: t('nav.login'), icon: 'user' },
   ]
+
+  // Which menu tab is open (-1 = a page that isn't in the menu, e.g. a case page)
+  const { pathname } = useLocation()
+  const activeTab = menuItems.findIndex((m) => (m.to === '/' ? pathname === '/' : pathname.startsWith(m.to)))
 
   return (
     <div className="min-h-dvh flex flex-col">
@@ -87,31 +91,30 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Bottom menu (like the reference): a black glass bar holding round
-          glass buttons. The open page becomes a white pill with its name. */}
+      {/* Bottom menu: a frosted-glass bar of equal tabs (icon + name).
+          A white pill glides under the open page's tab. */}
       <nav
-        className="fixed inset-x-0 bottom-0 px-3 z-10"
-        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.7rem)' }}
+        className="fixed inset-x-0 bottom-0 px-4 z-10"
+        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.75rem)' }}
       >
-        <ul className="nav-bar flex items-center gap-2 max-w-md mx-auto rounded-full p-1.5">
+        <ul className="tabbar max-w-md mx-auto" style={{ gridTemplateColumns: `repeat(${menuItems.length}, 1fr)` }}>
+          {activeTab >= 0 && (
+            <li
+              className="tab-indicator"
+              aria-hidden="true"
+              style={{ width: `calc((100% - 12px) / ${menuItems.length})`, transform: `translateX(${activeTab * 100}%)` }}
+            />
+          )}
           {menuItems.map((item) => (
-            <li key={item.to} className="contents">
+            <li key={item.to}>
               {/* NavLink knows which page is open. "end" = Home only on exactly "/". */}
               <NavLink
                 to={item.to}
                 end={item.to === '/'}
-                aria-label={item.label}
-                className={({ isActive }) =>
-                  'flex items-center justify-center gap-2 h-12 rounded-full text-sm font-semibold transition-all ' +
-                  (isActive ? 'nav-active flex-1 px-4' : 'nav-circle w-12 shrink-0')
-                }
+                className={({ isActive }) => 'tab' + (isActive ? ' tab-active' : '')}
               >
-                {({ isActive }) => (
-                  <>
-                    <Icon name={item.icon} className="w-[20px] h-[20px]" strokeWidth={1.9} />
-                    {isActive && <span>{item.label}</span>}
-                  </>
-                )}
+                <Icon name={item.icon} className="w-[21px] h-[21px]" strokeWidth={1.8} />
+                <span>{item.label}</span>
               </NavLink>
             </li>
           ))}

@@ -7,6 +7,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { supabase, casePhotoUrl } from '../lib/supabase'
+import SlidingTabs from '../components/SlidingTabs'
 
 const TABS = [
   { status: 'pending', label: 'Pending' },
@@ -61,21 +62,13 @@ export default function PoliceDashboard() {
         <span aria-hidden="true" className="text-muted">›</span>
       </Link>
 
-      {/* Tabs. "overflow-x-auto" lets them scroll sideways on very small phones. */}
-      <div className="flex gap-2 overflow-x-auto pb-1">
-        {TABS.map((t) => (
-          <button
-            key={t.status}
-            onClick={() => setTab(t.status)}
-            className={
-              'shrink-0 rounded-full px-3 py-2 text-sm font-semibold ' +
-              (tab === t.status ? 'bk-liquid' : 'bg-[#1c1a1b] text-ink border border-white/10')
-            }
-          >
-            {t.label} ({countOf(t.status)})
-          </button>
-        ))}
-      </div>
+      {/* Tabs: a white pill slides under the chosen one */}
+      <SlidingTabs
+        label="Case status"
+        value={tab}
+        onChange={setTab}
+        options={TABS.map((t) => ({ value: t.status, label: t.label, count: countOf(t.status) }))}
+      />
 
       {error && <p className="text-red-600 text-sm">{error}</p>}
       {loading && <p className="text-muted text-sm">Loading…</p>}
