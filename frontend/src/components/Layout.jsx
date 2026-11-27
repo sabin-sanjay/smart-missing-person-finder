@@ -11,7 +11,6 @@ import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 import { refreshAlertLocation, listenForForegroundAlerts } from '../lib/push'
 import Icon from './Icons'
-import TabNav from './TabNav'
 import { LANGUAGES, LANGUAGE_NAMES } from '../i18n'
 
 export default function Layout() {
@@ -59,17 +58,13 @@ export default function Layout() {
         className="sticky top-0 z-10 px-3 pb-2"
         style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.6rem)' }}
       >
-        <div className="bk-panel !py-3.5 flex items-center justify-between gap-3 max-w-xl md:max-w-4xl mx-auto">
+        <div className="bk-panel !py-3.5 flex items-center justify-between gap-2 max-w-xl mx-auto">
           <NavLink to="/" className="flex items-center gap-2.5 min-w-0" aria-label={t('nav.home')}>
             <img src="/favicon.svg" alt="" width="32" height="32" className="w-8 h-8 rounded-[10px]" />
             <span className="text-[1.45rem] font-light tracking-[-0.03em] text-white">
               {t('app.title')}<sup className="text-[0.55em] text-tangerine ml-0.5">●</sup>
             </span>
           </NavLink>
-          {/* Tablets and computers: the menu sits here, in the top bar */}
-          <nav className="hidden md:block flex-1 max-w-md" aria-label="Main menu">
-            <TabNav items={menuItems} active={activeTab} variant="top" />
-          </nav>
           {/* Language menu: the phone's own list pops up (easy on small screens).
               The list itself is dark with white text so every language is readable. */}
           <label className="relative glass-pill text-xs font-semibold px-3.5 py-2 flex items-center gap-1.5">
@@ -92,17 +87,38 @@ export default function Layout() {
 
       {/* The current page appears here. Extra space at the bottom (pb-28)
           stops the menu from covering the content. */}
-      <main className="relative z-[1] flex-1 w-full max-w-xl md:max-w-2xl mx-auto px-3 md:px-5 pt-1 md:pt-4 pb-28 md:pb-12">
+      <main className="relative z-[1] flex-1 w-full max-w-xl mx-auto px-3 pt-1 pb-28">
         <Outlet />
       </main>
 
-      {/* Phones: the menu is a glass tab bar at the bottom (hidden on bigger screens) */}
+      {/* Bottom menu: a frosted-glass bar of equal tabs (icon + name).
+          A white pill glides under the open page's tab. */}
       <nav
-        className="md:hidden fixed inset-x-0 bottom-0 px-4 z-10"
+        className="fixed inset-x-0 bottom-0 px-4 z-10"
         style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.75rem)' }}
-        aria-label="Main menu"
       >
-        <TabNav items={menuItems} active={activeTab} variant="bottom" className="max-w-md mx-auto" />
+        <ul className="tabbar max-w-md mx-auto" style={{ gridTemplateColumns: `repeat(${menuItems.length}, 1fr)` }}>
+          {activeTab >= 0 && (
+            <li
+              className="tab-indicator"
+              aria-hidden="true"
+              style={{ width: `calc((100% - 12px) / ${menuItems.length})`, transform: `translateX(${activeTab * 100}%)` }}
+            />
+          )}
+          {menuItems.map((item) => (
+            <li key={item.to}>
+              {/* NavLink knows which page is open. "end" = Home only on exactly "/". */}
+              <NavLink
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) => 'tab' + (isActive ? ' tab-active' : '')}
+              >
+                <Icon name={item.icon} className="w-[21px] h-[21px]" strokeWidth={1.8} />
+                <span>{item.label}</span>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
       </nav>
     </div>
   )
