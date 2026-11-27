@@ -1,12 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- App logo: a person inside alert rings (2 km, 5 km, 10 km) -->
+  <!-- App logo: footsteps leading to a glowing home pin ("bringing them home") -->
   <clipPath id="r"><rect width="512" height="512" rx="112"/></clipPath>
-  <g clip-path="url(#r)"><rect width="512" height="512" fill="#1e3a8a"/>
-      <circle cx="256" cy="256" r="196" fill="none" stroke="#ffffff" stroke-opacity=".25" stroke-width="16"/>
-      <circle cx="256" cy="256" r="140" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="16"/>
-      <circle cx="256" cy="256" r="86" fill="#dc2626"/>
-      
-  <circle cx="256" cy="227.36" r="27.599999999999998" fill="#ffffff"/>
-  <path d="M198.96 323.04 C 198.96 270.6, 228.4 261.4, 256 261.4
-           C 283.6 261.4, 313.04 270.6, 313.04 323.04 Z" fill="#ffffff"/></g>
+  <g clip-path="url(#r)"><defs>
+        <linearGradient id="bgH" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#064e3b"/><stop offset="1" stop-color="#10b981"/></linearGradient>
+        <radialGradient id="glowH"><stop offset="0" stop-color="#fef08a"/><stop offset="1" stop-color="#fef08a" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="512" height="512" fill="url(#bgH)"/>
+      <g fill="#ecfdf5">
+        <g transform="translate(112 438) rotate(42) scale(0.62)" opacity="0.5">
+    <ellipse cx="0" cy="0" rx="13" ry="22"/><ellipse cx="0" cy="30" rx="10" ry="12"/>
+    <circle cx="-9" cy="-30" r="5"/><circle cx="1" cy="-34" r="5"/><circle cx="10" cy="-30" r="4.5"/></g> <g transform="translate(168 418) rotate(42) scale(0.62)" opacity="0.62">
+    <ellipse cx="0" cy="0" rx="13" ry="22"/><ellipse cx="0" cy="30" rx="10" ry="12"/>
+    <circle cx="-9" cy="-30" r="5"/><circle cx="1" cy="-34" r="5"/><circle cx="10" cy="-30" r="4.5"/></g> <g transform="translate(176 360) rotate(42) scale(0.62)" opacity="0.74">
+    <ellipse cx="0" cy="0" rx="13" ry="22"/><ellipse cx="0" cy="30" rx="10" ry="12"/>
+    <circle cx="-9" cy="-30" r="5"/><circle cx="1" cy="-34" r="5"/><circle cx="10" cy="-30" r="4.5"/></g> <g transform="translate(232 340) rotate(42) scale(0.62)" opacity="0.86">
+    <ellipse cx="0" cy="0" rx="13" ry="22"/><ellipse cx="0" cy="30" rx="10" ry="12"/>
+    <circle cx="-9" cy="-30" r="5"/><circle cx="1" cy="-34" r="5"/><circle cx="10" cy="-30" r="4.5"/></g> <g transform="translate(240 282) rotate(42) scale(0.62)" opacity="0.95">
+    <ellipse cx="0" cy="0" rx="13" ry="22"/><ellipse cx="0" cy="30" rx="10" ry="12"/>
+    <circle cx="-9" cy="-30" r="5"/><circle cx="1" cy="-34" r="5"/><circle cx="10" cy="-30" r="4.5"/></g>
+      </g>
+      <circle cx="354" cy="168" r="110" fill="url(#glowH)" opacity=".55"/>
+      <path d="M354 250 C 340 225, 300 200, 300 160 A 54 54 0 1 1 408 160 C 408 200, 368 225, 354 250 Z" fill="#fde047"/>
+      <path d="M354 126 L382 150 L374 150 L374 180 L334 180 L334 150 L326 150 Z" fill="#065f46"/></g>
 </svg>
