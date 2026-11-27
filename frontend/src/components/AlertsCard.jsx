@@ -40,10 +40,7 @@ export default function AlertsCard({ className = '' }) {
 
   return (
     // A dark panel. Home puts it inside a joined "stack" of panels.
-    <section className={`bk-panel overflow-hidden ${className}`}>
-      {/* photo: a busy Indian street (the people who could help nearby) */}
-      <img src="/art/crowd.webp" alt="" className="photo-bg opacity-60" />
-      <div className="photo-shade" aria-hidden="true" />
+    <section className={`bk-panel ${className}`}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-lg text-sky-ink">{t('alerts.statTitle')}</p>

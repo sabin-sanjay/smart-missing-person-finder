@@ -56,11 +56,9 @@ export default function CaseView() {
     <div className="space-y-4">
       {/* Found: a "Reunited" panel at the top */}
       {c.status === 'found' && (
-        <section className="bk-panel overflow-hidden">
-          <img src="/art/caring-hands.webp" alt="" className="photo-bg opacity-70" />
-          <div className="photo-shade" aria-hidden="true" />
+        <section className="bk-panel">
           <span className="bk-chip bk-chip-blue">🎉 {t('reunited.chip')}</span>
-          <h2 className="relative text-[1.9rem] leading-tight tracking-[-0.02em] text-sky-ink mt-3 max-w-[70%]">
+          <h2 className="text-[1.9rem] leading-tight tracking-[-0.02em] text-sky-ink mt-3">
             {t('reunited.title', { name: c.full_name })}
           </h2>
           {foundAfter && <p className="bk-num text-2xl mt-2">{t('reunited.after', { time: foundAfter })}</p>}

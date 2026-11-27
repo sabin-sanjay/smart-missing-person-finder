@@ -85,11 +85,8 @@ export default function Home() {
     <div className="flex flex-col gap-3">
       {/* 1. Hero + alerts, joined by a notch */}
       <div className="bk-stack">
-        <section className="bk-panel !pt-6 overflow-hidden">
-          {/* photo: two people reaching for each other's hand at sunset */}
-          <img src="/art/reaching-hands.webp" alt="" className="photo-bg object-[70%_60%]" />
-          <div className="photo-shade" aria-hidden="true" />
-          <h2 className="relative text-[2.15rem] leading-[1.08] tracking-[-0.02em] text-sky-ink max-w-[70%]">
+        <section className="bk-panel !pt-6">
+          <h2 className="text-[2.15rem] leading-[1.08] tracking-[-0.02em] text-sky-ink">
             {t('home.heroTitle')}.
           </h2>
           <div className="grid grid-cols-2 gap-4 mt-6">
@@ -193,12 +190,9 @@ export default function Home() {
         )
       })}
 
-      {/* 5. "Together" card: a heart in a helping hand */}
-      <section className="bk-panel overflow-hidden mt-3 !pt-24">
-        {/* photo: an adult's hands protecting a child's hand */}
-        <img src="/art/caring-hands.webp" alt="" className="photo-bg object-[60%_45%]" />
-        <div className="photo-shade photo-shade-up" aria-hidden="true" />
-        <div className="relative">
+      {/* 5. "Together" card */}
+      <section className="bk-panel mt-3">
+        <div>
           <h3 className="text-lg leading-snug">{t('home.togetherTitle')}</h3>
           <p className="text-[0.85rem] text-white/65 mt-1">{t('home.togetherText')}</p>
         </div>

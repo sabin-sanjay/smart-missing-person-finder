@@ -1,9 +1,0 @@
-Photos used in the app (all free to use, no attribution required):
-
-reaching-hands.webp   "Don't let go (Unsplash).jpg"                       CC0  - Wikimedia Commons
-caring-hands.webp     "Man Woman Child Hands (Unsplash).jpg"              CC0  - Wikimedia Commons
-crowd.webp            "Crowded New Delhi street (Unsplash).jpg"           CC0  - Wikimedia Commons
-south-india-night.webp "Light emissions in south India and Sri Lanka at night.png"
-                      Public domain (NASA Earth Observatory) - Wikimedia Commons
-
-Shrunk and converted to WebP for fast loading on slow connections.
