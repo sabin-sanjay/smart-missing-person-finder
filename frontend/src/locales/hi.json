@@ -1,8 +1,24 @@
 {
-  "app": { "title": "Lumen", "switchLanguage": "English" },
-  "nav": { "home": "होम", "map": "नक्शा", "report": "रिपोर्ट", "login": "लॉगिन", "profile": "प्रोफ़ाइल" },
-  "common": { "loading": "लोड हो रहा है…", "goHome": "होम पर जाएँ" },
-  "gender": { "male": "पुरुष", "female": "महिला", "other": "अन्य" },
+  "app": {
+    "title": "Lumen",
+    "switchLanguage": "English"
+  },
+  "nav": {
+    "home": "होम",
+    "map": "नक्शा",
+    "report": "रिपोर्ट",
+    "login": "लॉगिन",
+    "profile": "प्रोफ़ाइल"
+  },
+  "common": {
+    "loading": "लोड हो रहा है…",
+    "goHome": "होम पर जाएँ"
+  },
+  "gender": {
+    "male": "पुरुष",
+    "female": "महिला",
+    "other": "अन्य"
+  },
   "time": {
     "justNow": "अभी-अभी",
     "minutes_one": "{{count}} मिनट पहले",
@@ -10,7 +26,10 @@
     "hours_one": "{{count}} घंटा पहले",
     "hours_other": "{{count}} घंटे पहले",
     "days_one": "{{count}} दिन पहले",
-    "days_other": "{{count}} दिन पहले"
+    "days_other": "{{count}} दिन पहले",
+    "shortMin": "मिनट",
+    "shortHours": "घंटे",
+    "shortDays": "दिन"
   },
   "status": {
     "pending": "⏳ पुलिस की मंज़ूरी का इंतज़ार",
@@ -28,7 +47,22 @@
     "currentlyMissing": "अभी गुमशुदा",
     "noCases": "✅ जुड़ा हुआ है। अभी कोई सक्रिय मामला नहीं है।",
     "lastSeen": "आख़िरी बार देखा गया: {{place}}",
-    "locationOnMap": "नक्शे पर स्थान"
+    "locationOnMap": "नक्शे पर स्थान",
+    "search": "खोजें: नाम या जगह",
+    "statMissing": "अभी गुमशुदा",
+    "statMissingSub": "सक्रिय",
+    "whoShort": "यह कौन है?",
+    "whoShortText": "चेहरा मिलाएँ",
+    "filterAll": "सभी",
+    "filterRecent": "पिछले 24 घंटे",
+    "filterChildren": "बच्चे",
+    "missingFor": "गुमशुदा",
+    "lastSeenLabel": "आख़िरी बार देखा",
+    "noMatch": "आपकी खोज से कोई मामला नहीं मिला।",
+    "reportShort": "देखे जाने की रिपोर्ट",
+    "mapShort": "लाइव नक्शा",
+    "seenThem": "देखा? रिपोर्ट करें",
+    "casesTitle": "गुमशुदा लोग"
   },
   "alerts": {
     "title": "🔔 आपके आस-पास के अलर्ट",
@@ -46,7 +80,10 @@
       "saveFailed": "अलर्ट चालू नहीं हो सके: {{detail}}",
       "onPush": "अलर्ट चालू हैं। आपके आस-पास कोई गुम होने पर आपको नोटिफ़िकेशन मिलेगा।",
       "onSms": "नोटिफ़िकेशन बंद हैं, इसलिए आपको प्रोफ़ाइल में दिए नंबर पर SMS अलर्ट मिलेंगे।"
-    }
+    },
+    "statTitle": "आस-पास के अलर्ट",
+    "statOn": "चालू",
+    "statOff": "बंद"
   },
   "case": {
     "notAvailable": "यह मामला उपलब्ध नहीं है।",

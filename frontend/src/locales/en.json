@@ -1,8 +1,24 @@
 {
-  "app": { "title": "Lumen", "switchLanguage": "हिंदी" },
-  "nav": { "home": "Home", "map": "Map", "report": "Report", "login": "Login", "profile": "Profile" },
-  "common": { "loading": "Loading…", "goHome": "Go to Home" },
-  "gender": { "male": "Male", "female": "Female", "other": "Other" },
+  "app": {
+    "title": "Lumen",
+    "switchLanguage": "हिंदी"
+  },
+  "nav": {
+    "home": "Home",
+    "map": "Map",
+    "report": "Report",
+    "login": "Login",
+    "profile": "Profile"
+  },
+  "common": {
+    "loading": "Loading…",
+    "goHome": "Go to Home"
+  },
+  "gender": {
+    "male": "Male",
+    "female": "Female",
+    "other": "Other"
+  },
   "time": {
     "justNow": "just now",
     "minutes_one": "{{count}} min ago",
@@ -10,7 +26,10 @@
     "hours_one": "{{count}} hour ago",
     "hours_other": "{{count}} hours ago",
     "days_one": "{{count}} day ago",
-    "days_other": "{{count}} days ago"
+    "days_other": "{{count}} days ago",
+    "shortMin": "min",
+    "shortHours": "h",
+    "shortDays": "days"
   },
   "status": {
     "pending": "⏳ Waiting for police approval",
@@ -28,7 +47,22 @@
     "currentlyMissing": "Currently missing",
     "noCases": "✅ Connected. No active cases right now.",
     "lastSeen": "Last seen: {{place}}",
-    "locationOnMap": "location on map"
+    "locationOnMap": "location on map",
+    "search": "Quick search: name or place",
+    "statMissing": "Missing right now",
+    "statMissingSub": "active",
+    "whoShort": "Who is this?",
+    "whoShortText": "Match a face",
+    "filterAll": "All",
+    "filterRecent": "Last 24 h",
+    "filterChildren": "Children",
+    "missingFor": "Missing for",
+    "lastSeenLabel": "Last seen",
+    "noMatch": "No cases match your search.",
+    "reportShort": "Report a sighting",
+    "mapShort": "Live map",
+    "seenThem": "Seen them? Report",
+    "casesTitle": "Missing people"
   },
   "alerts": {
     "title": "🔔 Alerts near you",
@@ -46,7 +80,10 @@
       "saveFailed": "Could not turn on alerts: {{detail}}",
       "onPush": "Alerts are ON. You’ll get a notification if someone goes missing near you.",
       "onSms": "Notifications are blocked, so you’ll get SMS alerts on the number in your profile."
-    }
+    },
+    "statTitle": "Alerts near you",
+    "statOn": "On",
+    "statOff": "Off"
   },
   "case": {
     "notAvailable": "This case is not available.",
