@@ -12,8 +12,12 @@ import './index.css'
 import './i18n' // load translations before anything is shown
 import { setupHaptics } from './lib/haptics'
 
+import { setupAppUpdates } from './lib/appUpdate'
+
 // Short vibration when important buttons are tapped (Android phones)
 setupHaptics()
+// Pick up new versions of the app by itself (see lib/appUpdate.js)
+setupAppUpdates()
 
 import { AuthProvider } from './context/AuthContext.jsx'
 import Layout from './components/Layout.jsx'

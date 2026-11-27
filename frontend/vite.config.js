@@ -21,6 +21,9 @@ export default defineConfig(({ mode }) => ({
     VitePWA({
       // When we publish a new version, phones update to it automatically.
       registerType: 'autoUpdate',
+      // We start the updater ourselves in src/lib/appUpdate.js (so it can
+      // also check for a new version every time the app is opened).
+      injectRegister: false,
 
       // Extra files from the "public" folder to keep available offline.
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
