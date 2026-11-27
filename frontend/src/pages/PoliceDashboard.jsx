@@ -56,6 +56,10 @@ export default function PoliceDashboard() {
   return (
     <div className="space-y-4">
       <h2 className="bk-liquid bk-title">🛡️ Police dashboard</h2>
+      <Link to="/police/analytics" className="bk-row">
+        <span>📊 Analytics <span className="text-muted text-sm">· charts, hotspots, alerts</span></span>
+        <span aria-hidden="true" className="text-muted">›</span>
+      </Link>
 
       {/* Tabs. "overflow-x-auto" lets them scroll sideways on very small phones. */}
       <div className="flex gap-2 overflow-x-auto pb-1">

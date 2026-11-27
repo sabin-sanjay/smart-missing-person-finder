@@ -128,5 +128,18 @@
     "failed": "Could not get your location. Tap the map to choose the spot instead.",
     "pinAt": "Pin at {{lat}}, {{lng}}. Tap the map to move it.",
     "tapHint": "Tap the map to choose the spot."
+  },
+  "poster": {
+    "share": "📤 Share poster",
+    "making": "Making poster…",
+    "missing": "Missing",
+    "helpFind": "Please help find",
+    "lastSeen": "Last seen",
+    "seen": "Seen this person?",
+    "scan": "Scan to report a sighting",
+    "emergency": "Emergency: call 112",
+    "shareText": "MISSING: {{name}}. Last seen: {{place}}. Seen them? Report here: {{url}}",
+    "downloaded": "Poster downloaded and link copied. Share it on WhatsApp.",
+    "failed": "Could not make the poster. Please try again."
   }
 }

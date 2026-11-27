@@ -8,6 +8,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { supabase, casePhotoUrl } from '../lib/supabase'
 import { timeAgo } from '../lib/dates'
 import StatusBadge from '../components/StatusBadge'
+import SharePosterButton from '../components/SharePosterButton'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
 
@@ -74,6 +75,7 @@ export default function CaseView() {
           {t('case.iSawThem')}
         </Link>
       )}
+      {c.status === 'active' && <SharePosterButton c={c} />}
 
       <section className="bk-sheet">
         <h3 className="font-semibold mb-2 text-sm">{t('case.lastSeenLocation')}</h3>

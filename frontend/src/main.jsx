@@ -58,6 +58,7 @@ const MyCases = lazyPage(() => import('./pages/MyCases.jsx'))
 const RegisterCase = lazyPage(() => import('./pages/RegisterCase.jsx'))
 const PoliceDashboard = lazyPage(() => import('./pages/PoliceDashboard.jsx'))
 const PoliceCaseDetail = lazyPage(() => import('./pages/PoliceCaseDetail.jsx'))
+const PoliceAnalytics = lazyPage(() => import('./pages/PoliceAnalytics.jsx'))
 const AdminDashboard = lazyPage(() => import('./pages/AdminDashboard.jsx'))
 const NotFound = lazyPage(() => import('./pages/NotFound.jsx'))
 
@@ -91,6 +92,7 @@ const router = createBrowserRouter([
       // Police and admin
       { path: 'police', element: loggedIn(<PoliceDashboard />, ['police', 'admin']) },
       { path: 'police/case/:id', element: loggedIn(<PoliceCaseDetail />, ['police', 'admin']) },
+      { path: 'police/analytics', element: loggedIn(<PoliceAnalytics />, ['police', 'admin']) },
 
       // Admin only
       { path: 'admin', element: loggedIn(<AdminDashboard />, ['admin']) },
