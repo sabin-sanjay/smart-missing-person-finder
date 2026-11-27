@@ -74,6 +74,7 @@ export async function downloadCasePdf(c) {
   // ---- Photo (right side) + main details (left side) ----
   const top = y
   try {
+    if (!c.photo_path) throw new Error('no photo') // the grey placeholder can't go in a PDF
     // "?pdf=1" skips the photo copy saved by the offline cache (that copy
     // can't be read by code, only displayed), so we get a fresh one.
     const img = await imageToDataUrl(casePhotoUrl(c.photo_path) + '?pdf=1')

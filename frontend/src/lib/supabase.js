@@ -26,6 +26,7 @@ export const supabase = createClient(
 // Turns a stored photo path (like "abc-123/photo.jpg") into a web address
 // that an <img> tag can show. Only for the public "case-photos" bucket.
 export function casePhotoUrl(photoPath) {
-  if (!photoPath) return null
+  // No photo uploaded: show a plain grey "person" picture instead of a broken image
+  if (!photoPath) return '/no-photo.svg'
   return supabase.storage.from('case-photos').getPublicUrl(photoPath).data.publicUrl
 }
