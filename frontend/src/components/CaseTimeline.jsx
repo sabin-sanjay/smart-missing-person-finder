@@ -5,6 +5,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { dateLocale } from '../i18n'
 import { supabase } from '../lib/supabase'
 
 const DOTS = {
@@ -30,7 +31,7 @@ export default function CaseTimeline({ caseId }) {
   const sightingsTotal = events.filter((e) => e.kind === 'sighting').length
   const list = events.filter((e) => e.kind !== 'sighting' || ++sightingsShown <= 5)
 
-  const when = (iso) => new Date(iso).toLocaleString(i18n.language === 'hi' ? 'hi-IN' : 'en-IN',
+  const when = (iso) => new Date(iso).toLocaleString(dateLocale(i18n.language),
     { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
 
   return (

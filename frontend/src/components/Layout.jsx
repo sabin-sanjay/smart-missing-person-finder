@@ -11,14 +11,14 @@ import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 import { refreshAlertLocation, listenForForegroundAlerts } from '../lib/push'
 import Icon from './Icons'
+import { LANGUAGES, LANGUAGE_NAMES } from '../i18n'
 
 export default function Layout() {
   const { session } = useAuth()
   const { t, i18n } = useTranslation() // t('nav.home') -> "Home" or "होम"
 
-  // Switch English <-> Hindi. If logged in, also save it to the profile.
-  function toggleLanguage() {
-    const next = i18n.language === 'hi' ? 'en' : 'hi'
+  // Change the language. If logged in, also save it to the profile.
+  function changeLanguage(next) {
     i18n.changeLanguage(next)
     if (session) {
       supabase.from('profiles').update({ preferred_language: next }).eq('id', session.user.id).then(() => {})
@@ -61,10 +61,20 @@ export default function Layout() {
               {t('app.title')}<sup className="text-[0.55em] text-tangerine ml-0.5">●</sup>
             </span>
           </NavLink>
-          {/* Language switch: shows the OTHER language */}
-          <button onClick={toggleLanguage} className="bk-chip bk-chip-blue !text-xs !px-2.5 !py-1.5">
-            {t('app.switchLanguage')}
-          </button>
+          {/* Language menu: the phone's own list pops up (easy on small screens) */}
+          <label className="relative bk-chip bk-chip-blue !text-xs !px-2.5 !py-1.5">
+            <span aria-hidden="true">{LANGUAGE_NAMES[i18n.resolvedLanguage] ?? 'English'} ▾</span>
+            <select
+              value={i18n.resolvedLanguage}
+              onChange={(e) => changeLanguage(e.target.value)}
+              aria-label="Language"
+              className="absolute inset-0 opacity-0 cursor-pointer"
+            >
+              {LANGUAGES.map((code) => (
+                <option key={code} value={code}>{LANGUAGE_NAMES[code]}</option>
+              ))}
+            </select>
+          </label>
         </div>
       </header>
 

@@ -44,7 +44,7 @@ export default function CaseView() {
   }
 
   // Dates written the local way, e.g. "26/11/2026, 9:30 pm" or the Hindi equivalent
-  const date = new Date(c.last_seen_at).toLocaleString(i18n.language === 'hi' ? 'hi-IN' : 'en-IN')
+  const date = new Date(c.last_seen_at).toLocaleString(dateLocale(i18n.language))
 
   // How long it took to find them, in hours or days
   const foundAfter = c.found_at && (() => {
