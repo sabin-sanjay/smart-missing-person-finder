@@ -66,7 +66,9 @@
     "newToday": "New in 24 h",
     "details": "Details",
     "reportOne": "Report sighting",
-    "missingChip": "Missing"
+    "missingChip": "Missing",
+    "togetherTitle": "Every share, every look counts",
+    "togetherText": "Lumen works because people help each other. Turn on alerts and share posters: you could be the one who brings someone home."
   },
   "alerts": {
     "title": "🔔 Alerts near you",

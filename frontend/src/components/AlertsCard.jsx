@@ -6,6 +6,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { enableAlerts, disableAlerts, getSavedAlertState } from '../lib/push'
 import Icon from './Icons'
+import { AlertRings } from './Art'
 
 export default function AlertsCard({ className = '' }) {
   const { t } = useTranslation()
@@ -40,7 +41,9 @@ export default function AlertsCard({ className = '' }) {
 
   return (
     // A dark panel. Home puts it inside a joined "stack" of panels.
-    <section className={`bk-panel ${className}`}>
+    <section className={`bk-panel overflow-hidden ${className}`}>
+      {/* rings spreading from a pin, faint in the bottom-right corner */}
+      <AlertRings className="absolute -right-10 -bottom-12 w-48 h-48 -z-10 pointer-events-none opacity-70" />
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-lg text-sky-ink">{t('alerts.statTitle')}</p>
