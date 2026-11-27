@@ -8,6 +8,7 @@ import { Link } from 'react-router'
 import { supabase, casePhotoUrl } from '../lib/supabase'
 import { compressImage } from '../lib/compressImage'
 import { timeAgo } from '../lib/dates'
+import PhotoPicker from '../components/PhotoPicker'
 
 // Where is the backend? It runs on a laptop behind a free tunnel whose address
 // changes every time it starts, so the backend saves its current address in
@@ -72,8 +73,8 @@ export default function FaceSearch() {
           they’ve been reported missing. The photo is only compared, never saved.
         </p>
         {preview && <img src={preview} alt="Your photo" className="w-32 h-32 object-cover rounded-lg" />}
-        <input type="file" accept="image/*" capture="environment" onChange={handlePhoto} disabled={busy}
-          className="block w-full text-sm" />
+        <PhotoPicker onChange={handlePhoto} disabled={busy} hasPhoto={Boolean(preview)}
+          text="📷 Choose or take a photo" changeText="📷 Try another photo" />
         {busy && <p className="text-sm text-slate-500">🤖 Comparing faces… (this can take up to 30 seconds)</p>}
         {error && <p className="text-sm text-red-600">{error}</p>}
       </section>

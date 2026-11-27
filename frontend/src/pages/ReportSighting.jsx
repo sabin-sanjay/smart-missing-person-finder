@@ -9,6 +9,7 @@ import { Link, useSearchParams } from 'react-router'
 import { Trans, useTranslation } from 'react-i18next'
 import { supabase, casePhotoUrl } from '../lib/supabase'
 import { compressImage } from '../lib/compressImage'
+import PhotoPicker from '../components/PhotoPicker'
 import { randomId } from '../lib/randomId'
 import { nowForInput } from '../lib/dates'
 import { distanceKm, formatDistance, getCurrentPosition } from '../lib/geo'
@@ -204,7 +205,7 @@ export default function ReportSighting() {
         </div>
         <div>
           <label className="block text-sm font-semibold mb-1">{t('report.when')}</label>
-          <input type="datetime-local" className={inputClass} max={nowForInput()}
+          <input type="datetime-local" className={`${inputClass} min-w-0 appearance-none`} max={nowForInput()}
             value={seenAt} onChange={(e) => setSeenAt(e.target.value)} />
         </div>
         <div>
@@ -216,8 +217,7 @@ export default function ReportSighting() {
         <div>
           <label className="block text-sm font-semibold mb-1">{t('report.photo')}</label>
           {photoPreview && <img src={photoPreview} alt="Preview" className="w-32 h-32 object-cover rounded-lg mb-2" />}
-          {/* capture="environment" opens the back camera directly on phones */}
-          <input type="file" accept="image/*" capture="environment" onChange={handlePhoto} className="block w-full text-sm" />
+          <PhotoPicker onChange={handlePhoto} hasPhoto={Boolean(photoPreview)} />
         </div>
       </section>
 

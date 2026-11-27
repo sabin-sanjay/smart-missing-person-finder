@@ -13,6 +13,7 @@ import { compressImage } from '../lib/compressImage'
 import { randomId } from '../lib/randomId'
 import { nowForInput } from '../lib/dates'
 import { useAuth } from '../context/AuthContext'
+import PhotoPicker from '../components/PhotoPicker'
 
 // Load the map code only when this page opens
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
@@ -129,7 +130,7 @@ export default function RegisterCase() {
         {photoPreview && (
           <img src={photoPreview} alt="Preview" className="w-32 h-32 object-cover rounded-lg" />
         )}
-        <input type="file" accept="image/*" onChange={handlePhoto} className="block w-full text-sm" />
+        <PhotoPicker onChange={handlePhoto} hasPhoto={Boolean(photoPreview)} />
       </section>
 
       {/* ---- About the person ---- */}
@@ -172,7 +173,7 @@ export default function RegisterCase() {
       <section className="bg-white rounded-xl p-4 shadow-sm space-y-3">
         <div>
           <label className={labelClass}>Last seen: date and time *</label>
-          <input className={inputClass} type="datetime-local" max={nowForInput()}
+          <input className={`${inputClass} min-w-0 appearance-none`} type="datetime-local" max={nowForInput()}
             value={form.last_seen_at} onChange={(e) => update('last_seen_at', e.target.value)} />
         </div>
         <div>
