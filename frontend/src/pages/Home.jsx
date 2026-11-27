@@ -108,29 +108,29 @@ export default function Home() {
       </div>
 
       {/* 2. Search + quick links (light outlined rows) */}
-      <label className="bk-row !py-3.5">
-        <Icon name="search" className="w-5 h-5 text-muted shrink-0" />
+      <label className="search-pill">
+        <span className="icon-circle icon-circle-white"><Icon name="search" className="w-5 h-5" /></span>
         <input
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t('home.search')}
-          className="w-full bg-transparent outline-none text-[15px] placeholder:text-muted"
+          className="w-full bg-transparent outline-none text-[15px] text-white placeholder:text-white/60"
         />
       </label>
       <Link to="/who-is-this" className="bk-row">
         <span className="flex items-center gap-3">
-          <Icon name="scan" className="w-5 h-5 text-brand-600" />
+          <span className="icon-circle"><Icon name="scan" className="w-5 h-5" /></span>
           <span>{t('home.whoShort')} <span className="text-muted text-sm">· {t('home.whoShortText')}</span></span>
         </span>
-        <span aria-hidden="true" className="text-muted">›</span>
+        <Icon name="chevron" className="w-5 h-5 text-white/70" />
       </Link>
       <Link to="/map" className="bk-row">
         <span className="flex items-center gap-3">
-          <Icon name="map" className="w-5 h-5 text-brand-600" />
+          <span className="icon-circle"><Icon name="map" className="w-5 h-5" /></span>
           {t('home.mapShort')}
         </span>
-        <span aria-hidden="true" className="text-muted">›</span>
+        <Icon name="chevron" className="w-5 h-5 text-white/70" />
       </Link>
 
       {/* 3. Heading + filter chips */}
@@ -140,7 +140,7 @@ export default function Home() {
           {Object.keys(FILTERS).map((key) => (
             <button key={key} onClick={() => setFilter(key)} aria-pressed={filter === key}
               className={'font-mono rounded-full px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide whitespace-nowrap border ' +
-                (filter === key ? 'bg-[#e0141b] text-white border-[#e0141b]' : 'border-white/15 text-ink bg-[#1c1a1b]')}>
+                (filter === key ? 'bg-white text-[#161214] border-white' : 'border-white/30 text-white bg-white/10')}>
               {t(`home.filter${key[0].toUpperCase()}${key.slice(1)}`)}
             </button>
           ))}

@@ -61,14 +61,17 @@ export default function Layout() {
               {t('app.title')}<sup className="text-[0.55em] text-tangerine ml-0.5">●</sup>
             </span>
           </NavLink>
-          {/* Language menu: the phone's own list pops up (easy on small screens) */}
-          <label className="relative bk-chip bk-chip-blue !text-xs !px-2.5 !py-1.5">
-            <span aria-hidden="true">{LANGUAGE_NAMES[i18n.resolvedLanguage] ?? 'English'} ▾</span>
+          {/* Language menu: the phone's own list pops up (easy on small screens).
+              The list itself is dark with white text so every language is readable. */}
+          <label className="relative glass-pill text-xs font-semibold px-3.5 py-2 flex items-center gap-1.5">
+            <Icon name="globe" className="w-4 h-4" />
+            <span aria-hidden="true">{LANGUAGE_NAMES[i18n.resolvedLanguage] ?? 'English'}</span>
+            <span aria-hidden="true" className="opacity-70">▾</span>
             <select
               value={i18n.resolvedLanguage}
               onChange={(e) => changeLanguage(e.target.value)}
               aria-label="Language"
-              className="absolute inset-0 opacity-0 cursor-pointer"
+              className="lang-select absolute inset-0 opacity-0 cursor-pointer"
             >
               {LANGUAGES.map((code) => (
                 <option key={code} value={code}>{LANGUAGE_NAMES[code]}</option>
@@ -84,25 +87,31 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Bottom menu: a black pill. The open page is an orange pill inside it. */}
+      {/* Bottom menu (like the reference): a black glass bar holding round
+          glass buttons. The open page becomes a white pill with its name. */}
       <nav
         className="fixed inset-x-0 bottom-0 px-3 z-10"
         style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.7rem)' }}
       >
-        <ul className="flex max-w-md mx-auto rounded-full p-1.5 bk-liquid">
+        <ul className="nav-bar flex items-center gap-2 max-w-md mx-auto rounded-full p-1.5">
           {menuItems.map((item) => (
-            <li key={item.to} className="flex-1">
+            <li key={item.to} className="contents">
               {/* NavLink knows which page is open. "end" = Home only on exactly "/". */}
               <NavLink
                 to={item.to}
                 end={item.to === '/'}
+                aria-label={item.label}
                 className={({ isActive }) =>
-                  'font-mono flex flex-col items-center gap-0.5 rounded-full py-2 text-[10px] font-semibold uppercase tracking-[0.04em] transition-colors ' +
-                  (isActive ? 'bk-liquid-orange' : 'text-white/80 active:bg-white/10')
+                  'flex items-center justify-center gap-2 h-12 rounded-full text-sm font-semibold transition-all ' +
+                  (isActive ? 'nav-active flex-1 px-4' : 'nav-circle w-12 shrink-0')
                 }
               >
-                <Icon name={item.icon} className="w-[21px] h-[21px]" strokeWidth={1.8} />
-                {item.label}
+                {({ isActive }) => (
+                  <>
+                    <Icon name={item.icon} className="w-[20px] h-[20px]" strokeWidth={1.9} />
+                    {isActive && <span>{item.label}</span>}
+                  </>
+                )}
               </NavLink>
             </li>
           ))}
