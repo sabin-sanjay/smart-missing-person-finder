@@ -59,7 +59,7 @@ export default function Layout() {
             <img src="/favicon.svg" alt="" width="30" height="30" className="w-[30px] h-[30px] rounded-[9px]" />
           </NavLink>
           {/* The name fades from the logo's orange to its blue */}
-          <h1 className="text-[1.35rem] font-semibold tracking-tight bg-gradient-to-r from-flame-500 to-brand-600 bg-clip-text text-transparent">
+          <h1 className="text-[1.5rem] font-semibold tracking-[-0.02em] bg-gradient-to-r from-flame-500 via-violet-glow to-brand-600 bg-clip-text text-transparent">
             {t('app.title')}
           </h1>
           {/* Language switch: shows the OTHER language (short form) */}
@@ -90,7 +90,7 @@ export default function Layout() {
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   'flex flex-col items-center gap-0.5 rounded-full py-2 text-[11px] transition-colors ' +
-                  (isActive ? 'bg-[#0b0b0f] text-white' : 'text-slate-500 active:bg-slate-100')
+                  (isActive ? 'bg-ink text-white' : 'text-muted active:bg-slate-100')
                 }
               >
                 <Icon name={item.icon} className="w-[22px] h-[22px]" />

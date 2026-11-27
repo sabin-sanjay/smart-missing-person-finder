@@ -52,10 +52,10 @@ export default function AlertsCard() {
         {state && <span className="text-xs font-medium text-brand-700 bg-brand-50 rounded-full px-2.5 py-1">{state.mode === 'push' ? 'Push' : 'SMS'}</span>}
       </div>
 
-      <p className="mt-4 text-lg text-slate-800">{t('alerts.statTitle')}</p>
+      <p className="mt-4 text-lg text-ink">{t('alerts.statTitle')}</p>
 
       <div className="mt-auto pt-3">
-        <p className={`text-5xl font-light tracking-tight ${state ? 'text-brand-700' : 'text-slate-900'}`}>
+        <p className={`text-5xl font-light tracking-tight ${state ? 'text-brand-700' : 'text-ink'}`}>
           {state ? t('alerts.statOn') : t('alerts.statOff')}
         </p>
 
@@ -65,15 +65,15 @@ export default function AlertsCard() {
             <Trans i18nKey="alerts.addPhone" components={{ link: <Link to="/profile" className="underline" /> }} />
           </p>
         )}
-        {message && <p className={`text-xs mt-1 ${isError ? 'text-red-600' : 'text-slate-500'}`}>{message}</p>}
+        {message && <p className={`text-xs mt-1 ${isError ? 'text-red-600' : 'text-muted'}`}>{message}</p>}
 
         {state ? (
-          <button onClick={turnOff} disabled={busy} className="mt-2 text-sm text-slate-500 underline">
+          <button onClick={turnOff} disabled={busy} className="mt-2 text-sm text-muted underline">
             {t('alerts.turnOff')}
           </button>
         ) : (
           <button onClick={turnOn} disabled={busy}
-            className="mt-3 w-full rounded-full bg-[#0b0b0f] text-white py-2.5 text-sm font-medium disabled:opacity-60 active:opacity-80">
+            className="mt-3 w-full rounded-full bg-ink text-white py-2.5 text-sm font-medium disabled:opacity-60 active:opacity-80">
             {busy ? t('alerts.turningOn') : t('alerts.turnOn')}
           </button>
         )}

@@ -5,6 +5,9 @@
 import { StrictMode, lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
+// Premium font, stored inside the app (no Google Fonts call). One 32 KB file
+// covers every weight; Hindi text uses the phone's own Devanagari font.
+import '@fontsource-variable/outfit'
 import './index.css'
 import './i18n' // load translations before anything is shown
 
@@ -32,7 +35,7 @@ const AdminDashboard = lazy(() => import('./pages/AdminDashboard.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound.jsx'))
 
 // Shown for a moment while a page's code downloads
-const loading = <p className="text-slate-500 text-sm">…</p>
+const loading = <p className="text-muted text-sm">…</p>
 const page = (element) => <Suspense fallback={loading}>{element}</Suspense>
 const loggedIn = (element, roles) => page(<ProtectedRoute roles={roles}>{element}</ProtectedRoute>)
 

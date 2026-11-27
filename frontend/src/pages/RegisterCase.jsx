@@ -126,7 +126,7 @@ export default function RegisterCase() {
       {/* ---- Photo ---- */}
       <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-2">
         <label className={labelClass}>Photo *</label>
-        <p className="text-xs text-slate-500">A recent photo where the face is clear and facing the camera works best for face matching.</p>
+        <p className="text-xs text-muted">A recent photo where the face is clear and facing the camera works best for face matching.</p>
         {photoPreview && (
           <img src={photoPreview} alt="Preview" className="w-32 h-32 object-cover rounded-lg" />
         )}
@@ -178,7 +178,7 @@ export default function RegisterCase() {
         </div>
         <div>
           <label className={labelClass}>Last seen: place on map *</label>
-          <Suspense fallback={<div className="h-64 rounded-lg bg-slate-100 flex items-center justify-center text-sm text-slate-500">Loading map…</div>}>
+          <Suspense fallback={<div className="h-64 rounded-lg bg-slate-100 flex items-center justify-center text-sm text-muted">Loading map…</div>}>
             <LocationPicker value={point} onChange={setPoint} />
           </Suspense>
         </div>
@@ -195,7 +195,7 @@ export default function RegisterCase() {
         className="w-full bg-flame-600 text-white rounded-xl py-4 font-semibold text-lg disabled:opacity-60 active:bg-flame-700">
         {busy ? 'Submitting…' : 'Submit for police approval'}
       </button>
-      <p className="text-xs text-slate-500 text-center">
+      <p className="text-xs text-muted text-center">
         Alerts go out only after the police approve the case.
       </p>
     </form>

@@ -65,13 +65,13 @@ export default function AdminDashboard() {
         <button className="bg-brand-700 text-white rounded-lg px-4 font-semibold">Search</button>
       </form>
 
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-muted">
         Showing {users.length}: {ROLES.map((r) => `${count(r)} ${r}`).join(' · ')}
       </p>
 
       {error && <p className="text-red-600 text-sm">{error}</p>}
       {message && <p className="text-green-700 text-sm">{message}</p>}
-      {loading && <p className="text-slate-500 text-sm">Loading…</p>}
+      {loading && <p className="text-muted text-sm">Loading…</p>}
 
       <ul className="space-y-2">
         {users.map((u) => (
@@ -79,22 +79,22 @@ export default function AdminDashboard() {
             <div className="flex justify-between gap-2 items-start">
               <div className="min-w-0">
                 <p className="font-semibold truncate">{u.full_name || '(no name)'}</p>
-                <p className="text-slate-600 break-all">{u.email}</p>
-                {u.phone && <p className="text-slate-600">📞 {u.phone}</p>}
+                <p className="text-muted break-all">{u.email}</p>
+                {u.phone && <p className="text-muted">📞 {u.phone}</p>}
               </div>
               <span className={`shrink-0 text-xs font-semibold uppercase px-2 py-1 rounded ${roleStyles[u.role]}`}>
                 {u.role}
               </span>
             </div>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-muted">
               Joined {timeAgo(u.created_at)}
               {u.last_sign_in_at && ` · last login ${timeAgo(u.last_sign_in_at)}`}
             </p>
             {u.id === user.id ? (
-              <p className="text-xs text-slate-500">This is you. (You can’t change your own role here, so you can’t lock yourself out.)</p>
+              <p className="text-xs text-muted">This is you. (You can’t change your own role here, so you can’t lock yourself out.)</p>
             ) : (
               <label className="flex items-center gap-2">
-                <span className="text-slate-600">Role:</span>
+                <span className="text-muted">Role:</span>
                 <select value={u.role} onChange={(e) => changeRole(u, e.target.value)}
                   className="border border-slate-300 rounded-lg px-2 py-1">
                   {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}

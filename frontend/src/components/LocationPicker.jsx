@@ -114,7 +114,7 @@ export default function LocationPicker({ value, onChange, readOnly = false }) {
         {locating ? t('picker.finding') : t('picker.useMyLocation')}
       </button>
       {gpsError && <p className="text-amber-700 text-sm">{gpsError}</p>}
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-muted">
         {value
           ? t('picker.pinAt', { lat: value.lat.toFixed(5), lng: value.lng.toFixed(5) })
           : t('picker.tapHint')}

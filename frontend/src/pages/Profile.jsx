@@ -76,14 +76,14 @@ export default function Profile() {
     <div className="space-y-4">
       {/* Who you are */}
       <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80">
-        <p className="text-sm text-slate-500">Logged in as</p>
+        <p className="text-sm text-muted">Logged in as</p>
         <p className="font-semibold break-all">{user.email}</p>
         <p className="mt-2">
           <span className="inline-block bg-brand-100 text-brand-700 text-xs font-semibold uppercase px-2 py-1 rounded">
             {role}
           </span>
         </p>
-        <p className="text-sm text-slate-600 mt-1">{roleInfo[role]}</p>
+        <p className="text-sm text-muted mt-1">{roleInfo[role]}</p>
       </section>
 
       {/* Pages for your role */}
@@ -113,7 +113,7 @@ export default function Profile() {
       {/* Public <-> family switch. (Police/admin roles can only be given by an admin.) */}
       {role === 'public' && (
         <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-2">
-          <p className="text-sm text-slate-600">Is someone in your family missing?</p>
+          <p className="text-sm text-muted">Is someone in your family missing?</p>
           <button disabled={busy}
             onClick={() => saveProfile({ role: 'family' }, 'You can now register a missing person.')}
             className="w-full bg-flame-600 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
@@ -124,7 +124,7 @@ export default function Profile() {
       {role === 'family' && (
         <button disabled={busy}
           onClick={() => saveProfile({ role: 'public' }, 'Switched back to a public account.')}
-          className="w-full text-slate-500 text-sm underline">
+          className="w-full text-muted text-sm underline">
           Switch back to a public account
         </button>
       )}

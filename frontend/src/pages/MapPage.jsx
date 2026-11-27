@@ -224,7 +224,7 @@ export default function MapPage() {
       <div ref={mapDivRef} className="w-full h-[calc(100dvh-14rem)] min-h-80 rounded-xl border border-slate-300 isolate" />
 
       {/* Legend */}
-      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
         <span>🔴 Missing person ({cases.length})</span>
         <span>⭕ Alert area</span>
         <span>🔵 You</span>

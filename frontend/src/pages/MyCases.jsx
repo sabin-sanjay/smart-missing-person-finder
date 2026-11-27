@@ -67,9 +67,9 @@ export default function MyCases() {
         </p>
       )}
       {error && <p className="text-red-600 text-sm">{error}</p>}
-      {loading && <p className="text-slate-500 text-sm">Loading…</p>}
+      {loading && <p className="text-muted text-sm">Loading…</p>}
       {!loading && cases.length === 0 && (
-        <p className="text-slate-500 text-sm">You haven’t registered any cases.</p>
+        <p className="text-muted text-sm">You haven’t registered any cases.</p>
       )}
 
       <ul className="space-y-3">
@@ -79,13 +79,13 @@ export default function MyCases() {
               className="w-20 h-20 rounded-lg object-cover bg-slate-200 shrink-0" />
             <div className="text-sm space-y-1 min-w-0">
               <p className="font-semibold">
-                {c.full_name}{c.age != null && <span className="font-normal text-slate-500">, {c.age}</span>}
+                {c.full_name}{c.age != null && <span className="font-normal text-muted">, {c.age}</span>}
               </p>
               <StatusBadge status={c.status} />
               {c.status === 'rejected' && c.rejection_reason && (
-                <p className="text-slate-600">Reason: {c.rejection_reason}</p>
+                <p className="text-muted">Reason: {c.rejection_reason}</p>
               )}
-              <p className="text-slate-500">Last seen {new Date(c.last_seen_at).toLocaleString()}</p>
+              <p className="text-muted">Last seen {new Date(c.last_seen_at).toLocaleString()}</p>
               {c.status === 'pending' && (
                 <button onClick={() => deleteCase(c)} className="text-red-600 underline">Delete</button>
               )}

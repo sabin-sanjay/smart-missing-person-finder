@@ -77,6 +77,15 @@ export default defineConfig(({ mode }) => ({
             },
           },
           {
+            // The Outfit font: saved after the first visit, so text looks right offline too
+            urlPattern: /\/assets\/.*\.woff2$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'fonts',
+              expiration: { maxEntries: 6, maxAgeSeconds: 365 * 24 * 60 * 60 },
+            },
+          },
+          {
             urlPattern: /^https:\/\/tile\.openstreetmap\.org\//,
             handler: 'CacheFirst',
             options: {

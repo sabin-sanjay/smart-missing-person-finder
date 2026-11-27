@@ -74,9 +74,9 @@ export default function PoliceDashboard() {
       </div>
 
       {error && <p className="text-red-600 text-sm">{error}</p>}
-      {loading && <p className="text-slate-500 text-sm">Loading…</p>}
+      {loading && <p className="text-muted text-sm">Loading…</p>}
       {!loading && shown.length === 0 && (
-        <p className="text-slate-500 text-sm">No {tab} cases.</p>
+        <p className="text-muted text-sm">No {tab} cases.</p>
       )}
 
       <ul className="space-y-3">
@@ -87,10 +87,10 @@ export default function PoliceDashboard() {
                 className="w-16 h-16 rounded-lg object-cover bg-slate-200 shrink-0" />
               <div className="text-sm min-w-0">
                 <p className="font-semibold">
-                  {c.full_name}{c.age != null && <span className="font-normal text-slate-500">, {c.age}</span>}
+                  {c.full_name}{c.age != null && <span className="font-normal text-muted">, {c.age}</span>}
                 </p>
-                <p className="text-slate-600 truncate">{c.last_seen_address || 'Location on map'}</p>
-                <p className="text-slate-500">Reported {new Date(c.created_at).toLocaleString()}</p>
+                <p className="text-muted truncate">{c.last_seen_address || 'Location on map'}</p>
+                <p className="text-muted">Reported {new Date(c.created_at).toLocaleString()}</p>
               </div>
             </Link>
           </li>

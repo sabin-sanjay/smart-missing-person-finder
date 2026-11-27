@@ -10,19 +10,19 @@ import { timeAgo } from '../lib/dates'
 const reviewStyles = {
   new: 'bg-amber-100 text-amber-800',
   confirmed: 'bg-green-100 text-green-800',
-  dismissed: 'bg-slate-200 text-slate-600',
+  dismissed: 'bg-slate-200 text-muted',
 }
 
 // The AI face-match result for one sighting photo.
 // 70%+ is DeepFace's own "same person" cut-off for the Facenet512 model.
 function FaceMatch({ score, error, hasPhoto }) {
   if (!hasPhoto) return null
-  if (error) return <p className="text-slate-500">🤖 Face match: not possible ({error})</p>
-  if (score == null) return <p className="text-slate-500">🤖 Face match: checking…</p>
+  if (error) return <p className="text-muted">🤖 Face match: not possible ({error})</p>
+  if (score == null) return <p className="text-muted">🤖 Face match: checking…</p>
   const pct = Math.round(score * 100)
   if (score >= 0.7) return <p className="text-red-700 font-semibold">🤖 Face match: {pct}%, likely the same person</p>
   if (score >= 0.5) return <p className="text-amber-700">🤖 Face match: {pct}%, possible</p>
-  return <p className="text-slate-600">🤖 Face match: {pct}%, probably a different person</p>
+  return <p className="text-muted">🤖 Face match: {pct}%, probably a different person</p>
 }
 
 export default function CaseSightings({ caseId, lastSeen }) {
@@ -79,8 +79,8 @@ export default function CaseSightings({ caseId, lastSeen }) {
     <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
       <h3 className="font-semibold">Sightings ({sightings.length})</h3>
       {error && <p className="text-red-600 text-sm">{error}</p>}
-      {loading && <p className="text-slate-500 text-sm">Loading…</p>}
-      {!loading && sightings.length === 0 && <p className="text-slate-500 text-sm">No sightings reported yet.</p>}
+      {loading && <p className="text-muted text-sm">Loading…</p>}
+      {!loading && sightings.length === 0 && <p className="text-muted text-sm">No sightings reported yet.</p>}
 
       <ul className="space-y-3">
         {sightings.map((s) => (
@@ -88,7 +88,7 @@ export default function CaseSightings({ caseId, lastSeen }) {
             <div className="flex justify-between gap-2 items-start">
               <div>
                 <p className="font-semibold">{timeAgo(s.seen_at)}</p>
-                <p className="text-slate-500 text-xs">{new Date(s.seen_at).toLocaleString()}</p>
+                <p className="text-muted text-xs">{new Date(s.seen_at).toLocaleString()}</p>
               </div>
               <span className={`text-xs font-semibold px-2 py-1 rounded ${reviewStyles[s.review_status]}`}>
                 {s.review_status}
@@ -108,7 +108,7 @@ export default function CaseSightings({ caseId, lastSeen }) {
                 Open in Google Maps
               </a>
             </p>
-            <p className="text-slate-600">
+            <p className="text-muted">
               By {s.reporter?.full_name || 'unknown'}
               {s.reporter?.phone && <> · <a href={`tel:${s.reporter.phone}`} className="text-brand-700 underline">📞 {s.reporter.phone}</a></>}
             </p>

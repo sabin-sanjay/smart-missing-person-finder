@@ -68,14 +68,14 @@ export default function FaceSearch() {
     <div className="space-y-4">
       <h2 className="text-xl font-bold">🔍 Who is this?</h2>
       <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-muted">
           Found someone who seems lost or confused? Take a clear photo of their face to check if
           they’ve been reported missing. The photo is only compared, never saved.
         </p>
         {preview && <img src={preview} alt="Your photo" className="w-32 h-32 object-cover rounded-lg" />}
         <PhotoPicker onChange={handlePhoto} disabled={busy} hasPhoto={Boolean(preview)}
           text="📷 Choose or take a photo" changeText="📷 Try another photo" />
-        {busy && <p className="text-sm text-slate-500">🤖 Comparing faces… (this can take up to 30 seconds)</p>}
+        {busy && <p className="text-sm text-muted">🤖 Comparing faces… (this can take up to 30 seconds)</p>}
         {error && <p className="text-sm text-red-600">{error}</p>}
       </section>
 
@@ -100,12 +100,12 @@ export default function FaceSearch() {
                 className="w-20 h-20 rounded-lg object-cover bg-slate-200 shrink-0" />
               <div className="text-sm space-y-1 min-w-0">
                 <p className="font-semibold">
-                  {m.full_name}{m.age != null && <span className="font-normal text-slate-500">, {m.age}</span>}
+                  {m.full_name}{m.age != null && <span className="font-normal text-muted">, {m.age}</span>}
                 </p>
                 <p className={m.likely_match ? 'text-red-700 font-semibold' : 'text-amber-700'}>
                   {m.likely_match ? '⚠️ Likely match' : 'Possible match'}: {Math.round(m.similarity * 100)}%
                 </p>
-                <p className="text-slate-500">Missing since {timeAgo(m.last_seen_at)}</p>
+                <p className="text-muted">Missing since {timeAgo(m.last_seen_at)}</p>
                 <div className="flex gap-3">
                   <Link to={`/case/${m.case_id}`} className="text-brand-700 underline">Details</Link>
                   <Link to={`/report?case=${m.case_id}`} className="text-red-600 underline font-semibold">Report sighting</Link>
@@ -113,7 +113,7 @@ export default function FaceSearch() {
               </div>
             </div>
           ))}
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-muted">
             AI matches can be wrong. Compare the photos yourself, and let the police confirm.
           </p>
         </section>

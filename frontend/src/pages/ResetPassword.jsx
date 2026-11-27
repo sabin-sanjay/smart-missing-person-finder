@@ -26,7 +26,7 @@ export default function ResetPassword() {
     else navigate('/profile', { replace: true })
   }
 
-  if (loading) return <p className="text-slate-500 text-sm">Loading…</p>
+  if (loading) return <p className="text-muted text-sm">Loading…</p>
 
   // No login from the link: it expired or was already used
   if (!session) {

@@ -132,7 +132,7 @@ export default function ReportSighting() {
       <div className="bg-white rounded-xl p-6 shadow-sm ring-1 ring-slate-200/80 text-center space-y-3">
         <p className="text-5xl">🙏</p>
         <h2 className="text-xl font-bold">{t('report.thankYou')}</h2>
-        <p className="text-slate-600 text-sm">
+        <p className="text-muted text-sm">
           <Trans i18nKey="report.thankText" components={{ link: <a href="tel:112" className="underline" /> }} />
         </p>
         <Link to="/" className="inline-block text-brand-700 underline">{t('report.backHome')}</Link>
@@ -145,11 +145,11 @@ export default function ReportSighting() {
     return (
       <div className="space-y-4">
         <h2 className="text-xl font-bold">{t('report.whoDidYouSee')}</h2>
-        {myLocation && <p className="text-xs text-slate-500">{t('report.nearestFirst')}</p>}
+        {myLocation && <p className="text-xs text-muted">{t('report.nearestFirst')}</p>}
         {error && <p className="text-red-600 text-sm">{error}</p>}
-        {loadingCases && <p className="text-slate-500 text-sm">{t('common.loading')}</p>}
+        {loadingCases && <p className="text-muted text-sm">{t('common.loading')}</p>}
         {!loadingCases && cases.length === 0 && (
-          <p className="text-slate-500 text-sm">{t('report.noActive')}</p>
+          <p className="text-muted text-sm">{t('report.noActive')}</p>
         )}
         <ul className="space-y-3">
           {sortedCases.map((c) => (
@@ -162,11 +162,11 @@ export default function ReportSighting() {
                   className="w-16 h-16 rounded-lg object-cover bg-slate-200 shrink-0" />
                 <div className="text-sm min-w-0">
                   <p className="font-semibold">
-                    {c.full_name}{c.age != null && <span className="font-normal text-slate-500">, {c.age}</span>}
+                    {c.full_name}{c.age != null && <span className="font-normal text-muted">, {c.age}</span>}
                   </p>
-                  <p className="text-slate-600 truncate">{c.last_seen_address || t('home.locationOnMap')}</p>
+                  <p className="text-muted truncate">{c.last_seen_address || t('home.locationOnMap')}</p>
                   {myLocation && (
-                    <p className="text-slate-500">
+                    <p className="text-muted">
                       {t('report.fromYou', { distance: formatDistance(distanceKm(myLocation, { lat: c.last_seen_lat, lng: c.last_seen_lng })) })}
                     </p>
                   )}

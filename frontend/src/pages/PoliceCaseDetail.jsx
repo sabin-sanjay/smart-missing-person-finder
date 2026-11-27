@@ -77,7 +77,7 @@ export default function PoliceCaseDetail() {
     )
   }
 
-  if (loading) return <p className="text-slate-500 text-sm">Loading…</p>
+  if (loading) return <p className="text-muted text-sm">Loading…</p>
   if (!c) return <p className="text-red-600 text-sm">{error}</p>
 
   return (
@@ -96,22 +96,22 @@ export default function PoliceCaseDetail() {
           className="w-full max-h-80 object-contain rounded-lg bg-slate-100" />
         <div>
           <h2 className="text-xl font-bold">
-            {c.full_name}{c.age != null && <span className="font-normal text-slate-500">, {c.age}</span>}
+            {c.full_name}{c.age != null && <span className="font-normal text-muted">, {c.age}</span>}
           </h2>
           <StatusBadge status={c.status} />
         </div>
         <dl className="text-sm grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
-          <dt className="text-slate-500">Gender</dt><dd>{c.gender ?? 'Not given'}</dd>
-          <dt className="text-slate-500">Height</dt><dd>{c.height_cm ? `${c.height_cm} cm` : 'Not given'}</dd>
-          <dt className="text-slate-500">Last seen</dt><dd>{new Date(c.last_seen_at).toLocaleString()}</dd>
-          <dt className="text-slate-500">Place</dt><dd>{c.last_seen_address || 'See map'}</dd>
-          <dt className="text-slate-500">Reported</dt><dd>{new Date(c.created_at).toLocaleString()}</dd>
-          {c.verified_at && (<><dt className="text-slate-500">Reviewed</dt><dd>{new Date(c.verified_at).toLocaleString()}</dd></>)}
-          {c.found_at && (<><dt className="text-slate-500">Found</dt><dd>{new Date(c.found_at).toLocaleString()}</dd></>)}
-          {c.status === 'active' && (<><dt className="text-slate-500">Alert radius</dt><dd>{c.alert_radius_km} km</dd></>)}
+          <dt className="text-muted">Gender</dt><dd>{c.gender ?? 'Not given'}</dd>
+          <dt className="text-muted">Height</dt><dd>{c.height_cm ? `${c.height_cm} cm` : 'Not given'}</dd>
+          <dt className="text-muted">Last seen</dt><dd>{new Date(c.last_seen_at).toLocaleString()}</dd>
+          <dt className="text-muted">Place</dt><dd>{c.last_seen_address || 'See map'}</dd>
+          <dt className="text-muted">Reported</dt><dd>{new Date(c.created_at).toLocaleString()}</dd>
+          {c.verified_at && (<><dt className="text-muted">Reviewed</dt><dd>{new Date(c.verified_at).toLocaleString()}</dd></>)}
+          {c.found_at && (<><dt className="text-muted">Found</dt><dd>{new Date(c.found_at).toLocaleString()}</dd></>)}
+          {c.status === 'active' && (<><dt className="text-muted">Alert radius</dt><dd>{c.alert_radius_km} km</dd></>)}
         </dl>
         {c.description && <p className="text-sm whitespace-pre-line">{c.description}</p>}
-        {c.rejection_reason && <p className="text-sm text-slate-600">Rejection reason: {c.rejection_reason}</p>}
+        {c.rejection_reason && <p className="text-sm text-muted">Rejection reason: {c.rejection_reason}</p>}
       </section>
 
       {/* Who reported it, so police can call them to verify */}
@@ -121,7 +121,7 @@ export default function PoliceCaseDetail() {
         {c.reporter?.phone ? (
           <a href={`tel:${c.reporter.phone}`} className="text-brand-700 underline">📞 {c.reporter.phone}</a>
         ) : (
-          <p className="text-slate-500">No phone number in their profile</p>
+          <p className="text-muted">No phone number in their profile</p>
         )}
       </section>
 

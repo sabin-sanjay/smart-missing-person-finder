@@ -82,7 +82,7 @@ export default function Home() {
     <div className="flex flex-col gap-5">
       {/* 1. Quick search */}
       <label className="flex items-center gap-3 rounded-full border border-slate-900/10 bg-white/70 px-5 py-3.5">
-        <Icon name="search" className="w-5 h-5 text-slate-500" />
+        <Icon name="search" className="w-5 h-5 text-muted" />
         <input
           type="search"
           value={search}
@@ -103,11 +103,11 @@ export default function Home() {
                 <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-flame-500 text-white text-xs font-bold flex items-center justify-center">!</span>
               )}
             </span>
-            <Link to="/map" className="lq-icon-btn bg-slate-100 border-transparent text-slate-600" aria-label={t('home.mapShort')}>
+            <Link to="/map" className="lq-icon-btn bg-slate-100 border-transparent text-muted" aria-label={t('home.mapShort')}>
               <Icon name="arrow" />
             </Link>
           </div>
-          <p className="mt-4 text-lg text-slate-800">{t('home.statMissing')}</p>
+          <p className="mt-4 text-lg text-ink">{t('home.statMissing')}</p>
           <div className="mt-auto flex items-end justify-between">
             <p className="text-6xl font-light tracking-tight">
               {loading ? '–' : cases.length}
@@ -127,7 +127,7 @@ export default function Home() {
             <span className="lq-icon-btn border-white/40 bg-white/15 text-white">
               <Icon name="scan" className="w-[22px] h-[22px]" />
             </span>
-            <span className="lq-icon-btn border-transparent bg-[#0b0b0f] text-white">
+            <span className="lq-icon-btn border-transparent bg-ink text-white">
               <Icon name="arrow" />
             </span>
           </div>
@@ -138,7 +138,7 @@ export default function Home() {
       </div>
 
       {/* 3. Filter pills */}
-      <div className="lq-rail !my-0 !py-1" role="group" aria-label={t('home.casesTitle')}>
+      <div className="lq-rail !-my-2 !py-3" role="group" aria-label={t('home.casesTitle')}>
         {Object.keys(FILTERS).map((key) => (
           <button key={key} className="lq-pill" aria-pressed={filter === key} onClick={() => setFilter(key)}>
             {t(`home.filter${key[0].toUpperCase()}${key.slice(1)}`)}
@@ -147,11 +147,11 @@ export default function Home() {
       </div>
 
       {/* 4. Case cards. Show ONE of: loading, error, empty, or the cards */}
-      {loading && <p className="text-slate-500 text-sm px-1">{t('common.loading')}</p>}
+      {loading && <p className="text-muted text-sm px-1">{t('common.loading')}</p>}
       {!loading && error && <p className="text-red-600 text-sm px-1">{error}</p>}
-      {!loading && !error && cases.length === 0 && <p className="text-slate-500 text-sm px-1">{t('home.noCases')}</p>}
+      {!loading && !error && cases.length === 0 && <p className="text-muted text-sm px-1">{t('home.noCases')}</p>}
       {!loading && !error && cases.length > 0 && shown.length === 0 && (
-        <p className="text-slate-500 text-sm px-1">{t('home.noMatch')}</p>
+        <p className="text-muted text-sm px-1">{t('home.noMatch')}</p>
       )}
 
       {shown.length > 0 && (
@@ -172,7 +172,7 @@ export default function Home() {
                     <span className="block truncate">{c.full_name}</span>
                     {c.age != null && <span className="text-white/70 text-base">{c.age}</span>}
                   </p>
-                  <span className="lq-icon-btn border-transparent bg-[#0b0b0f] text-white">
+                  <span className="lq-icon-btn border-transparent bg-ink text-white">
                     <Icon name="arrow" />
                   </span>
                 </div>
@@ -205,7 +205,7 @@ export default function Home() {
           <Icon name="pin" className="w-7 h-7 relative" />
           <span className="font-medium relative">{t('home.reportShort')}</span>
         </Link>
-        <Link to="/map" className="lq-card px-4 py-5 flex flex-col gap-3 text-slate-900">
+        <Link to="/map" className="lq-card px-4 py-5 flex flex-col gap-3 text-ink">
           <Icon name="map" className="w-7 h-7 text-brand-700" />
           <span className="font-medium">{t('home.mapShort')}</span>
         </Link>

@@ -31,7 +31,7 @@ export default function CaseView() {
       })
   }, [id])
 
-  if (loading) return <p className="text-slate-500 text-sm">{t('common.loading')}</p>
+  if (loading) return <p className="text-muted text-sm">{t('common.loading')}</p>
   if (!c) {
     return (
       <div className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 text-center space-y-2">
@@ -51,7 +51,7 @@ export default function CaseView() {
           className="w-full max-h-96 object-contain rounded-lg bg-slate-100" />
         <div>
           <h2 className="text-2xl font-bold">
-            {c.full_name}{c.age != null && <span className="font-normal text-slate-500">, {c.age}</span>}
+            {c.full_name}{c.age != null && <span className="font-normal text-muted">, {c.age}</span>}
           </h2>
           <StatusBadge status={c.status} />
         </div>
@@ -62,7 +62,7 @@ export default function CaseView() {
             <Trans i18nKey="case.near" values={{ place: c.last_seen_address }} components={{ b: <strong /> }} />
           )}
         </p>
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-muted">
           {[c.gender && t(`gender.${c.gender}`), c.height_cm && `${c.height_cm} cm`].filter(Boolean).join(' · ')}
         </p>
         {c.description && <p className="text-sm whitespace-pre-line">{c.description}</p>}
@@ -82,7 +82,7 @@ export default function CaseView() {
         </Suspense>
       </section>
 
-      <p className="text-xs text-slate-500 text-center">
+      <p className="text-xs text-muted text-center">
         <Trans i18nKey="case.emergency" components={{ link: <a href="tel:112" className="underline" /> }} />
       </p>
     </div>

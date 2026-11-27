@@ -15,7 +15,7 @@ export default function ProtectedRoute({ roles, children }) {
   const location = useLocation()
 
   if (loading) {
-    return <p className="text-slate-500 text-sm">Loading…</p>
+    return <p className="text-muted text-sm">Loading…</p>
   }
 
   // Not logged in: send them to the login page, remembering where they wanted to go
@@ -29,7 +29,7 @@ export default function ProtectedRoute({ roles, children }) {
     return (
       <div className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 text-center space-y-2">
         <h2 className="text-xl font-bold">Not allowed</h2>
-        <p className="text-slate-600 text-sm">
+        <p className="text-muted text-sm">
           This page is only for: {roles.join(', ')}. Your role is: {role ?? 'unknown'}.
         </p>
         <Link to="/" className="text-brand-700 underline">Go to Home</Link>
