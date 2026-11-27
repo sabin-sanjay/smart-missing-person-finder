@@ -168,3 +168,72 @@ async def run_found_notices_once() -> dict:
     summary = {"cases": len(case_ids), "push_sent": sum(1 for x in results if x["ok"])}
     log.info("Found notices: %s", summary)
     return summary
+
+
+
+async def run_sighting_notices_once() -> dict:
+    """
+    Family updates: when someone reports a sighting, tell the family who
+    registered the case (once per sighting).
+    """
+    if not db.is_configured():
+        return {"error": "Supabase is not configured."}
+    rows = await db.rpc("pending_sighting_notices", {"p_limit": 200}) or []
+    if not rows:
+        return {"sightings": 0, "push_sent": 0}
+
+    messages = [{
+        "token": r["fcm_token"],
+        "title": f"👀 Someone reported seeing {r['full_name']}",
+        "body": "The police have the details and are checking it now.",
+        "url": f"{config.APP_URL}/case/{r['case_id']}",
+        "tag": f"sighting-{r['sighting_id']}",
+    } for r in rows if r.get("fcm_token")]
+    results = await asyncio.to_thread(push.send_many, messages) if messages else []
+
+    ids = sorted({r["sighting_id"] for r in rows})
+    await db.rpc("mark_sighting_notified", {"p_ids": ids})
+    summary = {"sightings": len(ids), "push_sent": sum(1 for x in results if x["ok"])}
+    log.info("Sighting notices: %s", summary)
+    return summary
+
+
+async def run_match_notices_once() -> dict:
+    """
+    "Found someone" matches: when the AI finds a likely match (70%+), tell
+    every police/admin phone and the person who registered the found person.
+    """
+    if not db.is_configured():
+        return {"error": "Supabase is not configured."}
+    rows = await db.rpc("pending_match_notices", {"p_limit": 200}) or []
+    if not rows:
+        return {"matches": 0, "push_sent": 0}
+
+    messages = []
+    for r in rows:
+        if not r.get("fcm_token"):
+            continue
+        pct = round(float(r["score"]) * 100)
+        if r["for_finder"]:
+            messages.append({
+                "token": r["fcm_token"],
+                "title": "🔎 Possible match for the person you found",
+                "body": f"They may be {r['full_name']} ({pct}% face match). Police have been told.",
+                "url": f"{config.APP_URL}/found-someone",
+                "tag": f"found-{r['found_id']}",
+            })
+        else:
+            messages.append({
+                "token": r["fcm_token"],
+                "title": f"🔎 Found person may be {r['full_name']}",
+                "body": f"{pct}% face match with a registered missing person. Please check.",
+                "url": f"{config.APP_URL}/police/found",
+                "tag": f"found-{r['found_id']}",
+            })
+    results = await asyncio.to_thread(push.send_many, messages) if messages else []
+
+    ids = sorted({r["found_id"] for r in rows})
+    await db.rpc("mark_match_notified", {"p_ids": ids})
+    summary = {"matches": len(ids), "push_sent": sum(1 for x in results if x["ok"])}
+    log.info("Match notices: %s", summary)
+    return summary

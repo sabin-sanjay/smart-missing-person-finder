@@ -126,6 +126,13 @@ export default function Home() {
         </span>
         <Icon name="chevron" className="w-5 h-5 text-white/70" />
       </Link>
+      <Link to="/found-someone" className="bk-row">
+        <span className="flex items-center gap-3">
+          <span className="icon-circle"><Icon name="users" className="w-5 h-5" /></span>
+          <span>{t('found.rowTitle')} <span className="text-muted text-sm">· {t('found.rowText')}</span></span>
+        </span>
+        <Icon name="chevron" className="w-5 h-5 text-white/70" />
+      </Link>
       <Link to="/map" className="bk-row">
         <span className="flex items-center gap-3">
           <span className="icon-circle"><Icon name="map" className="w-5 h-5" /></span>
@@ -133,6 +140,34 @@ export default function Home() {
         </span>
         <Icon name="chevron" className="w-5 h-5 text-white/70" />
       </Link>
+
+
+      {/* Emergency help: one tap to call, or find the nearest police / hospital */}
+      <section className="bk-panel">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-lg">{t('emergency.title')}</h3>
+          <span className="badge badge-red">24×7</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            ['112', 'emergency.call112'],
+            ['1098', 'emergency.child'],
+            ['100', 'emergency.police'],
+            ['108', 'emergency.ambulance'],
+          ].map(([num, key]) => (
+            <a key={num} href={`tel:${num}`} data-haptic="strong" className="call-tile">
+              <span className="call-num">{num}</span>
+              <span className="call-label">{t(key)}</span>
+            </a>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-2 mt-2">
+          <a className="bk-btn bk-btn-ghost !text-[0.8rem]" target="_blank" rel="noreferrer"
+            href="https://www.google.com/maps/search/?api=1&query=police+station+near+me">🚓 {t('emergency.nearPolice')}</a>
+          <a className="bk-btn bk-btn-ghost !text-[0.8rem]" target="_blank" rel="noreferrer"
+            href="https://www.google.com/maps/search/?api=1&query=hospital+near+me">🏥 {t('emergency.nearHospital')}</a>
+        </div>
+      </section>
 
       {/* 3. Heading + filter chips */}
       <div className="flex items-center justify-between gap-2 mt-3 px-1">

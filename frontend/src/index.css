@@ -657,3 +657,24 @@ body {
   }
   @media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
 }
+
+
+/* Emergency call tiles: big number, small label */
+@layer components {
+  .call-tile {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 1.2rem;
+    border: 1.5px solid rgb(255 255 255 / 0.25);
+    background: rgb(255 255 255 / 0.08);
+    color: #fff;
+  }
+  .call-tile:first-child {
+    border-color: rgb(255 255 255 / 0.25);
+    background: linear-gradient(180deg, #f0262e 0%, #c50e16 100%);
+    box-shadow: 0 8px 20px -10px rgb(225 20 28 / 0.9);
+  }
+  .call-num { font-size: 1.45rem; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; }
+  .call-label { font-size: 0.72rem; color: rgb(255 255 255 / 0.75); }
+  .call-tile:first-child .call-label { color: rgb(255 255 255 / 0.9); }
+}

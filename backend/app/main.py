@@ -40,6 +40,8 @@ async def run_worker_once() -> dict:
             ("faces", face_jobs.run_face_jobs_once),
             ("alerts", alerts.run_alerts_once),
             ("found", alerts.run_found_notices_once),  # "has been found" notifications
+            ("sightings", alerts.run_sighting_notices_once),  # tell the family about new sightings
+            ("matches", alerts.run_match_notices_once),       # "found someone" likely matches
         )
         for name, job in jobs:
             try:

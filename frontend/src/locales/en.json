@@ -169,5 +169,37 @@
     "free": "Free",
     "languages": "5 languages",
     "private": "Private"
+  },
+  "emergency": {
+    "title": "Emergency help",
+    "call112": "Emergency",
+    "child": "Child helpline",
+    "police": "Police",
+    "ambulance": "Ambulance",
+    "nearPolice": "Police near me",
+    "nearHospital": "Hospital near me"
+  },
+  "found": {
+    "rowTitle": "Found someone lost?",
+    "rowText": "Register them",
+    "title": "Found someone who seems lost?",
+    "intro": "Register a lost child or adult you have found. Our AI compares their photo with every missing person, and police are told if it may be them. Only you and the police can see the photo.",
+    "emergencyTip": "If they are in danger, call 112 first.",
+    "photo": "Their photo *",
+    "where": "Where are they now?",
+    "details": "Details",
+    "detailsPlaceholder": "What are they wearing? What did they say? Anything that could help identify them.",
+    "send": "Register and check with AI",
+    "sending": "Sending…",
+    "thanks": "Thank you. The AI is checking the photo now (1–2 minutes). The police can see your report.",
+    "errPhoto": "Please add a photo of their face.",
+    "errUpload": "Photo upload failed: {{detail}}",
+    "errSend": "Could not register: {{detail}}",
+    "myReports": "My reports",
+    "checking": "🤖 AI is checking the photo…",
+    "noFace": "No clear face in the photo. Police can still see your report.",
+    "possible": "Possible match: {{name}} ({{pct}}%)",
+    "noMatch": "No match yet. We keep checking as new cases are added.",
+    "viewCase": "View case"
   }
 }

@@ -57,6 +57,8 @@ const MapPage = lazyPage(() => import('./pages/MapPage.jsx'))
 const ReportSighting = lazyPage(() => import('./pages/ReportSighting.jsx'))
 const CaseView = lazyPage(() => import('./pages/CaseView.jsx'))
 const FaceSearch = lazyPage(() => import('./pages/FaceSearch.jsx'))
+const FoundSomeone = lazyPage(() => import('./pages/FoundSomeone.jsx'))
+const PoliceFound = lazyPage(() => import('./pages/PoliceFound.jsx'))
 const Login = lazyPage(() => import('./pages/Login.jsx'))
 const ResetPassword = lazyPage(() => import('./pages/ResetPassword.jsx'))
 const Profile = lazyPage(() => import('./pages/Profile.jsx'))
@@ -90,6 +92,7 @@ const router = createBrowserRouter([
       { path: 'profile', element: loggedIn(<Profile />) },
       { path: 'report', element: loggedIn(<ReportSighting />) },
       { path: 'who-is-this', element: loggedIn(<FaceSearch />) },
+      { path: 'found-someone', element: loggedIn(<FoundSomeone />) },
 
       // Families (police and admin may also register cases, e.g. walk-in reports)
       { path: 'my-cases', element: loggedIn(<MyCases />, ['family', 'police', 'admin']) },
@@ -99,6 +102,7 @@ const router = createBrowserRouter([
       { path: 'police', element: loggedIn(<PoliceDashboard />, ['police', 'admin']) },
       { path: 'police/case/:id', element: loggedIn(<PoliceCaseDetail />, ['police', 'admin']) },
       { path: 'police/analytics', element: loggedIn(<PoliceAnalytics />, ['police', 'admin']) },
+      { path: 'police/found', element: loggedIn(<PoliceFound />, ['police', 'admin']) },
 
       // Admin only
       { path: 'admin', element: loggedIn(<AdminDashboard />, ['admin']) },

@@ -5,6 +5,9 @@ face_jobs.py: the background face-matching work, done a few photos at a time.
   2. New sighting photos -> compute embeddings of every face in the photo,
      compare each with the case's face, save the best score on the sighting
      (police see it as "🤖 Face match: 83%")
+  3. "Found someone" photos -> compute the face, compare with every active
+     missing case, save the best match (and re-check open reports when a
+     new missing case appears)
 """
 
 import asyncio
@@ -70,11 +73,66 @@ async def process_sighting_photos(limit: int = 20) -> int:
     return len(rows)
 
 
+LIKELY_MATCH = 0.70
+
+
+async def _best_case_match(embedding_text: str):
+    """The active missing case whose face is closest, and how close (0..1)."""
+    rows = await db.rpc("match_case_faces", {"p_embedding": embedding_text, "p_limit": 1}) or []
+    if not rows:
+        return None, None
+    return rows[0]["case_id"], round(float(rows[0]["similarity"]), 3)
+
+
+async def process_found_photos(limit: int = 10) -> int:
+    rows = await db.rpc("found_needing_faces", {"p_limit": limit}) or []
+    for r in rows:
+        values = {"face_checked_at": _now(), "face_error": None}
+        try:
+            photo = await db.download_photo("found-photos", r["photo_path"])
+            found = await asyncio.to_thread(faces.get_embeddings, photo)
+            if not found:
+                values["face_error"] = "no face found in the photo"
+            else:
+                emb = faces.to_pgvector(found[0])
+                await db.upsert("found_faces", {"found_id": r["found_id"], "embedding": emb, "computed_at": _now()},
+                                on_conflict="found_id")
+                case_id, score = await _best_case_match(emb)
+                values["match_case_id"] = case_id
+                values["match_score"] = score
+                if score is not None and score >= LIKELY_MATCH:
+                    values["status"] = "matched"
+        except Exception as e:
+            log.exception("Found photo %s failed", r["found_id"])
+            values["face_error"] = f"could not process photo: {e}"[:300]
+        await db.update_by_id("found_persons", r["found_id"], values)
+    return len(rows)
+
+
+async def recheck_found(limit: int = 20) -> int:
+    """A new missing case appeared: compare open found reports again."""
+    rows = await db.rpc("found_needing_recheck", {"p_limit": limit}) or []
+    for r in rows:
+        values = {"face_checked_at": _now()}
+        case_id, score = await _best_case_match(r["embedding"])
+        if case_id:
+            values["match_case_id"] = case_id
+            values["match_score"] = score
+            if score is not None and score >= LIKELY_MATCH:
+                values["status"] = "matched"
+        await db.update_by_id("found_persons", r["found_id"], values)
+    return len(rows)
+
+
 async def run_face_jobs_once() -> dict:
     if not db.is_configured():
         return {"error": "Supabase is not configured (SUPABASE_URL / SUPABASE_SECRET_KEY)."}
     cases_done = await process_case_photos()
     sightings_done = await process_sighting_photos()
-    if cases_done or sightings_done:
-        log.info("Face jobs: %d case photos, %d sighting photos", cases_done, sightings_done)
-    return {"case_photos_processed": cases_done, "sighting_photos_processed": sightings_done}
+    found_done = await process_found_photos()
+    rechecked = await recheck_found()
+    if cases_done or sightings_done or found_done or rechecked:
+        log.info("Face jobs: %d case, %d sighting, %d found photos, %d rechecked",
+                 cases_done, sightings_done, found_done, rechecked)
+    return {"case_photos_processed": cases_done, "sighting_photos_processed": sightings_done,
+            "found_photos_processed": found_done, "found_rechecked": rechecked}
