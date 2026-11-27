@@ -15,7 +15,6 @@ import { useTranslation } from 'react-i18next'
 import { supabase, isSupabaseConfigured, casePhotoUrl } from '../lib/supabase'
 import AlertsCard from '../components/AlertsCard'
 import Icon from '../components/Icons'
-import SlidingTabs from '../components/SlidingTabs'
 
 const DAY = 24 * 60 * 60 * 1000
 
@@ -135,17 +134,19 @@ export default function Home() {
         <Icon name="chevron" className="w-5 h-5 text-white/70" />
       </Link>
 
-      {/* 3. Heading + sliding filter tabs */}
-      <h3 className="text-xl tracking-tight mt-3 px-1">{t('home.casesTitle')}</h3>
-      <SlidingTabs
-        label={t('home.casesTitle')}
-        value={filter}
-        onChange={setFilter}
-        options={Object.keys(FILTERS).map((key) => ({
-          value: key,
-          label: t(`home.filter${key[0].toUpperCase()}${key.slice(1)}`),
-        }))}
-      />
+      {/* 3. Heading + filter chips */}
+      <div className="flex items-center justify-between gap-2 mt-3 px-1">
+        <h3 className="text-xl tracking-tight">{t('home.casesTitle')}</h3>
+        <div className="flex gap-1.5 overflow-x-auto" role="group" aria-label={t('home.casesTitle')}>
+          {Object.keys(FILTERS).map((key) => (
+            <button key={key} onClick={() => setFilter(key)} aria-pressed={filter === key}
+              className={'font-mono rounded-full px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide whitespace-nowrap border ' +
+                (filter === key ? 'bg-white text-[#161214] border-white' : 'border-white/30 text-white bg-white/10')}>
+              {t(`home.filter${key[0].toUpperCase()}${key.slice(1)}`)}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* 4. Cases. Show ONE of: loading, error, empty, or the panels */}
       {loading && <p className="text-muted text-sm px-1">{t('common.loading')}</p>}

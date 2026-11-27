@@ -13,7 +13,7 @@
 const LIGHT = 18          // one short buzz (milliseconds)
 const STRONG = [30, 50, 30] // buzz, pause, buzz
 
-const IMPORTANT = '.bk-btn, .bk-liquid-orange, .tab, .seg-tab, [data-haptic]'
+const IMPORTANT = '.bk-btn, .bk-liquid-orange, .nav-circle, .nav-active, [data-haptic]'
 
 function vibrate(pattern) {
   try {
