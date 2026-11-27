@@ -192,7 +192,7 @@ export default function RegisterCase() {
       {error && <p className="text-red-600 text-sm bg-red-50 rounded-lg p-3">{error}</p>}
 
       <button type="submit" disabled={busy}
-        className="w-full bk-btn bk-btn-orange !py-4 !text-sm">
+        data-haptic="strong" className="w-full bk-btn bk-btn-orange !py-4 !text-sm">
         {busy ? 'Submitting…' : 'Submit for police approval'}
       </button>
       <p className="text-xs text-muted text-center">

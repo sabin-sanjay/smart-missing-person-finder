@@ -129,7 +129,7 @@ export default function Profile() {
         </button>
       )}
 
-      <button onClick={signOut}
+      <button data-haptic="light" onClick={signOut}
         className="w-full border border-slate-300 rounded-lg py-3 font-semibold text-red-600 active:bg-slate-100">
         Log out
       </button>

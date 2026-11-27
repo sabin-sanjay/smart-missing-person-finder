@@ -108,7 +108,7 @@ export default function FaceSearch() {
                 <p className="text-muted">Missing since {timeAgo(m.last_seen_at)}</p>
                 <div className="flex gap-3">
                   <Link to={`/case/${m.case_id}`} className="text-brand-700 underline">Details</Link>
-                  <Link to={`/report?case=${m.case_id}`} className="text-red-600 underline font-semibold">Report sighting</Link>
+                  <Link data-haptic="light" to={`/report?case=${m.case_id}`} className="text-red-600 underline font-semibold">Report sighting</Link>
                 </div>
               </div>
             </div>

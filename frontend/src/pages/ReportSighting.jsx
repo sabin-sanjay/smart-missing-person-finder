@@ -155,6 +155,7 @@ export default function ReportSighting() {
           {sortedCases.map((c) => (
             <li key={c.id}>
               <button
+                data-haptic="light"
                 onClick={() => setSearchParams({ case: c.id })}
                 className="w-full bk-sheet !p-3.5 flex gap-3 text-left active:opacity-80"
               >
@@ -224,7 +225,7 @@ export default function ReportSighting() {
       {error && <p className="text-red-600 text-sm bg-red-50 rounded-lg p-3">{error}</p>}
 
       <button type="submit" disabled={busy}
-        className="w-full bk-btn bk-btn-orange !py-4 !text-sm">
+        data-haptic="strong" className="w-full bk-btn bk-btn-orange !py-4 !text-sm">
         {busy ? t('report.sending') : t('report.send')}
       </button>
     </form>

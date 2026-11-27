@@ -1,10 +1,11 @@
 // haptics.js: a short vibration when an important button is tapped.
 //
 // Which buttons vibrate:
-//   - every red main button (classes bk-btn-orange, bk-btn-ink, bk-liquid-orange):
-//     "Report sighting", "Turn on alerts", "Send to police", "Log in", ...
-//   - anything marked  data-haptic="strong"  gets a double buzz
-//     (big police actions: Approve, Mark as found, Reject)
+//   - every app button (class bk-btn): "Report sighting", "Turn on alerts",
+//     "Log in", "Share poster", "Details", "Turn off alerts", ...
+//   - the bottom menu buttons
+//   - anything marked  data-haptic  (data-haptic="strong" = double buzz for the
+//     biggest actions: Send to police, Register case, Approve, Mark as found, Reject)
 //
 // Works on Android phones. iPhones don't let websites vibrate, so there it
 // simply does nothing (no errors).
@@ -12,7 +13,7 @@
 const LIGHT = 18          // one short buzz (milliseconds)
 const STRONG = [30, 50, 30] // buzz, pause, buzz
 
-const IMPORTANT = '.bk-btn-orange, .bk-btn-ink, .bk-liquid-orange, [data-haptic]'
+const IMPORTANT = '.bk-btn, .bk-liquid-orange, .nav-circle, .nav-active, [data-haptic]'
 
 function vibrate(pattern) {
   try {
