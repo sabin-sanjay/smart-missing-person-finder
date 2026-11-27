@@ -97,7 +97,7 @@ export default function Login() {
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-900'
+    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-800'
 
   return (
     <div className="bg-white rounded-xl p-4 shadow-sm space-y-4">
@@ -149,7 +149,7 @@ export default function Login() {
         )}
         {mode === 'signin' && (
           <button type="button" onClick={() => { setMode('forgot'); setError(''); setMessage('') }}
-            className="text-sm text-blue-900 underline">
+            className="text-sm text-emerald-800 underline">
             Forgot password?
           </button>
         )}
@@ -160,7 +160,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={busy}
-          className="w-full bg-blue-900 text-white rounded-lg py-3 font-semibold disabled:opacity-60 active:bg-blue-950"
+          className="w-full bg-emerald-800 text-white rounded-lg py-3 font-semibold disabled:opacity-60 active:bg-emerald-900"
         >
           {busy ? 'Please wait…' : mode === 'signin' ? 'Log in' : mode === 'signup' ? 'Create account' : 'Send reset link'}
         </button>
@@ -173,7 +173,7 @@ export default function Login() {
           setError('')
           setMessage('')
         }}
-        className="w-full text-blue-900 text-sm underline"
+        className="w-full text-emerald-800 text-sm underline"
       >
         {mode === 'signin' ? 'New here? Create an account' : 'Already have an account? Log in'}
       </button>

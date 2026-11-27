@@ -1,6 +1,6 @@
 /* index.css
    This one line switches on Tailwind CSS, which lets us style things
-   with short class names like "bg-blue-900" or "p-4" right inside our code. */
+   with short class names like "bg-emerald-800" or "p-4" right inside our code. */
 @import "tailwindcss";
 
 /* A few page-wide basics */

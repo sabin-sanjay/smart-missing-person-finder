@@ -83,7 +83,7 @@ export default function PoliceCaseDetail() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center gap-2">
-        <Link to="/police" className="text-blue-900 text-sm underline">← Back to dashboard</Link>
+        <Link to="/police" className="text-emerald-800 text-sm underline">← Back to dashboard</Link>
         <button onClick={handlePdf} disabled={pdfBusy}
           className="border border-slate-300 bg-white rounded-lg px-3 py-2 text-sm font-semibold disabled:opacity-60">
           {pdfBusy ? 'Making PDF…' : '📄 Download PDF'}
@@ -119,7 +119,7 @@ export default function PoliceCaseDetail() {
         <h3 className="font-semibold mb-1">Reported by</h3>
         <p>{c.reporter?.full_name || 'Name not given'}</p>
         {c.reporter?.phone ? (
-          <a href={`tel:${c.reporter.phone}`} className="text-blue-900 underline">📞 {c.reporter.phone}</a>
+          <a href={`tel:${c.reporter.phone}`} className="text-emerald-800 underline">📞 {c.reporter.phone}</a>
         ) : (
           <p className="text-slate-500">No phone number in their profile</p>
         )}

@@ -32,7 +32,7 @@ export default function ProtectedRoute({ roles, children }) {
         <p className="text-slate-600 text-sm">
           This page is only for: {roles.join(', ')}. Your role is: {role ?? 'unknown'}.
         </p>
-        <Link to="/" className="text-blue-900 underline">Go to Home</Link>
+        <Link to="/" className="text-emerald-800 underline">Go to Home</Link>
       </div>
     )
   }

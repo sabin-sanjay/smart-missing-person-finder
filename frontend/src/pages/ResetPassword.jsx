@@ -33,13 +33,13 @@ export default function ResetPassword() {
     return (
       <div className="bg-white rounded-xl p-4 shadow-sm space-y-2 text-sm">
         <p>This reset link has expired or was already used.</p>
-        <Link to="/login" className="text-blue-900 underline">Ask for a new link</Link>
+        <Link to="/login" className="text-emerald-800 underline">Ask for a new link</Link>
       </div>
     )
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-900'
+    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-800'
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-xl p-4 shadow-sm space-y-3">
@@ -50,7 +50,7 @@ export default function ResetPassword() {
         placeholder="Type it again" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
       {error && <p className="text-red-600 text-sm">{error}</p>}
       <button type="submit" disabled={busy}
-        className="w-full bg-blue-900 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
+        className="w-full bg-emerald-800 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
         {busy ? 'Saving…' : 'Save new password'}
       </button>
     </form>

@@ -104,13 +104,13 @@ export default function CaseSightings({ caseId, lastSeen }) {
 
             <p>
               📍 {formatDistance(distanceKm(lastSeen, { lat: s.lat, lng: s.lng }))} from last-seen spot ·{' '}
-              <a href={googleMapsLink(s.lat, s.lng)} target="_blank" rel="noreferrer" className="text-blue-900 underline">
+              <a href={googleMapsLink(s.lat, s.lng)} target="_blank" rel="noreferrer" className="text-emerald-800 underline">
                 Open in Google Maps
               </a>
             </p>
             <p className="text-slate-600">
               By {s.reporter?.full_name || 'unknown'}
-              {s.reporter?.phone && <> · <a href={`tel:${s.reporter.phone}`} className="text-blue-900 underline">📞 {s.reporter.phone}</a></>}
+              {s.reporter?.phone && <> · <a href={`tel:${s.reporter.phone}`} className="text-emerald-800 underline">📞 {s.reporter.phone}</a></>}
             </p>
 
             {s.review_status === 'new' && (

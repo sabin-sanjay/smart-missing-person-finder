@@ -58,7 +58,7 @@ export default function AlertsCard() {
         <>
           <p className="text-sm text-slate-600">{t('alerts.intro')}</p>
           <button onClick={turnOn} disabled={busy}
-            className="w-full bg-blue-900 text-white rounded-lg py-3 font-semibold disabled:opacity-60 active:bg-blue-950">
+            className="w-full bg-emerald-800 text-white rounded-lg py-3 font-semibold disabled:opacity-60 active:bg-emerald-900">
             {busy ? t('alerts.turningOn') : t('alerts.turnOn')}
           </button>
         </>

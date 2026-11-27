@@ -38,7 +38,7 @@ export default function Profile() {
           Your profile could not be found. Make sure supabase/001_initial_schema.sql was run,
           then delete this user in Supabase (Authentication → Users) and sign up again.
         </p>
-        <button onClick={signOut} className="text-blue-900 underline text-sm">Log out</button>
+        <button onClick={signOut} className="text-emerald-800 underline text-sm">Log out</button>
       </div>
     )
   }
@@ -70,7 +70,7 @@ export default function Profile() {
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-900'
+    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-800'
 
   return (
     <div className="space-y-4">
@@ -79,7 +79,7 @@ export default function Profile() {
         <p className="text-sm text-slate-500">Logged in as</p>
         <p className="font-semibold break-all">{user.email}</p>
         <p className="mt-2">
-          <span className="inline-block bg-blue-100 text-blue-900 text-xs font-semibold uppercase px-2 py-1 rounded">
+          <span className="inline-block bg-emerald-100 text-emerald-800 text-xs font-semibold uppercase px-2 py-1 rounded">
             {role}
           </span>
         </p>
@@ -105,7 +105,7 @@ export default function Profile() {
         {error && <p className="text-red-600 text-sm">{error}</p>}
         {message && <p className="text-green-700 text-sm">{message}</p>}
         <button type="submit" disabled={busy}
-          className="w-full bg-blue-900 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
+          className="w-full bg-emerald-800 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
           {busy ? 'Saving…' : 'Save'}
         </button>
       </form>

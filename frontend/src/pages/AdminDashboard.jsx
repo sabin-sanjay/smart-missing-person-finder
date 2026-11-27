@@ -62,7 +62,7 @@ export default function AdminDashboard() {
         <input value={search} onChange={(e) => setSearch(e.target.value)}
           placeholder="Search name, email or phone"
           className="flex-1 min-w-0 border border-slate-300 rounded-lg px-3 py-2 text-base" />
-        <button className="bg-blue-900 text-white rounded-lg px-4 font-semibold">Search</button>
+        <button className="bg-emerald-800 text-white rounded-lg px-4 font-semibold">Search</button>
       </form>
 
       <p className="text-xs text-slate-500">

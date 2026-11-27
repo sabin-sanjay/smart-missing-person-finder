@@ -116,7 +116,7 @@ export default function RegisterCase() {
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-900'
+    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-800'
   const labelClass = 'block text-sm font-semibold mb-1'
 
   return (

@@ -124,7 +124,7 @@ export default function ReportSighting() {
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-900'
+    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-800'
 
   // ---- Thank-you screen ----
   if (done) {
@@ -135,7 +135,7 @@ export default function ReportSighting() {
         <p className="text-slate-600 text-sm">
           <Trans i18nKey="report.thankText" components={{ link: <a href="tel:112" className="underline" /> }} />
         </p>
-        <Link to="/" className="inline-block text-blue-900 underline">{t('report.backHome')}</Link>
+        <Link to="/" className="inline-block text-emerald-800 underline">{t('report.backHome')}</Link>
       </div>
     )
   }
@@ -190,7 +190,7 @@ export default function ReportSighting() {
           className="w-16 h-16 rounded-lg object-cover bg-slate-200 shrink-0" />
         <div className="text-sm flex-1 min-w-0">
           <p className="font-semibold">{selected.full_name}</p>
-          <button type="button" onClick={() => setSearchParams({})} className="text-blue-900 underline">
+          <button type="button" onClick={() => setSearchParams({})} className="text-emerald-800 underline">
             {t('report.notThem')}
           </button>
         </div>

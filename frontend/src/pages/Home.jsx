@@ -59,7 +59,7 @@ export default function Home() {
           {t('home.reportBtn')}
         </Link>
         <Link to="/map"
-          className="bg-blue-900 text-white rounded-xl p-4 text-center font-semibold active:bg-blue-950">
+          className="bg-emerald-800 text-white rounded-xl p-4 text-center font-semibold active:bg-emerald-900">
           {t('home.mapBtn')}
         </Link>
       </div>

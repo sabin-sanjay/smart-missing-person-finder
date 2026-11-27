@@ -46,7 +46,7 @@ export default function Layout() {
     <div className="min-h-dvh flex flex-col">
       {/* Top bar. "sticky top-0" keeps it on screen while you scroll. */}
       <header
-        className="sticky top-0 z-10 bg-blue-900 text-white px-4 py-3 shadow"
+        className="sticky top-0 z-10 bg-emerald-800 text-white px-4 py-3 shadow"
         style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
       >
         <div className="flex items-center justify-between gap-2 max-w-xl mx-auto">
@@ -80,7 +80,7 @@ export default function Layout() {
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   'flex flex-col items-center py-2 text-xs ' +
-                  (isActive ? 'text-blue-900 font-semibold' : 'text-slate-500')
+                  (isActive ? 'text-emerald-800 font-semibold' : 'text-slate-500')
                 }
               >
                 <span className="text-xl" aria-hidden="true">{item.icon}</span>

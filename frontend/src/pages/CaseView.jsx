@@ -36,7 +36,7 @@ export default function CaseView() {
     return (
       <div className="bg-white rounded-xl p-4 shadow-sm text-center space-y-2">
         <p>{t('case.notAvailable')}</p>
-        <Link to="/" className="text-blue-900 underline">{t('common.goHome')}</Link>
+        <Link to="/" className="text-emerald-800 underline">{t('common.goHome')}</Link>
       </div>
     )
   }
