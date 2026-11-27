@@ -160,5 +160,14 @@
     "title": "{{name}} has been found",
     "after": "Found after {{time}}.",
     "thanks": "Thank you to everyone who shared, looked out and reported. Alerts for this case have stopped."
+  },
+  "badges": {
+    "live": "Live",
+    "new": "New",
+    "child": "Child",
+    "km": "{{km}} km zone",
+    "free": "Free",
+    "languages": "5 languages",
+    "private": "Private"
   }
 }

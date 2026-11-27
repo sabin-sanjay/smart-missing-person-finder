@@ -54,7 +54,7 @@ export default function Home() {
       // (fewer columns = less data on slow internet).
       const { data, error } = await supabase
         .from('missing_persons')
-        .select('id, full_name, age, gender, photo_path, last_seen_at, last_seen_address')
+        .select('id, full_name, age, gender, photo_path, last_seen_at, last_seen_address, alert_radius_km')
         .eq('status', 'active')
         .order('created_at', { ascending: false })
         .limit(30)
@@ -85,8 +85,12 @@ export default function Home() {
     <div className="flex flex-col gap-3">
       {/* 1. Hero + alerts, joined by a notch */}
       <div className="bk-stack">
-        <section className="bk-panel !pt-6">
-          <h2 className="text-[2.15rem] leading-[1.08] tracking-[-0.02em] text-sky-ink">
+        <section className="bk-panel !pt-6 overflow-hidden">
+          {/* decorative shapes: two glass rings in the corner */}
+          <span className="shape-ring w-40 h-40 -right-16 -top-20" aria-hidden="true" />
+          <span className="shape-ring shape-ring-red w-16 h-16 right-4 top-4" aria-hidden="true" />
+          <span className="badge badge-live mb-3"><span className="live-dot" />{t('badges.live')}</span>
+          <h2 className="text-[2.15rem] leading-[1.08] tracking-[-0.02em] text-sky-ink max-w-[85%]">
             {t('home.heroTitle')}.
           </h2>
           <div className="grid grid-cols-2 gap-4 mt-6">
@@ -163,6 +167,13 @@ export default function Home() {
               <p className="flex-1 min-w-0 leading-tight">
                 <span className="block text-xl truncate">{c.full_name}</span>
                 {c.age != null && <span className="text-white/60 text-sm">{c.age}</span>}
+                <span className="flex flex-wrap gap-1.5 mt-1.5">
+                  {FILTERS.recent(c) && <span className="badge badge-white">{t('badges.new')}</span>}
+                  {FILTERS.children(c) && <span className="badge badge-red">{t('badges.child')}</span>}
+                  {c.alert_radius_km && (
+                    <span className="badge"><Icon name="pin" className="w-3 h-3" strokeWidth={2} />{t('badges.km', { km: c.alert_radius_km })}</span>
+                  )}
+                </span>
               </p>
               <span className="bk-chip">{t('home.missingChip')}</span>
             </Link>
@@ -191,7 +202,14 @@ export default function Home() {
       })}
 
       {/* 5. "Together" card: a heart in a helping hand */}
-      <section className="bk-panel mt-3">
+      <section className="bk-panel mt-3 overflow-hidden">
+        <span className="shape-ring w-32 h-32 -right-10 -bottom-12" aria-hidden="true" />
+        <span className="shape-dot w-2.5 h-2.5 right-7 bottom-7" aria-hidden="true" />
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          <span className="badge badge-white">{t('badges.free')}</span>
+          <span className="badge"><Icon name="globe" className="w-3 h-3" strokeWidth={2} />{t('badges.languages')}</span>
+          <span className="badge"><Icon name="lock" className="w-3 h-3" strokeWidth={2} />{t('badges.private')}</span>
+        </div>
         <div>
           <h3 className="text-lg leading-snug">{t('home.togetherTitle')}</h3>
           <p className="text-[0.85rem] text-white/65 mt-1">{t('home.togetherText')}</p>
