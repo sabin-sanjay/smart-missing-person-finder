@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => ({
         icons: [
           { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
           { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
-          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'pwa-maskable-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }, // artwork shrunk so Android's circle crop never cuts it
         ],
       },
 
@@ -53,6 +53,7 @@ export default defineConfig(({ mode }) => ({
           // The big 512px app icon (~100 KB) is only needed when installing the app,
           // and the phone fetches it itself then. No need to pre-download it.
           '**/pwa-512x512.png',
+          '**/pwa-maskable-512x512.png',
           // Big extras only police use (PDF maker and its helpers, about 600 KB).
           // Not downloaded in advance; fetched the first time someone makes a PDF.
           '**/jspdf*.js',
