@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext'
 import { enableAlerts, disableAlerts, getSavedAlertState } from '../lib/push'
 import Icon from './Icons'
 
-export default function AlertsCard() {
+export default function AlertsCard({ className = '' }) {
   const { t } = useTranslation()
   const { session, profile } = useAuth()
   const [state, setState] = useState(getSavedAlertState()) // null = alerts off
@@ -39,45 +39,39 @@ export default function AlertsCard() {
   const smsWithoutPhone = state?.mode === 'sms' && session && !profile?.phone
 
   return (
-    // A big round "stat card" (sits in the sideways row on Home)
-    <section className="lq-card w-[16.5rem] min-h-[15rem] p-5 flex flex-col">
-      <div className="flex items-start justify-between">
-        {/* Bell in a circle, with an orange "!" while alerts are off */}
-        <span className="lq-icon-btn relative text-slate-700">
-          <Icon name="bell" className="w-[22px] h-[22px]" />
-          {!state && (
-            <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-flame-500 text-white text-xs font-bold flex items-center justify-center">!</span>
-          )}
+    // A dark panel. Home puts it inside a joined "stack" of panels.
+    <section className={`bk-panel ${className}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-lg text-sky-ink">{t('alerts.statTitle')}</p>
+          <p className="bk-label">{t('alerts.intro').split('.')[0]}.</p>
+        </div>
+        <span className={`bk-chip ${state ? 'bk-chip-blue' : ''}`}>
+          <Icon name="bell" className="w-3.5 h-3.5" strokeWidth={2.2} />
+          {state ? (state.mode === 'push' ? 'Push' : 'SMS') : t('alerts.statOff')}
         </span>
-        {state && <span className="text-xs font-medium text-brand-700 bg-brand-50 rounded-full px-2.5 py-1">{state.mode === 'push' ? 'Push' : 'SMS'}</span>}
       </div>
 
-      <p className="mt-4 text-lg text-ink">{t('alerts.statTitle')}</p>
-
-      <div className="mt-auto pt-3">
-        <p className={`text-5xl font-light tracking-tight ${state ? 'text-brand-700' : 'text-ink'}`}>
+      <div className="flex items-end justify-between gap-3 mt-4">
+        <p className="text-6xl font-light tracking-tight leading-none">
           {state ? t('alerts.statOn') : t('alerts.statOff')}
         </p>
-
-        {smsWithoutPhone && (
-          <p className="text-xs text-amber-700 mt-1">
-            {/* <Trans> lets a link sit inside translated text, in the right place for each language */}
-            <Trans i18nKey="alerts.addPhone" components={{ link: <Link to="/profile" className="underline" /> }} />
-          </p>
-        )}
-        {message && <p className={`text-xs mt-1 ${isError ? 'text-red-600' : 'text-muted'}`}>{message}</p>}
-
         {state ? (
-          <button onClick={turnOff} disabled={busy} className="mt-2 text-sm text-muted underline">
-            {t('alerts.turnOff')}
-          </button>
+          <button onClick={turnOff} disabled={busy} className="bk-btn bk-btn-ghost">{t('alerts.turnOff')}</button>
         ) : (
-          <button onClick={turnOn} disabled={busy}
-            className="mt-3 w-full rounded-full bg-ink text-white py-2.5 text-sm font-medium disabled:opacity-60 active:opacity-80">
+          <button onClick={turnOn} disabled={busy} className="bk-btn bk-btn-orange">
             {busy ? t('alerts.turningOn') : t('alerts.turnOn')}
           </button>
         )}
       </div>
+
+      {smsWithoutPhone && (
+        <p className="text-xs text-tangerine mt-3">
+          {/* <Trans> lets a link sit inside translated text, in the right place for each language */}
+          <Trans i18nKey="alerts.addPhone" components={{ link: <Link to="/profile" className="underline" /> }} />
+        </p>
+      )}
+      {message && <p className={`text-xs mt-3 ${isError ? 'text-tangerine' : 'text-white/70'}`}>{message}</p>}
     </section>
   )
 }

@@ -45,43 +45,41 @@ export default function Layout() {
 
   return (
     <div className="min-h-dvh flex flex-col">
-      {/* Soft orange + blue glows behind every page */}
+      {/* Plain off-white page behind everything */}
       <div className="lq-backdrop" aria-hidden="true" />
 
-      {/* Top bar: round logo button | "Lumen" | round language button.
+      {/* Top bar: a dark rounded panel with logo + name, and a blue language chip.
           "sticky top-0" keeps it on screen while you scroll. */}
       <header
-        className="sticky top-0 z-10 px-4 pb-2"
+        className="sticky top-0 z-10 px-3 pb-2 bg-paper"
         style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.6rem)' }}
       >
-        <div className="flex items-center justify-between gap-2 max-w-xl mx-auto">
-          <NavLink to="/" className="lq-icon-btn lq-glass" aria-label={t('nav.home')}>
-            <img src="/favicon.svg" alt="" width="30" height="30" className="w-[30px] h-[30px] rounded-[9px]" />
+        <div className="bk-panel !py-3.5 flex items-center justify-between gap-2 max-w-xl mx-auto">
+          <NavLink to="/" className="flex items-center gap-2.5 min-w-0" aria-label={t('nav.home')}>
+            <img src="/favicon.svg" alt="" width="32" height="32" className="w-8 h-8 rounded-[10px]" />
+            <span className="text-[1.45rem] font-light tracking-[-0.03em] text-white">
+              {t('app.title')}<sup className="text-[0.55em] text-tangerine ml-0.5">●</sup>
+            </span>
           </NavLink>
-          {/* The name fades from the logo's orange to its blue */}
-          <h1 className="text-[1.5rem] font-semibold tracking-[-0.02em] bg-gradient-to-r from-flame-500 via-violet-glow to-brand-600 bg-clip-text text-transparent">
-            {t('app.title')}
-          </h1>
-          {/* Language switch: shows the OTHER language (short form) */}
-          <button onClick={toggleLanguage} className="lq-icon-btn lq-glass text-sm font-medium text-slate-700"
-            aria-label={t('app.switchLanguage')}>
-            {i18n.language === 'hi' ? 'EN' : 'हि'}
+          {/* Language switch: shows the OTHER language */}
+          <button onClick={toggleLanguage} className="bk-chip bk-chip-blue !text-xs !px-2.5 !py-1.5">
+            {t('app.switchLanguage')}
           </button>
         </div>
       </header>
 
       {/* The current page appears here. Extra space at the bottom (pb-28)
-          stops the floating menu from covering the content. */}
-      <main className="relative z-[1] flex-1 w-full max-w-xl mx-auto px-4 pt-2 pb-28">
+          stops the menu from covering the content. */}
+      <main className="relative z-[1] flex-1 w-full max-w-xl mx-auto px-3 pt-1 pb-28">
         <Outlet />
       </main>
 
-      {/* Bottom menu: a floating glass pill. The open page gets a black bubble. */}
+      {/* Bottom menu: a black pill. The open page is an orange pill inside it. */}
       <nav
-        className="fixed inset-x-0 bottom-0 px-4 z-10"
-        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.75rem)' }}
+        className="fixed inset-x-0 bottom-0 px-3 z-10"
+        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.7rem)' }}
       >
-        <ul className="lq-glass flex max-w-md mx-auto rounded-full p-1.5">
+        <ul className="flex max-w-md mx-auto rounded-full p-1.5 bg-ink shadow-[0_12px_30px_-10px_rgb(19_18_29/0.55)]">
           {menuItems.map((item) => (
             <li key={item.to} className="flex-1">
               {/* NavLink knows which page is open. "end" = Home only on exactly "/". */}
@@ -89,11 +87,11 @@ export default function Layout() {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  'flex flex-col items-center gap-0.5 rounded-full py-2 text-[11px] transition-colors ' +
-                  (isActive ? 'bg-ink text-white' : 'text-muted active:bg-slate-100')
+                  'flex flex-col items-center gap-0.5 rounded-full py-2 text-[10px] font-bold uppercase tracking-[0.06em] transition-colors ' +
+                  (isActive ? 'bg-tangerine text-ink' : 'text-white/70 active:bg-white/10')
                 }
               >
-                <Icon name={item.icon} className="w-[22px] h-[22px]" />
+                <Icon name={item.icon} className="w-[21px] h-[21px]" strokeWidth={1.8} />
                 {item.label}
               </NavLink>
             </li>

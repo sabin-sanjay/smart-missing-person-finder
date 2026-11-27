@@ -62,7 +62,11 @@
     "reportShort": "देखे जाने की रिपोर्ट",
     "mapShort": "लाइव नक्शा",
     "seenThem": "देखा? रिपोर्ट करें",
-    "casesTitle": "गुमशुदा लोग"
+    "casesTitle": "गुमशुदा लोग",
+    "newToday": "24 घंटे में नए",
+    "details": "विवरण",
+    "reportOne": "रिपोर्ट करें",
+    "missingChip": "गुमशुदा"
   },
   "alerts": {
     "title": "🔔 आपके आस-पास के अलर्ट",

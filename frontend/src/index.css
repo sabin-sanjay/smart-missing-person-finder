@@ -27,6 +27,9 @@
   --color-violet-glow: #7c5cff;
   --color-peach: #ffc7a3;
   --color-teal-glow: #2bd4c4;
+  --color-paper: #f3f2ee;    /* off-white page behind the dark panels */
+  --color-tangerine: #ff7a45;/* bright orange: chips, main buttons, selected menu item */
+  --color-sky-ink: #b8d0ff;  /* light blue: headlines on dark panels */
 
   /* Fonts: Outfit first, then the phone's own fonts (incl. Hindi) */
   --font-sans: "Outfit Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", "Noto Sans", sans-serif;
@@ -42,7 +45,7 @@ body {
 body {
   /* Outfit (stored in the app, see main.jsx), with the phone's fonts as backup */
   font-family: var(--font-sans);
-  background: #ffffff;
+  background: var(--color-paper);
   color: var(--color-ink);
   letter-spacing: -0.005em;
   font-feature-settings: "tnum"; /* numbers that line up neatly */
@@ -64,13 +67,8 @@ body {
     inset: 0;
     z-index: 0; /* page content sits above it (see Layout: main is z-[1]) */
     pointer-events: none;
-    /* "aurora": peach, lavender and sky glows on white */
-    background:
-      radial-gradient(55% 35% at 0% 0%, rgb(255 199 163 / 0.55), transparent 70%),
-      radial-gradient(50% 40% at 100% 18%, rgb(124 92 255 / 0.16), transparent 70%),
-      radial-gradient(60% 40% at 15% 70%, rgb(46 111 224 / 0.10), transparent 70%),
-      radial-gradient(60% 35% at 100% 100%, rgb(240 100 58 / 0.12), transparent 70%),
-      #ffffff;
+    /* plain off-white "paper" (the dark panels sit on it) */
+    background: var(--color-paper);
   }
 
   /* Frosted glass: top bar, bottom menu */
@@ -183,4 +181,97 @@ body {
   }
   .lq-rail::-webkit-scrollbar { display: none; }
   .lq-rail > * { scroll-snap-align: start; flex-shrink: 0; }
+}
+
+
+/* ===================================================================
+   "PANEL" LOOK (dark rounded panels joined by side notches)
+   =================================================================== */
+@layer components {
+  /* A dark rounded panel */
+  .bk-panel {
+    background: var(--color-ink);
+    color: #fff;
+    border-radius: 1.75rem;
+    padding: 1.25rem 1.4rem;
+  }
+
+  /* A column of panels that look joined together. Put .bk-notch between them:
+       <div class="bk-stack"> <div class="bk-panel"/> <div class="bk-notch"/> <div class="bk-panel"/> </div>
+     Panels lose their rounded corners where they join. */
+  .bk-stack > .bk-panel { border-radius: 0; }
+  .bk-stack > .bk-panel:first-child { border-top-left-radius: 1.75rem; border-top-right-radius: 1.75rem; }
+  .bk-stack > .bk-panel:last-child { border-bottom-left-radius: 1.75rem; border-bottom-right-radius: 1.75rem; }
+
+  /* The join: a dark strip with a pill-shaped bite taken out of each side */
+  .bk-notch {
+    position: relative;
+    height: 14px;
+    background: var(--color-ink);
+  }
+  .bk-notch::before,
+  .bk-notch::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 46px;
+    height: 14px;
+    border-radius: 9999px;
+    background: var(--color-paper);
+  }
+  .bk-notch::before { left: -23px; }
+  .bk-notch::after { right: -23px; }
+
+  /* Light outlined row ("Rhythm match  >" in the reference) */
+  .bk-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 1.4rem;
+    border: 1.5px solid rgb(19 18 29 / 0.16);
+    background: #fbfaf7;
+    color: var(--color-ink);
+  }
+
+  /* Small label: "71 LEVEL" chip */
+  .bk-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--color-tangerine);
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+  .bk-chip-blue { background: var(--color-sky-ink); }
+
+  /* Small uppercase buttons ("START GAME" / "VIEW LEADERS") */
+  .bk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.95rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .bk-btn:disabled { opacity: 0.6; }
+  .bk-btn-orange { background: var(--color-tangerine); color: var(--color-ink); }
+  .bk-btn-ghost { border: 1.5px solid rgb(255 255 255 / 0.55); color: #fff; }       /* on dark */
+  .bk-btn-ink { background: var(--color-ink); color: #fff; }                       /* on light */
+  .bk-btn-line { border: 1.5px solid var(--color-ink); color: var(--color-ink); }   /* on light */
+
+  /* Tiny grey label above a value ("Best score") */
+  .bk-label { font-size: 0.78rem; color: rgb(255 255 255 / 0.6); }
 }

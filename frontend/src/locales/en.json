@@ -62,7 +62,11 @@
     "reportShort": "Report a sighting",
     "mapShort": "Live map",
     "seenThem": "Seen them? Report",
-    "casesTitle": "Missing people"
+    "casesTitle": "Missing people",
+    "newToday": "New in 24 h",
+    "details": "Details",
+    "reportOne": "Report sighting",
+    "missingChip": "Missing"
   },
   "alerts": {
     "title": "🔔 Alerts near you",
