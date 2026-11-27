@@ -10,6 +10,10 @@ import { timeAgo } from '../lib/dates'
 import StatusBadge from '../components/StatusBadge'
 import SharePosterButton from '../components/SharePosterButton'
 import CaseTimeline from '../components/CaseTimeline'
+import SearchParty from '../components/SearchParty'
+import CasePhotos from '../components/CasePhotos'
+import CaseMessages from '../components/CaseMessages'
+import { useAuth } from '../context/AuthContext'
 import { dateLocale } from '../i18n'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
@@ -17,6 +21,7 @@ const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
 export default function CaseView() {
   const { t, i18n } = useTranslation()
   const { id } = useParams()
+  const { user, role } = useAuth()
   const [c, setCase] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -25,7 +30,7 @@ export default function CaseView() {
     // from the public, so those simply come back as "not found".
     supabase
       .from('missing_persons')
-      .select('id, full_name, age, gender, height_cm, description, photo_path, status, last_seen_at, last_seen_address, last_seen_lat, last_seen_lng, created_at, found_at')
+      .select('id, full_name, age, gender, height_cm, description, photo_path, status, last_seen_at, last_seen_address, last_seen_lat, last_seen_lng, created_at, found_at, reported_by')
       .eq('id', id)
       .maybeSingle()
       .then(({ data }) => {
@@ -43,6 +48,10 @@ export default function CaseView() {
       </div>
     )
   }
+
+  // The family who reported it and the police can add photos and use the private chat
+  const isFamily = Boolean(user && c.reported_by === user.id)
+  const isStaff = role === 'police' || role === 'admin'
 
   // Dates written the local way, e.g. "26/11/2026, 9:30 pm" or the Hindi equivalent
   const date = new Date(c.last_seen_at).toLocaleString(dateLocale(i18n.language))
@@ -103,6 +112,10 @@ export default function CaseView() {
           <LocationPicker value={{ lat: c.last_seen_lat, lng: c.last_seen_lng }} readOnly />
         </Suspense>
       </section>
+
+      <CasePhotos caseId={c.id} canEdit={isFamily || isStaff} userId={user?.id} />
+      {c.status === 'active' && <SearchParty caseId={c.id} lastSeen={{ lat: c.last_seen_lat, lng: c.last_seen_lng }} />}
+      {(isFamily || isStaff) && <CaseMessages caseId={c.id} myId={user.id} />}
 
       <CaseTimeline caseId={c.id} />
 

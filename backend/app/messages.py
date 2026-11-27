@@ -11,6 +11,8 @@ LANGS = ("en", "hi", "ta", "ml", "te")
 
 T = {
     "en": {
+        "msg_police_title": "💬 Police update about {name}",
+        "msg_family_title": "💬 Message from {name}'s family",
         "alert_title": "🚨 Missing: {name}",
         "alert_body": "Last seen {ago}{place}, {km} km from you. Tap to see the photo or report a sighting.",
         "near": " near {place}",
@@ -25,6 +27,8 @@ T = {
         "match_police_body": "{pct}% face match with a registered missing person. Please check.",
     },
     "hi": {
+        "msg_police_title": "💬 {name} के बारे में पुलिस का संदेश",
+        "msg_family_title": "💬 {name} के परिवार का संदेश",
         "alert_title": "🚨 लापता: {name}",
         "alert_body": "आख़िरी बार {ago}{place} देखा गया, आपसे {km} कि.मी. दूर। फ़ोटो देखने या सूचना देने के लिए टैप करें।",
         "near": " {place} के पास",
@@ -39,6 +43,8 @@ T = {
         "match_police_body": "दर्ज लापता व्यक्ति से {pct}% चेहरा मिलान। कृपया जाँचें।",
     },
     "ta": {
+        "msg_police_title": "💬 {name} பற்றி காவல்துறையின் செய்தி",
+        "msg_family_title": "💬 {name} இன் குடும்பத்திடமிருந்து செய்தி",
         "alert_title": "🚨 காணவில்லை: {name}",
         "alert_body": "கடைசியாக {ago}{place} பார்க்கப்பட்டார், உங்களிடமிருந்து {km} கி.மீ. புகைப்படத்தைப் பார்க்க அல்லது தெரிவிக்கத் தொடவும்.",
         "near": " {place} அருகில்",
@@ -53,6 +59,8 @@ T = {
         "match_police_body": "பதிவான காணாமல் போனவருடன் {pct}% முகப் பொருத்தம். சரிபார்க்கவும்.",
     },
     "ml": {
+        "msg_police_title": "💬 {name} നെക്കുറിച്ച് പോലീസിന്റെ സന്ദേശം",
+        "msg_family_title": "💬 {name} ന്റെ കുടുംബത്തിൽ നിന്നുള്ള സന്ദേശം",
         "alert_title": "🚨 കാണാനില്ല: {name}",
         "alert_body": "അവസാനം കണ്ടത് {ago}{place}, നിങ്ങളിൽ നിന്ന് {km} കി.മീ. ഫോട്ടോ കാണാനോ അറിയിക്കാനോ ടാപ്പ് ചെയ്യുക.",
         "near": " {place} ന് സമീപം",
@@ -67,6 +75,8 @@ T = {
         "match_police_body": "രജിസ്റ്റർ ചെയ്ത കാണാതായ ആളുമായി {pct}% മുഖ പൊരുത്തം. പരിശോധിക്കുക.",
     },
     "te": {
+        "msg_police_title": "💬 {name} గురించి పోలీసుల సందేశం",
+        "msg_family_title": "💬 {name} కుటుంబం నుండి సందేశం",
         "alert_title": "🚨 తప్పిపోయారు: {name}",
         "alert_body": "చివరిగా {ago}{place} కనిపించారు, మీ నుండి {km} కి.మీ. ఫోటో చూడటానికి లేదా తెలియజేయడానికి నొక్కండి.",
         "near": " {place} సమీపంలో",

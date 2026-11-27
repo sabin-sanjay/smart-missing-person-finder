@@ -234,5 +234,38 @@
     "registerFound": "Register me as found",
     "stay": "Please stay with me in a safe, public place until my family or the police arrive.",
     "invalid": "This safety card link is not valid."
+  },
+  "party": {
+    "title": "Join the search",
+    "intro": "Searching nearby? Tap the button where you looked. Green circles show areas already checked, so others can search somewhere new.",
+    "volunteers_one": "{{count}} volunteer today",
+    "volunteers_other": "{{count}} volunteers today",
+    "legend_one": "{{count}} area checked in the last 3 days",
+    "legend_other": "{{count}} areas checked in the last 3 days",
+    "mark": "📍 I searched here",
+    "marking": "Getting your location…",
+    "thanks": "Thank you! This area is now marked as checked.",
+    "wait": "Please wait 2 minutes before marking another area.",
+    "failed": "Could not save. Please try again.",
+    "noLocation": "Please allow location access to mark where you searched.",
+    "login": "Log in to join the search",
+    "lastSeen": "Last seen here"
+  },
+  "photos": {
+    "title": "More photos",
+    "hint": "Add clear photos (front, side, recent). The AI uses all of them to recognise the person.",
+    "uploading": "Uploading…",
+    "failed": "Could not add the photo: {{detail}}",
+    "remove": "Remove photo"
+  },
+  "chat": {
+    "title": "Messages with police",
+    "private": "Private",
+    "empty": "No messages yet. Ask a question or share an update.",
+    "police": "Police",
+    "family": "Family",
+    "placeholder": "Write a message…",
+    "send": "Send",
+    "failed": "Could not send. Please try again."
   }
 }

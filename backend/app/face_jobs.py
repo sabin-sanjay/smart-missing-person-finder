@@ -61,15 +61,46 @@ async def process_sighting_photos(limit: int = 20) -> int:
                 if not found:
                     values["face_error"] = "no face found in the sighting photo"
                 else:
-                    case_embedding = faces.from_pgvector(r["case_embedding"])
+                    # Compare with EVERY photo of the case (main + extra photos)
+                    case_embeddings = [faces.from_pgvector(r["case_embedding"])]
+                    try:
+                        extra = await db.rpc("case_embeddings", {"p_case": r["case_id"]}) or []
+                        case_embeddings = [faces.from_pgvector(x["embedding"]) for x in extra] or case_embeddings
+                    except Exception:
+                        pass  # before supabase/014: main photo only
                     # Several people in the photo? Keep the best match.
-                    best = max(faces.similarity(case_embedding, e) for e in found)
+                    best = max(faces.similarity(c, e) for c in case_embeddings for e in found)
                     values["face_match_score"] = round(best, 3)
             except Exception as e:
                 log.exception("Sighting photo %s failed", r["sighting_id"])
                 values["face_error"] = f"could not process photo: {e}"[:300]
 
         await db.update_by_id("sightings", r["sighting_id"], values)
+    return len(rows)
+
+
+async def process_extra_case_photos(limit: int = 10) -> int:
+    """Extra photos added to a case: make their face fingerprints too."""
+    try:
+        rows = await db.rpc("case_photos_needing_faces", {"p_limit": limit}) or []
+    except Exception:
+        return 0  # before supabase/014
+    for r in rows:
+        embedding, error = None, None
+        try:
+            photo = await db.download_photo("case-photos", r["photo_path"])
+            found = await asyncio.to_thread(faces.get_embeddings, photo)
+            if found:
+                embedding = faces.to_pgvector(found[0])
+            else:
+                error = "no face found in this photo"
+        except Exception as e:
+            log.exception("Extra case photo %s failed", r["photo_id"])
+            error = f"could not process photo: {e}"[:300]
+        await db.upsert("case_photo_faces",
+                        {"photo_id": r["photo_id"], "case_id": r["case_id"], "embedding": embedding,
+                         "error": error, "computed_at": _now()},
+                        on_conflict="photo_id")
     return len(rows)
 
 
@@ -128,6 +159,7 @@ async def run_face_jobs_once() -> dict:
     if not db.is_configured():
         return {"error": "Supabase is not configured (SUPABASE_URL / SUPABASE_SECRET_KEY)."}
     cases_done = await process_case_photos()
+    cases_done += await process_extra_case_photos()
     sightings_done = await process_sighting_photos()
     found_done = await process_found_photos()
     rechecked = await recheck_found()

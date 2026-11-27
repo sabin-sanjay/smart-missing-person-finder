@@ -254,3 +254,40 @@ async def run_match_notices_once() -> dict:
     summary = {"matches": len(ids), "push_sent": sum(1 for x in results if x["ok"])}
     log.info("Match notices: %s", summary)
     return summary
+
+
+
+async def run_message_notices_once() -> dict:
+    """
+    Police-family messages: a police message goes to the family's phones,
+    a family message goes to every police/admin phone (once per message).
+    """
+    if not db.is_configured():
+        return {"error": "Supabase is not configured."}
+    try:
+        rows = await db.rpc("pending_message_notices", {"p_limit": 200}) or []
+    except Exception:
+        return {"messages": 0}  # before supabase/014
+    if not rows:
+        return {"messages": 0, "push_sent": 0}
+
+    langs = await _languages()
+    msgs = []
+    for r in rows:
+        if not r.get("fcm_token"):
+            continue
+        lang = langs.get(r["fcm_token"])
+        key = "msg_police_title" if r["from_police"] else "msg_family_title"
+        msgs.append({
+            "token": r["fcm_token"],
+            "title": messages.text(key, lang, name=r["full_name"]),
+            "body": r["body"][:140],
+            "url": f"{config.APP_URL}/{'case' if r['from_police'] else 'police/case'}/{r['case_id']}",
+            "tag": f"msg-{r['case_id']}",
+        })
+    results = await asyncio.to_thread(push.send_many, msgs) if msgs else []
+    ids = sorted({r["message_id"] for r in rows})
+    await db.rpc("mark_message_notified", {"p_ids": ids})
+    summary = {"messages": len(ids), "push_sent": sum(1 for x in results if x["ok"])}
+    log.info("Message notices: %s", summary)
+    return summary

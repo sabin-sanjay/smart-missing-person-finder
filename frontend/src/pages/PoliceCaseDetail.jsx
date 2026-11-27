@@ -11,12 +11,16 @@ import { supabase, casePhotoUrl } from '../lib/supabase'
 import StatusBadge from '../components/StatusBadge'
 import CaseSightings from '../components/CaseSightings'
 import CaseTimeline from '../components/CaseTimeline'
+import CasePhotos from '../components/CasePhotos'
+import CaseMessages from '../components/CaseMessages'
+import { useAuth } from '../context/AuthContext'
 import SharePosterButton from '../components/SharePosterButton'
 import { downloadCasePdf } from '../lib/casePdf'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
 
 export default function PoliceCaseDetail() {
+  const { user: me } = useAuth() // for the private chat with the family
   const { id } = useParams() // the case id from the address: /police/case/<id>
   const [c, setCase] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -139,6 +143,8 @@ export default function PoliceCaseDetail() {
       {(c.status === 'active' || c.status === 'found') && (
         <CaseSightings caseId={c.id} lastSeen={{ lat: c.last_seen_lat, lng: c.last_seen_lng }} />
       )}
+      <CasePhotos caseId={c.id} canEdit userId={me?.id} />
+      {me && <CaseMessages caseId={c.id} myId={me.id} />}
       <CaseTimeline caseId={c.id} />
       {c.status === 'active' && (
         <SharePosterButton c={c} />
