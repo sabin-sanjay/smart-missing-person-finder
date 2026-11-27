@@ -38,7 +38,7 @@ export default function AlertsCard() {
   const smsWithoutPhone = state?.mode === 'sms' && session && !profile?.phone
 
   return (
-    <section className="bg-white rounded-xl p-4 shadow-sm space-y-2">
+    <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-2">
       <h3 className="font-semibold">{t('alerts.title')}</h3>
 
       {state ? (
@@ -58,7 +58,7 @@ export default function AlertsCard() {
         <>
           <p className="text-sm text-slate-600">{t('alerts.intro')}</p>
           <button onClick={turnOn} disabled={busy}
-            className="w-full bg-emerald-800 text-white rounded-lg py-3 font-semibold disabled:opacity-60 active:bg-emerald-900">
+            className="w-full bg-brand-700 text-white rounded-lg py-3 font-semibold disabled:opacity-60 active:bg-brand-800">
             {busy ? t('alerts.turningOn') : t('alerts.turnOn')}
           </button>
         </>

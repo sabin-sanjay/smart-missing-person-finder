@@ -1,8 +1,8 @@
 // wrangler.jsonc: settings for publishing the app on Cloudflare (free, no badge).
-// Live at https://missing-person-finder.sabin-sanjay.workers.dev
+// Live at https://lumen.sabin-sanjay.workers.dev
 // Publish with:  npm run build  then  npx wrangler deploy   (or double-click deploy-app.cmd)
 {
-  "name": "missing-person-finder",
+  "name": "lumen",
   "account_id": "fbc99f3d04a90f4e0cff1d95f2c8d919",
   "compatibility_date": "2026-11-01",
   "assets": {

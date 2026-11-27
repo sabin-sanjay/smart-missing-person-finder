@@ -46,14 +46,21 @@ export default function Layout() {
     <div className="min-h-dvh flex flex-col">
       {/* Top bar. "sticky top-0" keeps it on screen while you scroll. */}
       <header
-        className="sticky top-0 z-10 bg-emerald-800 text-white px-4 py-3 shadow"
-        style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
+        className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-slate-200 px-4 py-2.5"
+        style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.625rem)' }}
       >
         <div className="flex items-center justify-between gap-2 max-w-xl mx-auto">
-          <h1 className="text-lg font-semibold truncate">{t('app.title')}</h1>
+          {/* Logo + name. Tapping it goes back to Home. */}
+          <NavLink to="/" className="flex items-center gap-2 min-w-0">
+            <img src="/favicon.svg" alt="" width="34" height="34" className="w-[34px] h-[34px] shrink-0" />
+            {/* The name fades from the logo's orange to its blue */}
+            <h1 className="text-xl font-extrabold tracking-tight truncate bg-gradient-to-r from-flame-500 to-brand-600 bg-clip-text text-transparent">
+              {t('app.title')}
+            </h1>
+          </NavLink>
           {/* Language switch: shows the OTHER language's name */}
           <button onClick={toggleLanguage}
-            className="shrink-0 border border-white/50 rounded-full px-3 py-1 text-sm active:bg-white/10">
+            className="shrink-0 border border-brand-100 text-brand-700 rounded-full px-3 py-1 text-sm font-medium active:bg-brand-50">
             {t('app.switchLanguage')}
           </button>
         </div>
@@ -80,7 +87,7 @@ export default function Layout() {
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   'flex flex-col items-center py-2 text-xs ' +
-                  (isActive ? 'text-emerald-800 font-semibold' : 'text-slate-500')
+                  (isActive ? 'text-brand-700 font-semibold' : 'text-slate-500')
                 }
               >
                 <span className="text-xl" aria-hidden="true">{item.icon}</span>

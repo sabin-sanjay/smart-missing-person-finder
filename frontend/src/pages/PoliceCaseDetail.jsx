@@ -83,7 +83,7 @@ export default function PoliceCaseDetail() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center gap-2">
-        <Link to="/police" className="text-emerald-800 text-sm underline">← Back to dashboard</Link>
+        <Link to="/police" className="text-brand-700 text-sm underline">← Back to dashboard</Link>
         <button onClick={handlePdf} disabled={pdfBusy}
           className="border border-slate-300 bg-white rounded-lg px-3 py-2 text-sm font-semibold disabled:opacity-60">
           {pdfBusy ? 'Making PDF…' : '📄 Download PDF'}
@@ -91,7 +91,7 @@ export default function PoliceCaseDetail() {
       </div>
 
       {/* Photo and main details */}
-      <section className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
         <img src={casePhotoUrl(c.photo_path)} alt={c.full_name}
           className="w-full max-h-80 object-contain rounded-lg bg-slate-100" />
         <div>
@@ -115,18 +115,18 @@ export default function PoliceCaseDetail() {
       </section>
 
       {/* Who reported it, so police can call them to verify */}
-      <section className="bg-white rounded-xl p-4 shadow-sm text-sm">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 text-sm">
         <h3 className="font-semibold mb-1">Reported by</h3>
         <p>{c.reporter?.full_name || 'Name not given'}</p>
         {c.reporter?.phone ? (
-          <a href={`tel:${c.reporter.phone}`} className="text-emerald-800 underline">📞 {c.reporter.phone}</a>
+          <a href={`tel:${c.reporter.phone}`} className="text-brand-700 underline">📞 {c.reporter.phone}</a>
         ) : (
           <p className="text-slate-500">No phone number in their profile</p>
         )}
       </section>
 
       {/* Last-seen location */}
-      <section className="bg-white rounded-xl p-4 shadow-sm">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80">
         <h3 className="font-semibold mb-2 text-sm">Last-seen location</h3>
         <Suspense fallback={<div className="h-64 rounded-lg bg-slate-100" />}>
           <LocationPicker value={{ lat: c.last_seen_lat, lng: c.last_seen_lng }} readOnly />
@@ -156,7 +156,7 @@ export default function PoliceCaseDetail() {
       )}
 
       {c.status === 'pending' && showReject && (
-        <section className="bg-white rounded-xl p-4 shadow-sm space-y-2">
+        <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-2">
           <label className="block text-sm font-semibold">Reason for rejecting (the family will see this)</label>
           <textarea rows="3" maxLength={500} value={reason} onChange={(e) => setReason(e.target.value)}
             className="w-full border border-slate-300 rounded-lg px-3 py-2 text-base"

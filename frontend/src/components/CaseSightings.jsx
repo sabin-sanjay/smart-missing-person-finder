@@ -76,7 +76,7 @@ export default function CaseSightings({ caseId, lastSeen }) {
   }
 
   return (
-    <section className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+    <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
       <h3 className="font-semibold">Sightings ({sightings.length})</h3>
       {error && <p className="text-red-600 text-sm">{error}</p>}
       {loading && <p className="text-slate-500 text-sm">Loading…</p>}
@@ -104,13 +104,13 @@ export default function CaseSightings({ caseId, lastSeen }) {
 
             <p>
               📍 {formatDistance(distanceKm(lastSeen, { lat: s.lat, lng: s.lng }))} from last-seen spot ·{' '}
-              <a href={googleMapsLink(s.lat, s.lng)} target="_blank" rel="noreferrer" className="text-emerald-800 underline">
+              <a href={googleMapsLink(s.lat, s.lng)} target="_blank" rel="noreferrer" className="text-brand-700 underline">
                 Open in Google Maps
               </a>
             </p>
             <p className="text-slate-600">
               By {s.reporter?.full_name || 'unknown'}
-              {s.reporter?.phone && <> · <a href={`tel:${s.reporter.phone}`} className="text-emerald-800 underline">📞 {s.reporter.phone}</a></>}
+              {s.reporter?.phone && <> · <a href={`tel:${s.reporter.phone}`} className="text-brand-700 underline">📞 {s.reporter.phone}</a></>}
             </p>
 
             {s.review_status === 'new' && (

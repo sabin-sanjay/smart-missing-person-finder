@@ -30,7 +30,7 @@ is expected for a home-made test certificate.
 
 ## Live app
 
-**https://missing-person-finder.sabin-sanjay.workers.dev**
+**https://lumen.sabin-sanjay.workers.dev**
 
 ## Start the backend (push alerts + face matching)
 
@@ -66,7 +66,7 @@ If PowerShell says "running scripts is disabled", run this once:
 
 ## Put the app online (Cloudflare)
 
-The app is online at https://missing-person-finder.sabin-sanjay.workers.dev
+The app is online at https://lumen.sabin-sanjay.workers.dev
 (Cloudflare Workers static hosting: free, no "Powered by" badge. Settings in `frontend/wrangler.jsonc`.)
 
 **To publish changes: double-click `deploy-app.cmd`.** It builds the app and uploads it.

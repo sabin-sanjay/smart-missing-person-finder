@@ -62,7 +62,7 @@ export default function AdminDashboard() {
         <input value={search} onChange={(e) => setSearch(e.target.value)}
           placeholder="Search name, email or phone"
           className="flex-1 min-w-0 border border-slate-300 rounded-lg px-3 py-2 text-base" />
-        <button className="bg-emerald-800 text-white rounded-lg px-4 font-semibold">Search</button>
+        <button className="bg-brand-700 text-white rounded-lg px-4 font-semibold">Search</button>
       </form>
 
       <p className="text-xs text-slate-500">
@@ -75,7 +75,7 @@ export default function AdminDashboard() {
 
       <ul className="space-y-2">
         {users.map((u) => (
-          <li key={u.id} className="bg-white rounded-xl p-3 shadow-sm text-sm space-y-1">
+          <li key={u.id} className="bg-white rounded-xl p-3 shadow-sm ring-1 ring-slate-200/80 text-sm space-y-1">
             <div className="flex justify-between gap-2 items-start">
               <div className="min-w-0">
                 <p className="font-semibold truncate">{u.full_name || '(no name)'}</p>

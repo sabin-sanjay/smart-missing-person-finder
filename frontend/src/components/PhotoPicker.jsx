@@ -7,8 +7,8 @@
 export default function PhotoPicker({ onChange, disabled, hasPhoto, text = '📷 Add a photo', changeText = '📷 Change photo' }) {
   return (
     <label className={`flex items-center justify-center gap-2 w-full rounded-lg border-2 border-dashed px-4 py-3 font-semibold
-      ${disabled ? 'opacity-50' : 'cursor-pointer active:bg-emerald-50'}
-      ${hasPhoto ? 'border-slate-300 text-slate-600' : 'border-emerald-800 text-emerald-800'}`}>
+      ${disabled ? 'opacity-50' : 'cursor-pointer active:bg-brand-50'}
+      ${hasPhoto ? 'border-slate-300 text-slate-600' : 'border-brand-700 text-brand-700'}`}>
       {hasPhoto ? changeText : text}
       {/* The real file box is hidden; tapping the label opens it */}
       <input type="file" accept="image/*" onChange={onChange} disabled={disabled} className="sr-only" />

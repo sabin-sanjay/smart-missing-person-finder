@@ -27,12 +27,12 @@ export default function ProtectedRoute({ roles, children }) {
   // Logged in but wrong role
   if (roles && !roles.includes(role)) {
     return (
-      <div className="bg-white rounded-xl p-4 shadow-sm text-center space-y-2">
+      <div className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 text-center space-y-2">
         <h2 className="text-xl font-bold">Not allowed</h2>
         <p className="text-slate-600 text-sm">
           This page is only for: {roles.join(', ')}. Your role is: {role ?? 'unknown'}.
         </p>
-        <Link to="/" className="text-emerald-800 underline">Go to Home</Link>
+        <Link to="/" className="text-brand-700 underline">Go to Home</Link>
       </div>
     )
   }

@@ -33,12 +33,12 @@ export default function Profile() {
   // the database script (Step 2) probably wasn't run before this account was made.
   if (!profile) {
     return (
-      <div className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+      <div className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
         <p className="text-red-600 text-sm">
           Your profile could not be found. Make sure supabase/001_initial_schema.sql was run,
           then delete this user in Supabase (Authentication → Users) and sign up again.
         </p>
-        <button onClick={signOut} className="text-emerald-800 underline text-sm">Log out</button>
+        <button onClick={signOut} className="text-brand-700 underline text-sm">Log out</button>
       </div>
     )
   }
@@ -70,16 +70,16 @@ export default function Profile() {
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-800'
+    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-700'
 
   return (
     <div className="space-y-4">
       {/* Who you are */}
-      <section className="bg-white rounded-xl p-4 shadow-sm">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80">
         <p className="text-sm text-slate-500">Logged in as</p>
         <p className="font-semibold break-all">{user.email}</p>
         <p className="mt-2">
-          <span className="inline-block bg-emerald-100 text-emerald-800 text-xs font-semibold uppercase px-2 py-1 rounded">
+          <span className="inline-block bg-brand-100 text-brand-700 text-xs font-semibold uppercase px-2 py-1 rounded">
             {role}
           </span>
         </p>
@@ -88,7 +88,7 @@ export default function Profile() {
 
       {/* Pages for your role */}
       {role !== 'public' && (
-        <section className="bg-white rounded-xl p-4 shadow-sm space-y-2">
+        <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-2">
           <RoleLink to="/my-cases" text="📋 My cases" />
           {(role === 'police' || role === 'admin') && <RoleLink to="/police" text="🛡️ Police dashboard" />}
           {role === 'admin' && <RoleLink to="/admin" text="⚙️ Admin: manage users" />}
@@ -96,7 +96,7 @@ export default function Profile() {
       )}
 
       {/* Edit details */}
-      <form onSubmit={handleSave} className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+      <form onSubmit={handleSave} className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
         <h3 className="font-semibold">Your details</h3>
         <input className={inputClass} placeholder="Full name" value={fullName}
           onChange={(e) => setFullName(e.target.value)} />
@@ -105,18 +105,18 @@ export default function Profile() {
         {error && <p className="text-red-600 text-sm">{error}</p>}
         {message && <p className="text-green-700 text-sm">{message}</p>}
         <button type="submit" disabled={busy}
-          className="w-full bg-emerald-800 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
+          className="w-full bg-brand-700 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
           {busy ? 'Saving…' : 'Save'}
         </button>
       </form>
 
       {/* Public <-> family switch. (Police/admin roles can only be given by an admin.) */}
       {role === 'public' && (
-        <section className="bg-white rounded-xl p-4 shadow-sm space-y-2">
+        <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-2">
           <p className="text-sm text-slate-600">Is someone in your family missing?</p>
           <button disabled={busy}
             onClick={() => saveProfile({ role: 'family' }, 'You can now register a missing person.')}
-            className="w-full bg-red-600 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
+            className="w-full bg-flame-600 text-white rounded-lg py-3 font-semibold disabled:opacity-60">
             Switch to family account
           </button>
         </section>

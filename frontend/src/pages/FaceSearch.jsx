@@ -67,7 +67,7 @@ export default function FaceSearch() {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-bold">🔍 Who is this?</h2>
-      <section className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
         <p className="text-sm text-slate-600">
           Found someone who seems lost or confused? Take a clear photo of their face to check if
           they’ve been reported missing. The photo is only compared, never saved.
@@ -95,7 +95,7 @@ export default function FaceSearch() {
         <section className="space-y-3">
           <h3 className="font-semibold">Possible matches</h3>
           {result.matches.map((m) => (
-            <div key={m.case_id} className="bg-white rounded-xl p-3 shadow-sm flex gap-3">
+            <div key={m.case_id} className="bg-white rounded-xl p-3 shadow-sm ring-1 ring-slate-200/80 flex gap-3">
               <img src={casePhotoUrl(m.photo_path)} alt={m.full_name}
                 className="w-20 h-20 rounded-lg object-cover bg-slate-200 shrink-0" />
               <div className="text-sm space-y-1 min-w-0">
@@ -107,7 +107,7 @@ export default function FaceSearch() {
                 </p>
                 <p className="text-slate-500">Missing since {timeAgo(m.last_seen_at)}</p>
                 <div className="flex gap-3">
-                  <Link to={`/case/${m.case_id}`} className="text-emerald-800 underline">Details</Link>
+                  <Link to={`/case/${m.case_id}`} className="text-brand-700 underline">Details</Link>
                   <Link to={`/report?case=${m.case_id}`} className="text-red-600 underline font-semibold">Report sighting</Link>
                 </div>
               </div>

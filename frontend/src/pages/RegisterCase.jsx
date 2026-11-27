@@ -116,7 +116,7 @@ export default function RegisterCase() {
   }
 
   const inputClass =
-    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-800'
+    'w-full border border-slate-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-brand-700'
   const labelClass = 'block text-sm font-semibold mb-1'
 
   return (
@@ -124,7 +124,7 @@ export default function RegisterCase() {
       <h2 className="text-xl font-bold">Report a missing person</h2>
 
       {/* ---- Photo ---- */}
-      <section className="bg-white rounded-xl p-4 shadow-sm space-y-2">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-2">
         <label className={labelClass}>Photo *</label>
         <p className="text-xs text-slate-500">A recent photo where the face is clear and facing the camera works best for face matching.</p>
         {photoPreview && (
@@ -134,7 +134,7 @@ export default function RegisterCase() {
       </section>
 
       {/* ---- About the person ---- */}
-      <section className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
         <div>
           <label className={labelClass}>Full name *</label>
           <input className={inputClass} value={form.full_name} maxLength={100}
@@ -170,7 +170,7 @@ export default function RegisterCase() {
       </section>
 
       {/* ---- Last seen ---- */}
-      <section className="bg-white rounded-xl p-4 shadow-sm space-y-3">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 space-y-3">
         <div>
           <label className={labelClass}>Last seen: date and time *</label>
           <input className={`${inputClass} min-w-0 appearance-none`} type="datetime-local" max={nowForInput()}
@@ -192,7 +192,7 @@ export default function RegisterCase() {
       {error && <p className="text-red-600 text-sm bg-red-50 rounded-lg p-3">{error}</p>}
 
       <button type="submit" disabled={busy}
-        className="w-full bg-red-600 text-white rounded-xl py-4 font-semibold text-lg disabled:opacity-60 active:bg-red-700">
+        className="w-full bg-flame-600 text-white rounded-xl py-4 font-semibold text-lg disabled:opacity-60 active:bg-flame-700">
         {busy ? 'Submitting…' : 'Submit for police approval'}
       </button>
       <p className="text-xs text-slate-500 text-center">

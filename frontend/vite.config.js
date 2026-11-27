@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => ({
         name: 'Lumen: Missing Person Finder',
         short_name: 'Lumen',
         description: 'Help find missing people near you with alerts, sightings and a live map.',
-        theme_color: '#065f46',
+        theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',
         orientation: 'portrait',

@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <div className="space-y-4">
-      <section className="bg-white rounded-xl p-4 shadow-sm">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80">
         <h2 className="text-xl font-bold mb-1">{t('home.heroTitle')}</h2>
         <p className="text-slate-600 text-sm">{t('home.heroText')}</p>
       </section>
@@ -55,23 +55,23 @@ export default function Home() {
       {/* Big, easy-to-tap buttons for the two main things people do */}
       <div className="grid grid-cols-2 gap-3">
         <Link to="/report"
-          className="bg-red-600 text-white rounded-xl p-4 text-center font-semibold active:bg-red-700">
+          className="bg-flame-600 text-white rounded-xl p-4 text-center font-semibold active:bg-flame-700">
           {t('home.reportBtn')}
         </Link>
         <Link to="/map"
-          className="bg-emerald-800 text-white rounded-xl p-4 text-center font-semibold active:bg-emerald-900">
+          className="bg-brand-700 text-white rounded-xl p-4 text-center font-semibold active:bg-brand-800">
           {t('home.mapBtn')}
         </Link>
       </div>
 
-      <Link to="/who-is-this" className="block bg-white rounded-xl p-4 shadow-sm active:bg-slate-50">
+      <Link to="/who-is-this" className="block bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80 active:bg-slate-50">
         <p className="font-semibold">{t('home.whoTitle')}</p>
         <p className="text-sm text-slate-600">{t('home.whoText')}</p>
       </Link>
 
       <AlertsCard />
 
-      <section className="bg-white rounded-xl p-4 shadow-sm">
+      <section className="bg-white rounded-xl p-4 shadow-sm ring-1 ring-slate-200/80">
         <h3 className="font-semibold mb-2">{t('home.currentlyMissing')}</h3>
 
         {/* Show ONE of: loading, error, empty, or the list */}

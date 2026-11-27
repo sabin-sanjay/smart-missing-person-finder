@@ -65,7 +65,7 @@ export default function PoliceDashboard() {
             onClick={() => setTab(t.status)}
             className={
               'shrink-0 rounded-full px-3 py-2 text-sm font-semibold ' +
-              (tab === t.status ? 'bg-emerald-800 text-white' : 'bg-white text-slate-700 border border-slate-300')
+              (tab === t.status ? 'bg-brand-700 text-white' : 'bg-white text-slate-700 border border-slate-300')
             }
           >
             {t.label} ({countOf(t.status)})
@@ -82,7 +82,7 @@ export default function PoliceDashboard() {
       <ul className="space-y-3">
         {shown.map((c) => (
           <li key={c.id}>
-            <Link to={`/police/case/${c.id}`} className="bg-white rounded-xl p-3 shadow-sm flex gap-3 active:bg-slate-50">
+            <Link to={`/police/case/${c.id}`} className="bg-white rounded-xl p-3 shadow-sm ring-1 ring-slate-200/80 flex gap-3 active:bg-slate-50">
               <img src={casePhotoUrl(c.photo_path)} alt={c.full_name} loading="lazy"
                 className="w-16 h-16 rounded-lg object-cover bg-slate-200 shrink-0" />
               <div className="text-sm min-w-0">
