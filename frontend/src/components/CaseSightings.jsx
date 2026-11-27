@@ -115,7 +115,7 @@ export default function CaseSightings({ caseId, lastSeen }) {
 
             {s.review_status === 'new' && (
               <div className="grid grid-cols-2 gap-2">
-                <button onClick={() => review(s.id, 'confirmed')} className="bg-green-700 text-white rounded-lg py-2 font-semibold">
+                <button onClick={() => review(s.id, 'confirmed')} data-haptic="strong" className="bg-green-700 text-white rounded-lg py-2 font-semibold">
                   ✓ Confirm
                 </button>
                 <button onClick={() => review(s.id, 'dismissed')} className="border border-slate-300 rounded-lg py-2 font-semibold">

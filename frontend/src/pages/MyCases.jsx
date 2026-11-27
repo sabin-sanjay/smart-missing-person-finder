@@ -91,7 +91,7 @@ export default function MyCases() {
               )}
               {c.status === 'active' && (
                 <button onClick={() => markFound(c)}
-                  className="block bg-green-700 text-white rounded-lg px-3 py-2 font-semibold">
+                  data-haptic="strong" className="block bg-green-700 text-white rounded-lg px-3 py-2 font-semibold">
                   ✅ They’ve been found
                 </button>
               )}

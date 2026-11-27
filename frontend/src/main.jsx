@@ -10,6 +10,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import '@fontsource-variable/figtree'
 import './index.css'
 import './i18n' // load translations before anything is shown
+import { setupHaptics } from './lib/haptics'
+
+// Short vibration when important buttons are tapped (Android phones)
+setupHaptics()
 
 import { AuthProvider } from './context/AuthContext.jsx'
 import Layout from './components/Layout.jsx'

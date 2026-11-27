@@ -151,11 +151,11 @@ export default function PoliceCaseDetail() {
         <div className="grid grid-cols-2 gap-3">
           <button disabled={busy}
             onClick={() => changeStatus({ status: 'active' }, `Approve the case for ${c.full_name}? Alerts will start going out within 2 km.`)}
-            className="bg-green-700 text-white rounded-xl py-3 font-semibold disabled:opacity-60">
+            data-haptic="strong" className="bg-green-700 text-white rounded-xl py-3 font-semibold disabled:opacity-60">
             ✓ Approve
           </button>
           <button disabled={busy} onClick={() => setShowReject(true)}
-            className="bg-transparent border border-red-600 text-red-600 rounded-xl py-3 font-semibold disabled:opacity-60">
+            data-haptic="light" className="bg-transparent border border-red-600 text-red-600 rounded-xl py-3 font-semibold disabled:opacity-60">
             ✖ Reject
           </button>
         </div>
@@ -172,7 +172,7 @@ export default function PoliceCaseDetail() {
               Cancel
             </button>
             <button disabled={busy} onClick={reject}
-              className="bg-red-600 text-white rounded-xl py-3 font-semibold disabled:opacity-60">
+              data-haptic="strong" className="bg-red-600 text-white rounded-xl py-3 font-semibold disabled:opacity-60">
               Confirm reject
             </button>
           </div>
@@ -182,7 +182,7 @@ export default function PoliceCaseDetail() {
       {c.status === 'active' && (
         <button disabled={busy}
           onClick={() => changeStatus({ status: 'found' }, `Mark ${c.full_name} as FOUND? This stops all alerts.`)}
-          className="w-full bg-green-700 text-white rounded-xl py-3 font-semibold disabled:opacity-60">
+          data-haptic="strong" className="w-full bg-green-700 text-white rounded-xl py-3 font-semibold disabled:opacity-60">
           ✅ Mark as found
         </button>
       )}
