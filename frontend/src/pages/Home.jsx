@@ -137,7 +137,7 @@ export default function Home() {
           {Object.keys(FILTERS).map((key) => (
             <button key={key} onClick={() => setFilter(key)} aria-pressed={filter === key}
               className={'font-mono rounded-full px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide whitespace-nowrap border ' +
-                (filter === key ? 'bg-ink text-white border-ink' : 'border-ink/20 text-ink')}>
+                (filter === key ? 'bg-[#e0141b] text-white border-[#e0141b]' : 'border-white/15 text-ink bg-[#1c1a1b]')}>
               {t(`home.filter${key[0].toUpperCase()}${key.slice(1)}`)}
             </button>
           ))}

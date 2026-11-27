@@ -51,7 +51,7 @@ export default function Layout() {
       {/* Top bar: a dark rounded panel with logo + name, and a blue language chip.
           "sticky top-0" keeps it on screen while you scroll. */}
       <header
-        className="sticky top-0 z-10 px-3 pb-2 bg-paper"
+        className="sticky top-0 z-10 px-3 pb-2"
         style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.6rem)' }}
       >
         <div className="bk-panel !py-3.5 flex items-center justify-between gap-2 max-w-xl mx-auto">

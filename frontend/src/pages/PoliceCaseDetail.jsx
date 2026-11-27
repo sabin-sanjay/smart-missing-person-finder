@@ -87,7 +87,7 @@ export default function PoliceCaseDetail() {
       <div className="flex justify-between items-center gap-2">
         <Link to="/police" className="text-brand-700 text-sm underline">← Back to dashboard</Link>
         <button onClick={handlePdf} disabled={pdfBusy}
-          className="border border-slate-300 bg-white rounded-lg px-3 py-2 text-sm font-semibold disabled:opacity-60">
+          className="border border-slate-300 bg-transparent rounded-lg px-3 py-2 text-sm font-semibold disabled:opacity-60">
           {pdfBusy ? 'Making PDF…' : '📄 Download PDF'}
         </button>
       </div>
@@ -155,7 +155,7 @@ export default function PoliceCaseDetail() {
             ✓ Approve
           </button>
           <button disabled={busy} onClick={() => setShowReject(true)}
-            className="bg-white border border-red-600 text-red-600 rounded-xl py-3 font-semibold disabled:opacity-60">
+            className="bg-transparent border border-red-600 text-red-600 rounded-xl py-3 font-semibold disabled:opacity-60">
             ✖ Reject
           </button>
         </div>

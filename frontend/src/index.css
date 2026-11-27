@@ -8,34 +8,43 @@
    "flame" = the logo's orange (urgent actions like "Report a sighting")
    Use them like any Tailwind colour: bg-brand-700, text-flame-600, ... */
 @theme {
-  --color-brand-50: #fdeeee;
-  --color-brand-100: #fadcdc;
-  --color-brand-500: #e04a52;
-  --color-brand-600: #c8303a;
-  --color-brand-700: #a8222d;
-  --color-brand-800: #861a24;
-  --color-flame-50: #fff1f1;
-  --color-flame-100: #ffe0e0;
-  --color-flame-500: #ec5565;
-  --color-flame-600: #d63a4c;
-  --color-flame-700: #b52b3b;
-  --color-flame-800: #8c1f2d;
+  --color-brand-50: #2a1416;
+  --color-brand-100: #3a181b;
+  --color-brand-500: #ff4b50;
+  --color-brand-600: #e5161d;
+  --color-brand-700: #ff3b40;
+  --color-brand-800: #ff6a6e;
+  --color-flame-50: #2a1416;
+  --color-flame-100: #3a181b;
+  --color-flame-500: #ff4b50;
+  --color-flame-600: #e5161d;
+  --color-flame-700: #ff3b40;
+  --color-flame-800: #ff6a6e;
 
   /* Premium extras */
-  --color-ink: #161214;      /* soft black: text, dark pills */
-  --color-olive: #121012;    /* black glass panels (name kept so old code still works) */
-  --color-olive-deep: #0a090a;
+  --color-ink: #f6f2f3;      /* soft black: text, dark pills */
+  --color-olive: #1c1a1b;    /* black glass panels (name kept so old code still works) */
+  --color-olive-deep: #141213;
   --color-lime-glow: #ff9a9a;
-  --color-muted: #7b5f64;    /* soft grey-violet for secondary text */
+  --color-muted: #a39b9e;    /* soft grey-violet for secondary text */
   --color-violet-glow: #7c5cff;
   --color-peach: #ffc7a3;
   --color-teal-glow: #2bd4c4;
-  --color-paper: #f9eceb;    /* soft blush page behind the red panels */
-  --color-tangerine: #ffa29c;/* light coral: accent numbers and rings on the red panels */
-  --color-sky-ink: #fff3f2;  /* near-white: headlines on black panels */
+  --color-paper: #0b0a0b;    /* soft blush page behind the red panels */
+  --color-tangerine: #ff5a5f;/* light coral: accent numbers and rings on the red panels */
+  --color-sky-ink: #ffffff;  /* near-white: headlines on black panels */
+
+  /* DARK MODE: remap Tailwind's light greys/tints so every screen works on black */
+  --color-slate-100: #262324; --color-slate-200: #2f2b2d; --color-slate-300: #3d393b;
+  --color-slate-400: #8a8386; --color-slate-700: #d9d3d5;
+  --color-red-50: #2a1214; --color-red-600: #f0383e; --color-red-700: #ff6b6f;
+  --color-green-50: #12241a; --color-green-100: #163020; --color-green-700: #1f9d55; --color-green-800: #5ee08f;
+  --color-amber-50: #2a2110; --color-amber-100: #33280f; --color-amber-700: #fbbf24; --color-amber-800: #fcd34d;
+  --color-blue-100: #172238; --color-blue-600: #6aa8ff; --color-blue-900: #c7dcff;
 
   /* Fonts: Outfit first, then the phone's own fonts (incl. Hindi) */
-  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* "mono" now uses the same clean font as everything else (matches the reference) */
+  --font-mono: "Outfit Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", sans-serif;
   --font-sans: "Outfit Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", "Noto Sans", sans-serif;
 }
 
@@ -361,4 +370,72 @@ body {
 
   /* Big numbers ("2,435", "319 ms") in thin mono */
   .bk-num { font-family: var(--font-mono); font-weight: 300; letter-spacing: -0.04em; }
+}
+
+
+/* ===================================================================
+   BLACK + RED "ECG" LOOK (from the user's reference picture)
+   Black page with a big red glow in the top-left corner, charcoal
+   rounded cards with small gaps, white text, flat bright-red pill
+   buttons. These rules come last, so they win over the older looks above.
+   =================================================================== */
+:root { color-scheme: dark; } /* dark date pickers, dropdowns and scrollbars */
+
+@layer components {
+  .lq-backdrop {
+    background:
+      radial-gradient(95% 55% at 0% 0%, #9b1a10 0%, #4f0c07 32%, transparent 64%),
+      #0b0a0b;
+  }
+  .lq-glass { background: rgb(20 18 19 / 0.78); border-color: rgb(255 255 255 / 0.06); }
+  .lq-card { background: #1c1a1b; border-color: rgb(255 255 255 / 0.06); box-shadow: none; }
+
+  /* Charcoal cards */
+  .bk-panel,
+  .bk-liquid,
+  .bk-stack > .bk-panel:not(:first-child) {
+    color: #fff;
+    background: linear-gradient(180deg, #242123 0%, #19171a 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 12px 30px -14px rgb(0 0 0 / 0.7);
+  }
+  .bk-panel::before, .bk-liquid::before { background: linear-gradient(180deg, rgb(255 255 255 / 0.04), transparent); }
+
+  /* Joined stacks become separate cards with a small gap */
+  .bk-stack { display: flex; flex-direction: column; gap: 10px; }
+  .bk-stack > .bk-panel,
+  .bk-stack > .bk-panel:first-child,
+  .bk-stack > .bk-panel:last-child { border-radius: 1.75rem; }
+  .bk-stack > .bk-panel:not(:first-child):not(:last-child) { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06); }
+  .bk-notch { display: none; }
+
+  .bk-row, .bk-sheet { background: #1c1a1b; border: 1px solid rgb(255 255 255 / 0.07); color: var(--color-ink); }
+
+  .bk-input { background: #141213; border: 1px solid rgb(255 255 255 / 0.1); color: var(--color-ink); }
+  .bk-input::placeholder { color: var(--color-muted); }
+  .bk-input:focus { border-color: #e5161d; box-shadow: 0 0 0 3px rgb(229 22 29 / 0.25); }
+
+  /* Buttons: plain sans text, flat red pills */
+  .bk-btn { font-family: var(--font-sans); text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 0.95rem; }
+  .bk-chip:not(.bk-chip-blue),
+  .bk-btn-orange,
+  .bk-liquid-orange {
+    color: #fff;
+    background: linear-gradient(180deg, #ea1f27 0%, #cf0f17 100%);
+    box-shadow: 0 8px 20px -10px rgb(220 20 27 / 0.75);
+    text-shadow: none;
+  }
+  .bk-btn-ink { background: linear-gradient(180deg, #ea1f27 0%, #cf0f17 100%); box-shadow: 0 8px 20px -10px rgb(220 20 27 / 0.75); } /* main buttons: red */
+  .bk-btn-line { border: 1.5px solid rgb(255 255 255 / 0.35); color: #fff; }
+  .bk-chip { font-family: var(--font-sans); letter-spacing: 0.02em; }
+  .bk-chip-blue { background: #fff; color: #161214; } /* white round chip, like the heart button */
+
+  .bk-label { font-family: var(--font-sans); color: rgb(255 255 255 / 0.55); }
+  .bk-num { font-family: var(--font-sans); font-weight: 400; letter-spacing: -0.02em; }
+  .bk-title { color: #fff; }
+
+  .lq-pill { background: #1c1a1b; border-color: rgb(255 255 255 / 0.08); color: var(--color-ink); }
+  .lq-pill[aria-pressed="true"] { background: #e0141b; border-color: #e0141b; }
+
+  /* Map pop-ups */
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: #1c1a1b; color: var(--color-ink); }
 }

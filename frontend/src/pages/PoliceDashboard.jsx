@@ -69,7 +69,7 @@ export default function PoliceDashboard() {
             onClick={() => setTab(t.status)}
             className={
               'shrink-0 rounded-full px-3 py-2 text-sm font-semibold ' +
-              (tab === t.status ? 'bk-liquid' : 'bg-[#fffafa] text-ink border border-ink/15')
+              (tab === t.status ? 'bk-liquid' : 'bg-[#1c1a1b] text-ink border border-white/10')
             }
           >
             {t.label} ({countOf(t.status)})
