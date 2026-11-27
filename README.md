@@ -28,7 +28,22 @@ open the **Network** address (e.g. `https://172.20.10.2:5173`), and when Chrome
 warns "Your connection is not private", tap **Advanced → Proceed**. That warning
 is expected for a home-made test certificate.
 
-## Run the backend on your computer
+## Live app
+
+**https://missing-person-finder-sabin.netlify.app**
+
+## Start the backend (push alerts + face matching)
+
+**Double-click `start-backend.cmd`** in this folder. A black window opens; wait for
+"✅ Backend is ONLINE", then keep the window open while the app is in use. Close it to stop.
+
+It runs the backend on this laptop and opens a free Cloudflare tunnel so phones
+anywhere can reach it. The tunnel address changes each time, so the backend saves
+it in Supabase (`app_config` table, script 009) and the app reads it from there.
+(Hugging Face Docker Spaces now need a paid plan, so we don't use them.)
+Needs `cloudflared` installed once: `winget install --id Cloudflare.cloudflared`.
+
+## Run the backend for development only (no tunnel)
 
 Open a **second** terminal (the app keeps running in the first one):
 
@@ -51,22 +66,17 @@ If PowerShell says "running scripts is disabled", run this once:
 
 ## Put the app online (Netlify)
 
-1. In `frontend/.env`, set `VITE_BACKEND_URL` to your Hugging Face address.
-2. Build the final version:
-   ```powershell
-   cd "C:\Users\sabin sanjay\Documents\smart-missing-person-finder\frontend"
-   npm run build
-   ```
-   This creates a `dist` folder.
-3. Go to https://app.netlify.com/drop, log in, and **drag the `dist` folder** onto the page.
-4. Netlify gives the site an address like `https://random-name-123.netlify.app`.
-   Rename it under **Site configuration → Change site name**.
-5. To publish an update later: run `npm run build` again, then open **Deploys** on the site and drag the new `dist` folder in.
+The app is already online at https://missing-person-finder-sabin.netlify.app.
 
-After the first upload, update these three places with the new address:
-- Supabase → Authentication → URL Configuration: **Site URL** = your Netlify address,
-  and add `https://YOUR-SITE.netlify.app/**` to **Redirect URLs**
-- Hugging Face Space → Settings → Secrets: **APP_URL** = your Netlify address (then restart the Space)
+**To publish changes: double-click `deploy-app.cmd`.** It builds the app and uploads it.
+(The first time on a new computer it opens Chrome to log in to Netlify.)
+
+Settings that point at this address (already done):
+- Supabase → Authentication → URL Configuration: **Site URL** and **Redirect URLs**
+- `backend/.env`: `APP_URL` (lets the site call the backend)
+- `frontend/.env.production`: `VITE_BACKEND_URL=` left empty, so the online app always
+  uses the address the backend publishes in Supabase
+- Netlify: "team login" visitor protection switched off so the public can open the site
 
 ## Secret keys
 
