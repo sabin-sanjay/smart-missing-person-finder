@@ -792,3 +792,62 @@ body {
   .tab-active::after { background: #ff3b40; box-shadow: 0 0 8px #ff3b40; }
   .seg-tab-on .seg-count { background: #e5161d; color: #fff; }
 }
+
+/* ===================================================================
+   RED GLOW ON TABS
+   The glass bubble under the chosen tab glows red: a red halo around it,
+   warm red light inside its lower half, and a thin red rim. The glow
+   "breathes" very slowly. The bar gets a faint red light along its bottom.
+   =================================================================== */
+@layer components {
+  .tab-indicator, .seg-pill {
+    background:
+      radial-gradient(120% 80% at 50% 0%, rgb(255 255 255 / 0.42), transparent 58%),
+      radial-gradient(90% 70% at 50% 110%, rgb(255 40 50 / 0.55), transparent 70%),
+      linear-gradient(180deg, rgb(255 255 255 / 0.26) 0%, rgb(255 60 70 / 0.18) 100%);
+    border: 1px solid rgb(255 120 125 / 0.75);
+    box-shadow:
+      inset 0 1px 1px rgb(255 255 255 / 0.75),
+      inset 0 -6px 14px rgb(255 30 40 / 0.35),
+      0 0 14px rgb(255 40 50 / 0.55),
+      0 0 34px rgb(255 30 40 / 0.35),
+      0 8px 20px -8px rgb(0 0 0 / 0.6);
+    animation: red-breathe 3.2s ease-in-out infinite;
+  }
+  @keyframes red-breathe {
+    0%, 100% {
+      box-shadow:
+        inset 0 1px 1px rgb(255 255 255 / 0.75),
+        inset 0 -6px 14px rgb(255 30 40 / 0.35),
+        0 0 14px rgb(255 40 50 / 0.5),
+        0 0 30px rgb(255 30 40 / 0.3),
+        0 8px 20px -8px rgb(0 0 0 / 0.6);
+    }
+    50% {
+      box-shadow:
+        inset 0 1px 1px rgb(255 255 255 / 0.8),
+        inset 0 -6px 16px rgb(255 30 40 / 0.45),
+        0 0 20px rgb(255 40 50 / 0.7),
+        0 0 46px rgb(255 30 40 / 0.45),
+        0 8px 20px -8px rgb(0 0 0 / 0.6);
+    }
+  }
+
+  /* faint red light along the bottom of the bars */
+  .tabbar, .seg {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.45),
+      inset 0 -10px 22px -12px rgb(255 40 50 / 0.45),
+      0 10px 30px -12px rgb(255 30 40 / 0.35),
+      0 20px 40px -18px rgb(0 0 0 / 0.85);
+  }
+
+  /* chosen tab's text and icon: white with a soft red glow */
+  .tab-active, .seg-tab-on { text-shadow: 0 0 10px rgb(255 70 80 / 0.8), 0 0 2px rgb(255 255 255 / 0.6); }
+  .tab-active svg { filter: drop-shadow(0 0 6px rgb(255 60 70 / 0.9)); }
+  .tab-active::after { background: #ff3b40; box-shadow: 0 0 6px #ff3b40, 0 0 12px #ff3b40; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tab-indicator, .seg-pill { animation: none; }
+  }
+}
