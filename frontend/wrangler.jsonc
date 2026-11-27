@@ -1,0 +1,14 @@
+// wrangler.jsonc: settings for publishing the app on Cloudflare (free, no badge).
+// Live at https://missing-person-finder.sabin-sanjay.workers.dev
+// Publish with:  npm run build  then  npx wrangler deploy   (or double-click deploy-app.cmd)
+{
+  "name": "missing-person-finder",
+  "account_id": "fbc99f3d04a90f4e0cff1d95f2c8d919",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    // Any address that isn't a real file (like /case/123) opens the app,
+    // and the app's own page navigation takes over.
+    "not_found_handling": "single-page-application"
+  }
+}

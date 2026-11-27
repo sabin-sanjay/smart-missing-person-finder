@@ -30,7 +30,7 @@ is expected for a home-made test certificate.
 
 ## Live app
 
-**https://missing-person-finder-sabin.netlify.app**
+**https://missing-person-finder.sabin-sanjay.workers.dev**
 
 ## Start the backend (push alerts + face matching)
 
@@ -64,19 +64,19 @@ pip install -r requirements.txt
 If PowerShell says "running scripts is disabled", run this once:
 `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
 
-## Put the app online (Netlify)
+## Put the app online (Cloudflare)
 
-The app is already online at https://missing-person-finder-sabin.netlify.app.
+The app is online at https://missing-person-finder.sabin-sanjay.workers.dev
+(Cloudflare Workers static hosting: free, no "Powered by" badge. Settings in `frontend/wrangler.jsonc`.)
 
 **To publish changes: double-click `deploy-app.cmd`.** It builds the app and uploads it.
-(The first time on a new computer it opens Chrome to log in to Netlify.)
+(The first time on a new computer it opens Chrome to log in to Cloudflare.)
 
 Settings that point at this address (already done):
 - Supabase → Authentication → URL Configuration: **Site URL** and **Redirect URLs**
-- `backend/.env`: `APP_URL` (lets the site call the backend)
+- `backend/.env`: `APP_URL` (lets the site call the backend; used in alert links)
 - `frontend/.env.production`: `VITE_BACKEND_URL=` left empty, so the online app always
   uses the address the backend publishes in Supabase
-- Netlify: "team login" visitor protection switched off so the public can open the site
 
 ## Secret keys
 
