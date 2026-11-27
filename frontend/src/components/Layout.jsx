@@ -88,7 +88,7 @@ export default function Layout() {
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   'flex flex-col items-center gap-0.5 rounded-full py-2 text-[10px] font-bold uppercase tracking-[0.06em] transition-colors ' +
-                  (isActive ? 'bg-tangerine text-ink' : 'text-white/80 active:bg-white/10')
+                  (isActive ? 'bk-liquid-orange' : 'text-white/80 active:bg-white/10')
                 }
               >
                 <Icon name={item.icon} className="w-[21px] h-[21px]" strokeWidth={1.8} />
