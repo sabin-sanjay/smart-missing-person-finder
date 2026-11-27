@@ -1,6 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- App icon: a white magnifying glass on a dark blue square -->
-  <rect width="64" height="64" rx="14" fill="#1e3a8a"/>
-  <circle cx="28" cy="28" r="13" fill="none" stroke="#fff" stroke-width="6"/>
-  <line x1="38" y1="38" x2="50" y2="50" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- App logo: a person inside alert rings (2 km, 5 km, 10 km) -->
+  <clipPath id="r"><rect width="512" height="512" rx="112"/></clipPath>
+  <g clip-path="url(#r)"><rect width="512" height="512" fill="#1e3a8a"/>
+      <circle cx="256" cy="256" r="196" fill="none" stroke="#ffffff" stroke-opacity=".25" stroke-width="16"/>
+      <circle cx="256" cy="256" r="140" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="16"/>
+      <circle cx="256" cy="256" r="86" fill="#dc2626"/>
+      
+  <circle cx="256" cy="227.36" r="27.599999999999998" fill="#ffffff"/>
+  <path d="M198.96 323.04 C 198.96 270.6, 228.4 261.4, 256 261.4
+           C 283.6 261.4, 313.04 270.6, 313.04 323.04 Z" fill="#ffffff"/></g>
 </svg>
