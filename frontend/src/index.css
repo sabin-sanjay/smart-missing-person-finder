@@ -744,7 +744,7 @@ html.high-contrast .shape-ring, html.high-contrast .shape-dot { display: none; }
 :root {
   --r-card: 28px;
   --pad-card: 18px;
-  --r-inner: calc(var(--r-card) - var(--pad-card)); /* = 10px */
+  --r-inner: var(--r-card); /* inner corners = outer corners = 28px (as requested) */
   --shadow-layers:
     0 1px 1px rgb(20 2 4 / 0.28),
     0 3px 6px rgb(30 3 6 / 0.26),
