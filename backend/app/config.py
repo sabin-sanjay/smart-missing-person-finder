@@ -50,3 +50,8 @@ FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY", "")
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
 TWILIO_FROM_NUMBER = os.getenv("TWILIO_FROM_NUMBER", "")
+
+
+# "Still missing" reminder: minutes after approval (and between reminders).
+# 1440 = once a day. For a quick demo you can set e.g. REMINDER_AFTER_MIN=5 in .env
+REMINDER_AFTER_MIN = int(os.getenv("REMINDER_AFTER_MIN", "1440"))

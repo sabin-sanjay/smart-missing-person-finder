@@ -11,6 +11,8 @@ LANGS = ("en", "hi", "ta", "ml", "te")
 
 T = {
     "en": {
+        "reminder_title": "⏳ Still missing: {name}",
+        "reminder_body": "Missing for {days} day(s). Please keep an eye out and share the poster.",
         "msg_police_title": "💬 Police update about {name}",
         "msg_family_title": "💬 Message from {name}'s family",
         "alert_title": "🚨 Missing: {name}",
@@ -27,6 +29,8 @@ T = {
         "match_police_body": "{pct}% face match with a registered missing person. Please check.",
     },
     "hi": {
+        "reminder_title": "⏳ अभी भी लापता: {name}",
+        "reminder_body": "{days} दिन से लापता। कृपया नज़र रखें और पोस्टर शेयर करें।",
         "msg_police_title": "💬 {name} के बारे में पुलिस का संदेश",
         "msg_family_title": "💬 {name} के परिवार का संदेश",
         "alert_title": "🚨 लापता: {name}",
@@ -43,6 +47,8 @@ T = {
         "match_police_body": "दर्ज लापता व्यक्ति से {pct}% चेहरा मिलान। कृपया जाँचें।",
     },
     "ta": {
+        "reminder_title": "⏳ இன்னும் காணவில்லை: {name}",
+        "reminder_body": "{days} நாட்களாகக் காணவில்லை. தொடர்ந்து கவனியுங்கள், சுவரொட்டியைப் பகிருங்கள்.",
         "msg_police_title": "💬 {name} பற்றி காவல்துறையின் செய்தி",
         "msg_family_title": "💬 {name} இன் குடும்பத்திடமிருந்து செய்தி",
         "alert_title": "🚨 காணவில்லை: {name}",
@@ -59,6 +65,8 @@ T = {
         "match_police_body": "பதிவான காணாமல் போனவருடன் {pct}% முகப் பொருத்தம். சரிபார்க்கவும்.",
     },
     "ml": {
+        "reminder_title": "⏳ ഇപ്പോഴും കാണാനില്ല: {name}",
+        "reminder_body": "{days} ദിവസമായി കാണാനില്ല. ശ്രദ്ധിക്കുക, പോസ്റ്റർ പങ്കിടുക.",
         "msg_police_title": "💬 {name} നെക്കുറിച്ച് പോലീസിന്റെ സന്ദേശം",
         "msg_family_title": "💬 {name} ന്റെ കുടുംബത്തിൽ നിന്നുള്ള സന്ദേശം",
         "alert_title": "🚨 കാണാനില്ല: {name}",
@@ -75,6 +83,8 @@ T = {
         "match_police_body": "രജിസ്റ്റർ ചെയ്ത കാണാതായ ആളുമായി {pct}% മുഖ പൊരുത്തം. പരിശോധിക്കുക.",
     },
     "te": {
+        "reminder_title": "⏳ ఇంకా కనిపించలేదు: {name}",
+        "reminder_body": "{days} రోజులుగా కనిపించడం లేదు. దయచేసి గమనిస్తూ ఉండండి, పోస్టర్ పంచుకోండి.",
         "msg_police_title": "💬 {name} గురించి పోలీసుల సందేశం",
         "msg_family_title": "💬 {name} కుటుంబం నుండి సందేశం",
         "alert_title": "🚨 తప్పిపోయారు: {name}",

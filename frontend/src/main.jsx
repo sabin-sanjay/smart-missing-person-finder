@@ -61,6 +61,7 @@ const FoundSomeone = lazyPage(() => import('./pages/FoundSomeone.jsx'))
 const SafetyCard = lazyPage(() => import('./pages/SafetyCard.jsx'))
 const Sos = lazyPage(() => import('./pages/Sos.jsx'))
 const PoliceFound = lazyPage(() => import('./pages/PoliceFound.jsx'))
+const PoliceVideo = lazyPage(() => import('./pages/PoliceVideo.jsx'))
 const Login = lazyPage(() => import('./pages/Login.jsx'))
 const ResetPassword = lazyPage(() => import('./pages/ResetPassword.jsx'))
 const Profile = lazyPage(() => import('./pages/Profile.jsx'))
@@ -107,6 +108,7 @@ const router = createBrowserRouter([
       { path: 'police/case/:id', element: loggedIn(<PoliceCaseDetail />, ['police', 'admin']) },
       { path: 'police/analytics', element: loggedIn(<PoliceAnalytics />, ['police', 'admin']) },
       { path: 'police/found', element: loggedIn(<PoliceFound />, ['police', 'admin']) },
+      { path: 'police/video', element: loggedIn(<PoliceVideo />, ['police', 'admin']) },
 
       // Admin only
       { path: 'admin', element: loggedIn(<AdminDashboard />, ['admin']) },

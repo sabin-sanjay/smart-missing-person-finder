@@ -13,6 +13,7 @@ import CaseSightings from '../components/CaseSightings'
 import CaseTimeline from '../components/CaseTimeline'
 import CasePhotos from '../components/CasePhotos'
 import CaseMessages from '../components/CaseMessages'
+import ActivityLog from '../components/ActivityLog'
 import { useAuth } from '../context/AuthContext'
 import SharePosterButton from '../components/SharePosterButton'
 import { downloadCasePdf } from '../lib/casePdf'
@@ -149,6 +150,10 @@ export default function PoliceCaseDetail() {
       {c.status === 'active' && (
         <SharePosterButton c={c} />
       )}
+      {c.status === 'active' && (
+        <Link to={`/police/video?case=${c.id}`} className="w-full bk-btn bk-btn-ghost">🎥 Search CCTV video for this person</Link>
+      )}
+      <ActivityLog caseId={c.id} />
 
       {error && <p className="text-red-600 text-sm bg-red-50 rounded-lg p-3">{error}</p>}
 

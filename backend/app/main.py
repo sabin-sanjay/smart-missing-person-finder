@@ -20,10 +20,10 @@ import time
 from collections import defaultdict
 from contextlib import asynccontextmanager
 
-from fastapi import BackgroundTasks, FastAPI, File, Header, HTTPException, UploadFile
+from fastapi import BackgroundTasks, FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import alerts, config, face_jobs, faces, push
+from . import alerts, config, face_jobs, faces, push, video
 from . import supabase_client as db
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -43,6 +43,7 @@ async def run_worker_once() -> dict:
             ("sightings", alerts.run_sighting_notices_once),  # tell the family about new sightings
             ("matches", alerts.run_match_notices_once),       # "found someone" likely matches
             ("messages", alerts.run_message_notices_once),    # police-family messages
+            ("reminders", alerts.run_reminder_round_once),    # daily "still missing" reminders
         )
         for name, job in jobs:
             try:
@@ -178,3 +179,46 @@ async def faces_search(photo: UploadFile = File(...), authorization: str = Heade
         if r["similarity"] >= 0.5  # don't show clearly different people
     ]
     return {"face_found": True, "faces_in_photo": len(found), "matches": matches}
+
+
+
+# ---------------------------------------------------------------------
+# CCTV / video search (police and admin only)
+# ---------------------------------------------------------------------
+MAX_VIDEO_BYTES = 40 * 1024 * 1024   # 40 MB
+_video_lock = asyncio.Lock()         # one video at a time: it's heavy work for a laptop
+
+
+@app.post("/video/search")
+async def video_search(case_id: str = Form(...), video_file: UploadFile = File(...),
+                       authorization: str = Header(default="")):
+    """
+    Upload a short CCTV / phone video and a case: get back the moments where
+    a face looks most like the missing person (checked against ALL photos of
+    the case). The video is never stored.
+    """
+    user = await db.get_user_from_token(authorization.removeprefix("Bearer ").strip())
+    if not user:
+        raise HTTPException(401, "Please log in.")
+    profile = await db.select("profiles", f"select=role&id=eq.{user['id']}")
+    if not profile or profile[0]["role"] not in ("police", "admin"):
+        raise HTTPException(403, "Video search is for police only.")
+    _rate_limit(user["id"], max_per_minute=3)
+
+    data = await video_file.read(MAX_VIDEO_BYTES + 1)
+    if len(data) > MAX_VIDEO_BYTES:
+        raise HTTPException(413, "Video is too large (max 40 MB). Please trim it to the important part.")
+
+    rows = await db.rpc("case_embeddings", {"p_case": case_id}) or []
+    case_embeddings = [faces.from_pgvector(r["embedding"]) for r in rows]
+    if not case_embeddings:
+        raise HTTPException(400, "This case has no clear face photo for the AI to compare with yet.")
+
+    if _video_lock.locked():
+        raise HTTPException(429, "Another video is being checked. Please try again in a minute.")
+    async with _video_lock:
+        try:
+            result = await asyncio.to_thread(video.search_video, data, case_embeddings)
+        except ValueError:
+            raise HTTPException(400, "This file is not a readable video (try MP4).")
+    return result

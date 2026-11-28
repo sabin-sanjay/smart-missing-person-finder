@@ -291,3 +291,36 @@ async def run_message_notices_once() -> dict:
     summary = {"messages": len(ids), "push_sent": sum(1 for x in results if x["ok"])}
     log.info("Message notices: %s", summary)
     return summary
+
+
+
+async def run_reminder_round_once() -> dict:
+    """
+    "Still missing" reminders: once a day (REMINDER_AFTER_MIN), everyone who
+    already got an alert for an open case gets a short reminder.
+    """
+    if not db.is_configured():
+        return {"error": "Supabase is not configured."}
+    try:
+        rows = await db.rpc("pending_reminders", {"p_after_minutes": config.REMINDER_AFTER_MIN, "p_limit": 500}) or []
+    except Exception:
+        return {"cases": 0}  # before supabase/016
+    if not rows:
+        return {"cases": 0, "push_sent": 0}
+
+    langs = await _languages()
+    msgs = [{
+        "token": r["fcm_token"],
+        "title": messages.text("reminder_title", langs.get(r["fcm_token"]),
+                               name=r["full_name"] + (f", {r['age']}" if r.get("age") is not None else "")),
+        "body": messages.text("reminder_body", langs.get(r["fcm_token"]), days=r["days"]),
+        "url": f"{config.APP_URL}/case/{r['case_id']}",
+        "image": _photo_url(r.get("photo_path")),
+        "tag": f"case-{r['case_id']}",
+    } for r in rows if r.get("fcm_token")]
+    results = await asyncio.to_thread(push.send_many, msgs) if msgs else []
+    ids = sorted({r["case_id"] for r in rows})
+    await db.rpc("mark_reminded", {"p_ids": ids})
+    summary = {"cases": len(ids), "push_sent": sum(1 for x in results if x["ok"])}
+    log.info("Reminders: %s", summary)
+    return summary

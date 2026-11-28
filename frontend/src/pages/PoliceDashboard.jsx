@@ -64,6 +64,10 @@ export default function PoliceDashboard() {
         <span>🧍 Found persons <span className="text-muted text-sm">· registered by the public, AI-matched</span></span>
         <span aria-hidden="true" className="text-muted">›</span>
       </Link>
+      <Link to="/police/video" className="bk-row">
+        <span>🎥 CCTV / video search <span className="text-muted text-sm">· find a face in a video</span></span>
+        <span aria-hidden="true" className="text-muted">›</span>
+      </Link>
 
       {/* Tabs. "overflow-x-auto" lets them scroll sideways on very small phones. */}
       <div className="flex gap-2 overflow-x-auto pb-1">
