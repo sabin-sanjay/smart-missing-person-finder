@@ -686,3 +686,46 @@ body {
   }
   .call-tile-red .call-label { color: rgb(255 255 255 / 0.9); }
 }
+
+
+/* ===================================================================
+   ACCESSIBILITY: bigger text and high contrast (lib/accessibility.js)
+   Every size in the app is based on the page text size, so making it
+   bigger grows the whole app evenly.
+   =================================================================== */
+html.text-large { font-size: 112.5%; }
+html.text-xl { font-size: 125%; }
+
+/* High contrast: plain black, pure white text, strong white borders,
+   no see-through glass, glows or background pattern. */
+html.high-contrast .lq-backdrop { background: #000; }
+html.high-contrast .lq-backdrop::before,
+html.high-contrast .lq-backdrop::after { display: none; }
+html.high-contrast .bk-panel,
+html.high-contrast .bk-liquid,
+html.high-contrast .bk-row,
+html.high-contrast .bk-sheet,
+html.high-contrast .search-pill,
+html.high-contrast .nav-bar,
+html.high-contrast .bk-stack > .bk-panel:not(:first-child) {
+  background: #000 !important;
+  border: 2px solid #fff !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html.high-contrast .bk-panel::before, html.high-contrast .bk-liquid::before { display: none; }
+html.high-contrast body,
+html.high-contrast .text-muted,
+html.high-contrast [class*="text-white/"],
+html.high-contrast .bk-label,
+html.high-contrast .call-label { color: #fff !important; }
+html.high-contrast .bk-input { background: #000; border: 2px solid #fff; color: #fff; }
+html.high-contrast .bk-btn-ghost, html.high-contrast .bk-btn-line,
+html.high-contrast .nav-circle, html.high-contrast .glass-pill,
+html.high-contrast .lq-pill, html.high-contrast .icon-circle { background: #000 !important; border: 2px solid #fff !important; color: #fff !important; }
+html.high-contrast .bk-btn-orange, html.high-contrast .bk-btn-ink,
+html.high-contrast .bk-liquid-orange, html.high-contrast .bk-chip:not(.bk-chip-blue) {
+  background: #ff1a24 !important; color: #fff !important; box-shadow: none !important; text-shadow: none !important;
+}
+html.high-contrast .shape-ring, html.high-contrast .shape-dot { display: none; }

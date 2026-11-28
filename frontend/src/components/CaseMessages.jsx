@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { supabase } from '../lib/supabase'
 import { timeAgo } from '../lib/dates'
+import VoiceButton from './VoiceButton'
 
 export default function CaseMessages({ caseId, myId }) {
   const { t } = useTranslation()
@@ -78,6 +79,7 @@ export default function CaseMessages({ caseId, myId }) {
           value={text} onChange={(e) => setText(e.target.value)} />
         <button type="submit" disabled={busy || !text.trim()} className="bk-btn bk-btn-orange !px-5">{t('chat.send')}</button>
       </form>
+      <VoiceButton onText={(spoken) => setText((v) => (v ? `${v} ` : '') + spoken)} />
       {error && <p className="text-sm text-red-600">{error}</p>}
     </section>
   )

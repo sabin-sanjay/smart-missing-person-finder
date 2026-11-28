@@ -11,6 +11,10 @@ import '@fontsource-variable/figtree'
 import './index.css'
 import './i18n' // load translations before anything is shown
 import { setupHaptics } from './lib/haptics'
+import { applyA11yMode } from './lib/accessibility'
+
+// Large text / high contrast, if chosen before (see lib/accessibility.js)
+applyA11yMode()
 
 import { setupAppUpdates } from './lib/appUpdate'
 

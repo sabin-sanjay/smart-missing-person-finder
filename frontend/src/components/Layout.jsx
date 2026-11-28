@@ -13,6 +13,7 @@ import { refreshAlertLocation, listenForForegroundAlerts, syncAlertLanguage } fr
 import Icon from './Icons'
 import { flushQueue, pendingCount, onQueueChange } from '../lib/offlineQueue'
 import { LANGUAGES, LANGUAGE_NAMES } from '../i18n'
+import { A11Y_MODES, getA11yMode, applyA11yMode } from '../lib/accessibility'
 
 export default function Layout() {
   const { session } = useAuth()
@@ -75,6 +76,18 @@ export default function Layout() {
               {t('app.title')}<sup className="text-[0.55em] text-tangerine ml-0.5">●</sup>
             </span>
           </NavLink>
+          {/* Text size / high contrast ("Aa") */}
+          <label className="relative glass-pill text-xs font-bold px-3 py-2 ml-auto" title={t('a11y.label')}>
+            <span aria-hidden="true">Aa</span>
+            <select
+              defaultValue={getA11yMode()}
+              onChange={(e) => applyA11yMode(e.target.value)}
+              aria-label={t('a11y.label')}
+              className="lang-select absolute inset-0 opacity-0 cursor-pointer"
+            >
+              {A11Y_MODES.map((m) => <option key={m} value={m}>{t(`a11y.${m}`)}</option>)}
+            </select>
+          </label>
           {/* Language menu: the phone's own list pops up (easy on small screens).
               The list itself is dark with white text so every language is readable. */}
           <label className="relative glass-pill text-xs font-semibold px-3.5 py-2 flex items-center gap-1.5">

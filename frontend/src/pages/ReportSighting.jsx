@@ -10,6 +10,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { supabase, casePhotoUrl } from '../lib/supabase'
 import { compressImage } from '../lib/compressImage'
 import PhotoPicker from '../components/PhotoPicker'
+import VoiceButton from '../components/VoiceButton'
 import { randomId } from '../lib/randomId'
 import { nowForInput } from '../lib/dates'
 import { distanceKm, formatDistance, getCurrentPosition } from '../lib/geo'
@@ -239,7 +240,10 @@ export default function ReportSighting() {
             value={seenAt} onChange={(e) => setSeenAt(e.target.value)} />
         </div>
         <div>
-          <label className="block text-sm font-semibold mb-1">{t('report.details')}</label>
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <label className="block text-sm font-semibold">{t('report.details')}</label>
+            <VoiceButton onText={(text) => setNotes((n) => (n ? `${n} ` : '') + text)} />
+          </div>
           <textarea rows="3" maxLength={1000} className={inputClass}
             placeholder={t('report.detailsPlaceholder')}
             value={notes} onChange={(e) => setNotes(e.target.value)} />

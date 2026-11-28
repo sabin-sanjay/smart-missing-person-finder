@@ -128,6 +128,53 @@ export async function downloadCasePdf(c) {
     y += 2
   })
 
+  // ---- Newer sections: extra photos, search party, messages, activity log ----
+  // (each one quietly shows "none" if that part has no data)
+  const [photos, searches, volunteers, messages, activity] = await Promise.all([
+    supabase.from('case_photos').select('photo_path, created_at').eq('case_id', c.id).order('created_at'),
+    supabase.from('search_checks').select('lat, lng, created_at').eq('case_id', c.id).order('created_at'),
+    supabase.rpc('search_volunteers', { p_case: c.id }),
+    supabase.from('case_messages').select('from_police, body, created_at').eq('case_id', c.id).order('created_at'),
+    supabase.from('case_activity').select('action, detail, created_at, actor:profiles(full_name, role)').eq('case_id', c.id).order('created_at'),
+  ])
+
+  const extra = photos.data ?? []
+  heading(`Extra photos (${extra.length})`)
+  if (!extra.length) row('', 'No extra photos.')
+  let x = left
+  for (const p of extra) {
+    try {
+      ensureSpace(42)
+      const img = await imageToDataUrl(casePhotoUrl(p.photo_path) + '?pdf=1')
+      doc.addImage(img, 'JPEG', x, y, 32, 38)
+      x += 36
+    } catch {
+      // a photo that can't load is skipped
+    }
+  }
+  if (extra.length) y += 42
+
+  const areas = searches.data ?? []
+  heading('Search party')
+  row('Areas searched', `${areas.length}`)
+  row('Volunteers (24 h)', `${volunteers.data ?? 0}`)
+  if (areas.length) {
+    row('First / last', `${fmt(areas[0].created_at)}  /  ${fmt(areas[areas.length - 1].created_at)}`)
+  }
+
+  const chat = messages.data ?? []
+  heading(`Messages between police and family (${chat.length})`)
+  if (!chat.length) row('', 'No messages.')
+  chat.forEach((m) => row(`${m.from_police ? 'Police' : 'Family'}`, `${fmt(m.created_at)}  ${m.body}`))
+
+  const log = activity.data ?? []
+  heading(`Activity log (${log.length})`)
+  if (!log.length) row('', 'No activity recorded.')
+  log.forEach((a) => {
+    const who = a.actor ? `${a.actor.full_name || 'Unnamed'} (${a.actor.role})` : 'System'
+    row(fmt(a.created_at).slice(0, 17), `${a.action.replace(/_/g, ' ')}${a.detail ? ` - ${a.detail}` : ''}  |  ${who}`)
+  })
+
   // Page numbers at the bottom of every page
   const pages = doc.getNumberOfPages()
   for (let p = 1; p <= pages; p++) {

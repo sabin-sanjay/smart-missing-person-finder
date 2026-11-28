@@ -267,5 +267,18 @@
     "placeholder": "Write a message…",
     "send": "Send",
     "failed": "Could not send. Please try again."
+  },
+  "voice": {
+    "speak": "Speak",
+    "listening": "Listening… tap to stop",
+    "denied": "Please allow the microphone to speak.",
+    "failed": "Couldn't hear that. Please try again."
+  },
+  "a11y": {
+    "label": "Text size and contrast",
+    "normal": "Normal text",
+    "large": "Large text",
+    "xl": "Extra-large text",
+    "contrast": "High contrast"
   }
 }

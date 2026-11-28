@@ -14,6 +14,7 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { compressImage } from '../lib/compressImage'
 import PhotoPicker from '../components/PhotoPicker'
+import VoiceButton from '../components/VoiceButton'
 import { timeAgo } from '../lib/dates'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
@@ -156,7 +157,10 @@ export default function FoundSomeone() {
           </Suspense>
         </div>
         <div>
-          <label className="block text-sm font-semibold mb-1">{t('found.details')}</label>
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <label className="block text-sm font-semibold">{t('found.details')}</label>
+            <VoiceButton onText={(text) => setNotes((n) => (n ? `${n} ` : '') + text)} />
+          </div>
           <textarea rows="3" maxLength={1000} className="bk-input"
             placeholder={t('found.detailsPlaceholder')}
             value={notes} onChange={(e) => setNotes(e.target.value)} />
