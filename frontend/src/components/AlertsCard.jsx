@@ -59,7 +59,7 @@ export default function AlertsCard({ className = '' }) {
         {state ? (
           <button onClick={turnOff} disabled={busy} className="bk-btn bk-btn-ghost">{t('alerts.turnOff')}</button>
         ) : (
-          <button onClick={turnOn} disabled={busy} className="bk-btn bk-btn-orange">
+          <button onClick={turnOn} disabled={busy} className="bk-btn bk-btn-orange standout">
             {busy ? t('alerts.turningOn') : t('alerts.turnOn')}
           </button>
         )}

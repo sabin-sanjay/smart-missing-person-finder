@@ -15,6 +15,7 @@ import { useAuth } from '../context/AuthContext'
 import { compressImage } from '../lib/compressImage'
 import PhotoPicker from '../components/PhotoPicker'
 import VoiceButton from '../components/VoiceButton'
+import Celebrate from '../components/Celebrate'
 import { timeAgo } from '../lib/dates'
 
 const LocationPicker = lazy(() => import('../components/LocationPicker.jsx'))
@@ -142,7 +143,12 @@ export default function FoundSomeone() {
       <p className="text-sm text-white/75 px-1">{t('found.intro')}</p>
       <p className="text-sm font-semibold text-red-600 px-1">{t('found.emergencyTip')}</p>
 
-      {sent && <p className="bk-sheet text-sm">{t('found.thanks')}</p>}
+      {sent && (
+        <div className="bk-sheet text-sm flex items-center gap-4">
+          <Celebrate size={56} />
+          <p>{t('found.thanks')}</p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="bk-sheet space-y-4">
         <div>

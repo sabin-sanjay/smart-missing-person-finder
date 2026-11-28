@@ -78,7 +78,16 @@ const AdminDashboard = lazyPage(() => import('./pages/AdminDashboard.jsx'))
 const NotFound = lazyPage(() => import('./pages/NotFound.jsx'))
 
 // Shown for a moment while a page's code downloads
-const loading = <p className="text-muted text-sm">…</p>
+// Shown the moment a page starts loading, so you always get feedback in
+// under 0.4 s (Doherty threshold): a moving bar at the top + grey placeholders.
+const loading = (
+  <div aria-busy="true" aria-label="Loading">
+    <div className="load-bar" />
+    <div className="skeleton h-28 mb-3" />
+    <div className="skeleton h-16 mb-3" />
+    <div className="skeleton h-16" />
+  </div>
+)
 const page = (element) => <Suspense fallback={loading}>{element}</Suspense>
 const loggedIn = (element, roles) => page(<ProtectedRoute roles={roles}>{element}</ProtectedRoute>)
 

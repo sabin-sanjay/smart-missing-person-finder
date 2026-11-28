@@ -16,6 +16,7 @@ import { supabase, isSupabaseConfigured, casePhotoUrl } from '../lib/supabase'
 import AlertsCard from '../components/AlertsCard'
 import Icon from '../components/Icons'
 import useFadeEdges from '../lib/useFadeEdges'
+import QuickLinks from '../components/QuickLinks'
 
 const DAY = 24 * 60 * 60 * 1000
 
@@ -121,34 +122,7 @@ export default function Home() {
           className="w-full bg-transparent outline-none text-[15px] text-white placeholder:text-white/60"
         />
       </label>
-      <Link to="/who-is-this" className="bk-row">
-        <span className="flex items-center gap-3">
-          <span className="icon-circle"><Icon name="scan" className="w-5 h-5" /></span>
-          <span>{t('home.whoShort')} <span className="text-muted text-sm">· {t('home.whoShortText')}</span></span>
-        </span>
-        <Icon name="chevron" className="w-5 h-5 text-white/70" />
-      </Link>
-      <Link to="/found-someone" className="bk-row">
-        <span className="flex items-center gap-3">
-          <span className="icon-circle"><Icon name="users" className="w-5 h-5" /></span>
-          <span>{t('found.rowTitle')} <span className="text-muted text-sm">· {t('found.rowText')}</span></span>
-        </span>
-        <Icon name="chevron" className="w-5 h-5 text-white/70" />
-      </Link>
-      <Link to="/safety-card" className="bk-row">
-        <span className="flex items-center gap-3">
-          <span className="icon-circle"><Icon name="scan" className="w-5 h-5" /></span>
-          <span>{t('safety.rowTitle')} <span className="text-muted text-sm">· {t('safety.rowText')}</span></span>
-        </span>
-        <Icon name="chevron" className="w-5 h-5 text-white/70" />
-      </Link>
-      <Link to="/map" className="bk-row">
-        <span className="flex items-center gap-3">
-          <span className="icon-circle"><Icon name="map" className="w-5 h-5" /></span>
-          {t('home.mapShort')}
-        </span>
-        <Icon name="chevron" className="w-5 h-5 text-white/70" />
-      </Link>
+      <QuickLinks />
 
 
       {/* Emergency help: one tap to call, or find the nearest police / hospital */}

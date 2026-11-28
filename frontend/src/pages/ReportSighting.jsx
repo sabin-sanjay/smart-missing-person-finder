@@ -11,6 +11,7 @@ import { supabase, casePhotoUrl } from '../lib/supabase'
 import { compressImage } from '../lib/compressImage'
 import PhotoPicker from '../components/PhotoPicker'
 import VoiceButton from '../components/VoiceButton'
+import Celebrate from '../components/Celebrate'
 import { randomId } from '../lib/randomId'
 import { nowForInput } from '../lib/dates'
 import { distanceKm, formatDistance, getCurrentPosition } from '../lib/geo'
@@ -159,7 +160,7 @@ export default function ReportSighting() {
   if (done) {
     return (
       <div className="bk-sheet !p-6 text-center space-y-3">
-        <p className="text-5xl">🙏</p>
+        <div className="flex justify-center py-2"><Celebrate /></div>
         <h2 className="bk-liquid bk-title">{t('report.thankYou')}</h2>
         {savedOffline && <p className="bk-row !rounded-2xl !p-3 text-sm text-left">📶 {t('report.savedOffline')}</p>}
         <p className="text-muted text-sm">

@@ -5,7 +5,7 @@
 //   - a bottom menu, easy to reach with your thumb on a phone
 
 import { useEffect, useState } from 'react'
-import { NavLink, Outlet } from 'react-router'
+import { NavLink, Outlet, useLocation } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
@@ -16,6 +16,7 @@ import { LANGUAGES, LANGUAGE_NAMES } from '../i18n'
 import { A11Y_MODES, getA11yMode, applyA11yMode } from '../lib/accessibility'
 
 export default function Layout() {
+  const { pathname } = useLocation() // a new page = the entrance animation plays again
   const { session } = useAuth()
   const { t, i18n } = useTranslation() // t('nav.home') -> "Home" or "होम"
 
@@ -118,7 +119,9 @@ export default function Layout() {
               className="bk-btn bk-btn-ghost !py-2 !px-3 !text-xs">{t('report.sendNow')}</button>
           </div>
         )}
-        <Outlet />
+        <div key={pathname} className="page-enter">
+          <Outlet />
+        </div>
       </main>
 
       {/* Bottom menu (like the reference): a black glass bar holding round

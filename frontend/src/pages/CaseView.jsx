@@ -13,6 +13,7 @@ import CaseTimeline from '../components/CaseTimeline'
 import SearchParty from '../components/SearchParty'
 import CasePhotos from '../components/CasePhotos'
 import CaseMessages from '../components/CaseMessages'
+import Celebrate from '../components/Celebrate'
 import { useAuth } from '../context/AuthContext'
 import { dateLocale } from '../i18n'
 
@@ -67,6 +68,7 @@ export default function CaseView() {
       {/* Found: a "Reunited" panel at the top */}
       {c.status === 'found' && (
         <section className="bk-panel">
+          <div className="float-right"><Celebrate size={64} /></div>
           <span className="bk-chip bk-chip-blue">🎉 {t('reunited.chip')}</span>
           <h2 className="text-[1.9rem] leading-tight tracking-[-0.02em] text-sky-ink mt-3">
             {t('reunited.title', { name: c.full_name })}
