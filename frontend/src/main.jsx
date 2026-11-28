@@ -12,9 +12,12 @@ import './index.css'
 import './i18n' // load translations before anything is shown
 import { setupHaptics } from './lib/haptics'
 import { applyA11yMode } from './lib/accessibility'
+import { setupTooltips } from './lib/tooltips'
 
 // Large text / high contrast, if chosen before (see lib/accessibility.js)
 applyA11yMode()
+// Labels for icon buttons on computers, with "skip delay" (lib/tooltips.js)
+setupTooltips()
 
 import { setupAppUpdates } from './lib/appUpdate'
 

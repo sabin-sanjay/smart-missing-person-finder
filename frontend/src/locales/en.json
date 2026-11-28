@@ -281,6 +281,7 @@
     "normal": "Normal text",
     "large": "Large text",
     "xl": "Extra-large text",
-    "contrast": "High contrast"
+    "contrast": "High contrast",
+    "light": "Light theme"
   }
 }

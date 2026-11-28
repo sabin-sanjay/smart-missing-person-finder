@@ -4,18 +4,29 @@
 //   - the current page in the middle (<Outlet /> is where it appears)
 //   - a bottom menu, easy to reach with your thumb on a phone
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 import { refreshAlertLocation, listenForForegroundAlerts, syncAlertLanguage } from '../lib/push'
 import Icon from './Icons'
+import { attachRubberBand } from '../lib/motion'
 import { flushQueue, pendingCount, onQueueChange } from '../lib/offlineQueue'
 import { LANGUAGES, LANGUAGE_NAMES } from '../i18n'
 import { A11Y_MODES, getA11yMode, applyA11yMode } from '../lib/accessibility'
 
 export default function Layout() {
+  // RUBBER BANDING for the whole page: pull past the top or bottom and the
+  // page stretches a little, then springs back (velocity spring, lib/motion.js)
+  const mainRef = useRef(null)
+  useEffect(() => {
+    const el = mainRef.current
+    if (!el) return
+    const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1
+    return attachRubberBand(el, { axis: 'y', canPull: (d) => (d > 0 && window.scrollY <= 0) || (d < 0 && atBottom()) })
+  }, [])
+
   const { pathname } = useLocation() // a new page = the entrance animation plays again
   const { session } = useAuth()
   const { t, i18n } = useTranslation() // t('nav.home') -> "Home" or "होम"
@@ -78,7 +89,7 @@ export default function Layout() {
             </span>
           </NavLink>
           {/* Text size / high contrast ("Aa") */}
-          <label className="relative glass-pill text-xs font-bold px-3 py-2 ml-auto" title={t('a11y.label')}>
+          <label className="relative glass-pill text-xs font-bold px-3 py-2 ml-auto" data-tip={t('a11y.label')}>
             <span aria-hidden="true">Aa</span>
             <select
               defaultValue={getA11yMode()}
@@ -91,7 +102,7 @@ export default function Layout() {
           </label>
           {/* Language menu: the phone's own list pops up (easy on small screens).
               The list itself is dark with white text so every language is readable. */}
-          <label className="relative glass-pill text-xs font-semibold px-3.5 py-2 flex items-center gap-1.5">
+          <label className="relative glass-pill text-xs font-semibold px-3.5 py-2 flex items-center gap-1.5" data-tip="Language">
             <Icon name="globe" className="w-4 h-4" />
             <span aria-hidden="true">{LANGUAGE_NAMES[i18n.resolvedLanguage] ?? 'English'}</span>
             <span aria-hidden="true" className="opacity-70">▾</span>
@@ -111,7 +122,7 @@ export default function Layout() {
 
       {/* The current page appears here. Extra space at the bottom (pb-28)
           stops the menu from covering the content. */}
-      <main className="relative z-[1] flex-1 w-full max-w-xl mx-auto px-3 pt-1 pb-28">
+      <main ref={mainRef} className="relative z-[1] flex-1 w-full max-w-xl mx-auto px-3 pt-1 pb-28">
         {waiting > 0 && (
           <div className="bk-row !rounded-2xl !p-3 mb-3 text-sm">
             <span>📶 {t('report.queued', { count: waiting })}</span>
@@ -138,6 +149,7 @@ export default function Layout() {
                 to={item.to}
                 end={item.to === '/'}
                 aria-label={item.label}
+                data-tip={item.label}
                 className={({ isActive }) =>
                   'flex items-center justify-center gap-2 h-12 rounded-full text-sm font-semibold transition-all ' +
                   (isActive ? 'nav-active flex-1 px-4' : 'nav-circle w-12 shrink-0')

@@ -1063,3 +1063,84 @@ html.high-contrast .shape-ring, html.high-contrast .shape-dot { display: none; }
   }
   .celebrate-check circle, .celebrate-check path { stroke-dashoffset: 0; }
 }
+
+
+/* =====================================================================
+   INTERACTION DETAILS
+   ===================================================================== */
+
+/* INSTANT THEME SWITCH: while html has .theme-switching (one frame), nothing
+   transitions, so the new theme appears at once. */
+html.theme-switching *, html.theme-switching *::before, html.theme-switching *::after {
+  transition: none !important;
+}
+
+/* SCALE FROM 0.97: things that appear start at 97% size (not from 0), which
+   feels close and calm instead of "zooming in from nowhere". */
+@keyframes grow-from-origin { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+@keyframes enter-arc {
+  0%   { opacity: 0; transform: translate(-6px, 14px) scale(0.97); }
+  60%  { opacity: 1; transform: translate(1px, -2px) scale(1.003); }
+  100% { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@keyframes pop-in { 0% { transform: scale(0.97); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+/* SHAKE ON ERROR: an error message gives a short sideways shake when it
+   appears, so you notice it straight away. */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-7px); } 30% { transform: translateX(6px); }
+  45% { transform: translateX(-4px); } 60% { transform: translateX(3px); } 75% { transform: translateX(-1px); }
+}
+p.text-red-600, span.text-red-600, [role="alert"] { animation: shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+
+/* TRANSFORM, NOT LEFT: everything that moves uses transform (the phone's
+   graphics chip moves it smoothly); left/top would re-layout the page on
+   every frame. Moving things are hinted to the browser: */
+.tab-indicator, .seg-pill, .fade-x, main, .tooltip { will-change: transform; }
+
+/* TOOLTIPS (computers only; lib/tooltips.js does the skip-delay timing) */
+.tooltip {
+  position: fixed; left: 0; top: 0; z-index: 60; pointer-events: none;
+  padding: 6px 10px; border-radius: 10px;
+  font-size: 0.75rem; font-weight: 600; color: #fff; white-space: nowrap;
+  background: rgb(20 17 18 / 0.92); border: 1px solid rgb(255 255 255 / 0.18);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.45);
+  opacity: 0; scale: 0.97;
+  transition: opacity 0.14s ease, scale 0.14s ease;
+}
+.tooltip.show { opacity: 1; scale: 1; }
+.tooltip.instant { transition: none; }   /* skip delay: the next one appears instantly */
+
+/* LIGHT THEME (Aa menu): soft blush page, white glass, dark text */
+html.theme-light {
+  --color-ink: #1d1517; --color-muted: #6f6266; --color-sky-ink: #1d1517;
+  --color-slate-100: #f1ecec; --color-slate-200: #e6dfe0; --color-slate-300: #d4cacc; --color-slate-700: #3a3033;
+  --color-red-50: #fde8e8; --color-tangerine: #e5161d;
+  color-scheme: light;
+}
+html.theme-light body { color: #1d1517; }
+html.theme-light .lq-backdrop {
+  background: radial-gradient(90% 55% at 0% 0%, #ffd9d6 0%, transparent 65%), linear-gradient(165deg, #fff3f2 0%, #f8eceb 50%, #f1e4e3 100%);
+}
+html.theme-light .lq-backdrop::after { filter: invert(1) hue-rotate(180deg); opacity: 0.55; }  /* dark lines, river stays red */
+html.theme-light input::placeholder, html.theme-light textarea::placeholder { color: #8a7c80 !important; }
+html.theme-light .lq-backdrop::before { filter: invert(1) hue-rotate(180deg); opacity: 0.6; }
+html.theme-light :is(.bk-panel, .bk-liquid, .bk-row, .bk-sheet, .search-pill, .bk-stack > .bk-panel:not(:first-child)) {
+  color: #1d1517;
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0.6) 100%);
+  border-color: rgb(29 21 23 / 0.1);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgb(80 20 25 / 0.08), 0 8px 20px -6px rgb(80 20 25 / 0.15);
+}
+html.theme-light .nav-bar { background: rgb(255 255 255 / 0.82); border-color: rgb(29 21 23 / 0.1); }
+html.theme-light :is(.nav-circle, .icon-circle, .glass-pill, .lq-pill, .bk-btn-ghost, .bk-btn-line, .call-tile:not(:first-child)) {
+  background: rgb(29 21 23 / 0.04); border-color: rgb(29 21 23 / 0.14); color: #1d1517;
+}
+html.theme-light :is(.nav-active, .lq-pill[aria-pressed="true"]) { background: #1d1517; color: #fff; border-color: #1d1517; }
+html.theme-light .bk-input { background: #fff; border-color: rgb(29 21 23 / 0.15); color: #1d1517; }
+html.theme-light .bk-input::placeholder { color: #8a7c80; }
+html.theme-light :is([class*="text-white"], .bk-label, .call-label) { color: rgb(29 21 23 / 0.7) !important; }
+html.theme-light :is(.bk-btn-orange, .bk-btn-ink, .bk-liquid-orange, .bk-chip:not(.bk-chip-blue), .badge-red, .call-tile:first-child),
+html.theme-light :is(.bk-btn-orange, .bk-btn-ink, .bk-liquid-orange, .call-tile:first-child) * { color: #fff !important; }
+html.theme-light .badge:not(.badge-white):not(.badge-red) { color: #1d1517; border-color: rgb(29 21 23 / 0.15); }
+html.theme-light .tooltip { background: rgb(29 21 23 / 0.9); }
