@@ -844,3 +844,52 @@ html.high-contrast .shape-ring, html.high-contrast .shape-dot { display: none; }
   /* Tailwind outline helpers used on a few screens: make them alpha too */
   .border-white\/10, .border-white\/15, .border-white\/20, .border-slate-300, .border-slate-200 { border-color: var(--alpha-border); }
 }
+
+
+/* ===================================================================
+   CAROUSEL FADE: sideways-scrolling rows fade out at their edges with a
+   mask (lib/useFadeEdges.js adds fade-left / fade-right only where more
+   items are hidden). No scrollbar; the fade shows there's more.
+   =================================================================== */
+.fade-x {
+  --fade: 28px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.fade-x::-webkit-scrollbar { display: none; }
+.fade-x.fade-right {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--fade)), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - var(--fade)), transparent);
+}
+.fade-x.fade-left {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--fade));
+  mask-image: linear-gradient(to right, transparent, #000 var(--fade));
+}
+.fade-x.fade-left.fade-right {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+}
+
+
+/* ===================================================================
+   ICON SWAP: when an icon changes (menu tab, voice button...), the new
+   one arrives slightly blurred and smaller, then sharpens. Short and
+   subtle; switched off for people who turned off animations.
+   =================================================================== */
+@keyframes icon-swap {
+  from { filter: blur(4px); opacity: 0.2; transform: scale(0.82); }
+  to   { filter: blur(0);   opacity: 1;   transform: scale(1); }
+}
+.icon-swap { animation: icon-swap 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* the menu: the icon of the tab you just opened blurs in again */
+/* (its own name, so it replays on every tab switch even after the first blur-in) */
+@keyframes icon-swap-tab {
+  from { filter: blur(4px); opacity: 0.2; transform: scale(0.82); }
+  to   { filter: blur(0);   opacity: 1;   transform: scale(1); }
+}
+.nav-active svg { animation: icon-swap-tab 0.32s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .icon-swap, .nav-active svg { animation: none; }
+}

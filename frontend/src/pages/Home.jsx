@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { supabase, isSupabaseConfigured, casePhotoUrl } from '../lib/supabase'
 import AlertsCard from '../components/AlertsCard'
 import Icon from '../components/Icons'
+import useFadeEdges from '../lib/useFadeEdges'
 
 const DAY = 24 * 60 * 60 * 1000
 
@@ -35,6 +36,7 @@ const FILTERS = {
 }
 
 export default function Home() {
+  const filtersRef = useFadeEdges() // filter chips fade out at the edges when they scroll
   const { t } = useTranslation()
   const [cases, setCases] = useState([])     // the list of cases
   const [loading, setLoading] = useState(true)
@@ -179,7 +181,7 @@ export default function Home() {
       {/* 3. Heading + filter chips */}
       <div className="flex items-center justify-between gap-2 mt-3 px-1">
         <h3 className="text-xl tracking-tight">{t('home.casesTitle')}</h3>
-        <div className="flex gap-1.5 overflow-x-auto" role="group" aria-label={t('home.casesTitle')}>
+        <div ref={filtersRef} className="fade-x flex gap-1.5 overflow-x-auto" role="group" aria-label={t('home.casesTitle')}>
           {Object.keys(FILTERS).map((key) => (
             <button key={key} onClick={() => setFilter(key)} aria-pressed={filter === key}
               className={'font-mono rounded-full px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide whitespace-nowrap border ' +

@@ -45,7 +45,9 @@ export default function VoiceButton({ onText }) {
       <button type="button" onClick={listening ? stop : start}
         className={`bk-btn !py-2 !px-4 !text-xs ${listening ? 'bk-btn-orange' : 'bk-btn-ghost'}`}
         aria-pressed={listening}>
-        {listening ? `⏺ ${t('voice.listening')}` : `🎤 ${t('voice.speak')}`}
+        <span key={listening ? 'on' : 'off'} className="icon-swap">
+          {listening ? `⏺ ${t('voice.listening')}` : `🎤 ${t('voice.speak')}`}
+        </span>
       </button>
       {error && <span className="text-xs text-red-600">{error}</span>}
     </span>

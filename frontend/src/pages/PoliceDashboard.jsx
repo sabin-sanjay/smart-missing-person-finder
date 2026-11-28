@@ -7,6 +7,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { supabase, casePhotoUrl } from '../lib/supabase'
+import useFadeEdges from '../lib/useFadeEdges'
 
 const TABS = [
   { status: 'pending', label: 'Pending' },
@@ -16,6 +17,7 @@ const TABS = [
 ]
 
 export default function PoliceDashboard() {
+  const tabsRef = useFadeEdges() // tabs fade out at the edges when they scroll
   const [tab, setTab] = useState('pending')
   const [cases, setCases] = useState([])
   const [loading, setLoading] = useState(true)
@@ -70,7 +72,7 @@ export default function PoliceDashboard() {
       </Link>
 
       {/* Tabs. "overflow-x-auto" lets them scroll sideways on very small phones. */}
-      <div className="flex gap-2 overflow-x-auto pb-1">
+      <div ref={tabsRef} className="fade-x flex gap-2 overflow-x-auto pb-1">
         {TABS.map((t) => (
           <button
             key={t.status}

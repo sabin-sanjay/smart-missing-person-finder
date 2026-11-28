@@ -20,8 +20,10 @@ const PATHS = {
 
 export default function Icon({ name, className = 'w-5 h-5', strokeWidth = 1.6 }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth}
-      strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+    // key={name}: when the icon changes, React draws a fresh one, so the
+    // short blur-in animation (.icon-swap in index.css) plays on every swap
+    <svg key={name} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth}
+      strokeLinecap="round" strokeLinejoin="round" className={`icon-swap ${className}`} aria-hidden="true">
       <path d={PATHS[name]} />
     </svg>
   )
