@@ -799,3 +799,48 @@ html.high-contrast .shape-ring, html.high-contrast .shape-dot { display: none; }
       0 12px 24px -8px rgb(225 20 28 / 0.55);
   }
 }
+
+/* ===================================================================
+   ALPHA BORDERS + BLENDED GLASS
+   Borders are semi-transparent white, so they take on the colour of
+   whatever is behind them. Fills are lighter and more see-through with a
+   strong blur, so the map pattern, shapes and red glow blend into each
+   surface instead of being covered.
+   =================================================================== */
+:root {
+  --alpha-border: rgb(255 255 255 / 0.16);
+  --alpha-border-strong: rgb(255 255 255 / 0.24);
+  --alpha-fill: rgb(255 255 255 / 0.07);
+  --blend-blur: blur(22px) saturate(1.7) brightness(1.05);
+}
+
+@layer components {
+  /* cards, rows, search, menu: see-through glass with alpha edges */
+  .bk-panel, .bk-liquid, .bk-stack > .bk-panel:not(:first-child),
+  .bk-row, .bk-sheet, .search-pill, .nav-bar, .tabbar, .seg {
+    border: 1px solid var(--alpha-border-strong);
+    background:
+      linear-gradient(160deg, rgb(255 255 255 / 0.13) 0%, rgb(255 255 255 / 0.04) 50%, rgb(255 255 255 / 0.02) 100%);
+    -webkit-backdrop-filter: var(--blend-blur);
+    backdrop-filter: var(--blend-blur);
+  }
+  .nav-bar { background: rgb(14 11 12 / 0.45); }
+
+  /* things inside: alpha borders and light see-through fills */
+  .call-tile, .bk-input, .bk-btn-ghost, .bk-btn-line,
+  .nav-circle, .icon-circle, .glass-pill, .lq-pill, .badge:not(.badge-white):not(.badge-red) {
+    border: 1px solid var(--alpha-border-strong);
+    background: var(--alpha-fill);
+  }
+  .bk-input { background: rgb(0 0 0 / 0.18); }
+
+  /* coloured buttons and chips keep their colour, with a soft alpha edge */
+  .bk-btn-orange, .bk-btn-ink, .bk-liquid-orange, .bk-chip:not(.bk-chip-blue),
+  .badge-red, .call-tile:first-child, .call-tile-red {
+    border: 1px solid rgb(255 255 255 / 0.22);
+  }
+  .call-tile:first-child, .call-tile-red { background: linear-gradient(180deg, rgb(240 38 46 / 0.92) 0%, rgb(197 14 22 / 0.92) 100%); }
+
+  /* Tailwind outline helpers used on a few screens: make them alpha too */
+  .border-white\/10, .border-white\/15, .border-white\/20, .border-slate-300, .border-slate-200 { border-color: var(--alpha-border); }
+}
