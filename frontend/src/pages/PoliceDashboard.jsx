@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { supabase, casePhotoUrl } from '../lib/supabase'
 import useFadeEdges from '../lib/useFadeEdges'
+import BackendStatus from '../components/BackendStatus'
 
 const TABS = [
   { status: 'pending', label: 'Pending' },
@@ -57,6 +58,7 @@ export default function PoliceDashboard() {
 
   return (
     <div className="space-y-4">
+      <BackendStatus forPolice />
       <h2 className="bk-liquid bk-title">🛡️ Police dashboard</h2>
       <Link to="/police/analytics" className="bk-row">
         <span>📊 Analytics <span className="text-muted text-sm">· charts, hotspots, alerts</span></span>

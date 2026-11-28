@@ -5,8 +5,18 @@
   "name": "lumen",
   "account_id": "fbc99f3d04a90f4e0cff1d95f2c8d919",
   "compatibility_date": "2026-11-01",
+  // worker.js adds WhatsApp/Telegram link previews (name + photo) to case links
+  "main": "worker.js",
+  "vars": {
+    // PUBLIC values (the same ones already inside the app): safe to keep here
+    "SUPABASE_URL": "https://ocqtrmdlonzfamyuigin.supabase.co",
+    "SUPABASE_KEY": "sb_publishable_pKieUd1DnehnfrMoH_gKiQ_dClhRUNX"
+  },
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    // only case links go through worker.js; everything else is served directly (fast)
+    "run_worker_first": ["/case/*"],
     // Any address that isn't a real file (like /case/123) opens the app,
     // and the app's own page navigation takes over.
     "not_found_handling": "single-page-application"

@@ -6,6 +6,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { supabase } from '../lib/supabase'
+import BackendStatus from '../components/BackendStatus'
 
 async function getBackendUrl() {
   const { data } = await supabase.from('app_config').select('value').eq('key', 'backend_url').maybeSingle()
@@ -57,6 +58,7 @@ export default function PoliceVideo() {
 
   return (
     <div className="space-y-4">
+      <BackendStatus forPolice />
       <h2 className="bk-liquid bk-title">🎥 CCTV / video search</h2>
       <p className="text-sm text-white/75 px-1">
         Upload a short video (CCTV, phone clip). The AI checks up to 40 moments against every photo of the case.

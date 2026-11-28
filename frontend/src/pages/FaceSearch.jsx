@@ -9,6 +9,7 @@ import { supabase, casePhotoUrl } from '../lib/supabase'
 import { compressImage } from '../lib/compressImage'
 import { timeAgo } from '../lib/dates'
 import PhotoPicker from '../components/PhotoPicker'
+import BackendStatus from '../components/BackendStatus'
 
 // Where is the backend? It runs on a laptop behind a free tunnel whose address
 // changes every time it starts, so the backend saves its current address in
@@ -66,6 +67,7 @@ export default function FaceSearch() {
 
   return (
     <div className="space-y-4">
+      <BackendStatus />
       <h2 className="bk-liquid bk-title">🔍 Who is this?</h2>
       <section className="bk-sheet space-y-3">
         <p className="text-sm text-muted">

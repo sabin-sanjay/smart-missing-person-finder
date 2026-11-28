@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
+import { getBackendUrl } from '../lib/backend'
 
 // What each role means, shown to the user
 const roleInfo = {
@@ -133,6 +134,9 @@ export default function Profile() {
         className="w-full border border-slate-300 rounded-lg py-3 font-semibold text-red-600 active:bg-slate-100">
         Log out
       </button>
+
+      {/* Your data, your choice: delete the account (India's DPDP Act) */}
+      <DeleteAccount signOut={signOut} />
     </div>
   )
 }
@@ -142,5 +146,49 @@ function RoleLink({ to, text }) {
     <Link to={to} className="block bg-slate-100 rounded-lg px-3 py-3 font-semibold active:bg-slate-200">
       {text}
     </Link>
+  )
+}
+
+
+// "Delete my account": removes the login, profile and alert settings.
+// Cases you reported stay with the police (a missing person still needs
+// finding) but are no longer linked to your name.
+function DeleteAccount({ signOut }) {
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+
+  async function remove() {
+    if (!window.confirm('Delete your Lumen account for good? This removes your login, profile and alert settings. It cannot be undone.')) return
+    setBusy(true)
+    setError('')
+    try {
+      const [url, { data }] = await Promise.all([getBackendUrl(), supabase.auth.getSession()])
+      const res = await fetch(`${url}/account/delete`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${data.session?.access_token ?? ''}` },
+      })
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).detail || `Failed (${res.status})`)
+      localStorage.removeItem('alerts') // this phone's alert setting
+      await signOut()
+      window.location.assign('/')
+    } catch (err) {
+      setError(err.message.includes('fetch') ? 'The server is offline. Please try again later.' : err.message)
+      setBusy(false)
+    }
+  }
+
+  return (
+    <section className="bk-sheet space-y-2">
+      <h3 className="font-semibold">Your data</h3>
+      <p className="text-sm text-muted">
+        You can delete your account at any time. Cases you reported stay with the police so the search can continue,
+        but they are no longer linked to you.
+      </p>
+      <button type="button" onClick={remove} disabled={busy} data-haptic="strong"
+        className="w-full bk-btn bk-btn-ghost !text-red-600">
+        {busy ? 'Deleting…' : 'Delete my account'}
+      </button>
+      {error && <p className="text-sm text-red-600">{error}</p>}
+    </section>
   )
 }

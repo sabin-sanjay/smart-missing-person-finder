@@ -23,7 +23,7 @@ from contextlib import asynccontextmanager
 from fastapi import BackgroundTasks, FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import alerts, config, face_jobs, faces, push, video
+from . import alerts, config, face_jobs, faces, privacy, push, video
 from . import supabase_client as db
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -44,6 +44,7 @@ async def run_worker_once() -> dict:
             ("matches", alerts.run_match_notices_once),       # "found someone" likely matches
             ("messages", alerts.run_message_notices_once),    # police-family messages
             ("reminders", alerts.run_reminder_round_once),    # daily "still missing" reminders
+            ("privacy", privacy.cleanup_once),                # old data clean-up (only if PRIVACY_CLEANUP=on)
         )
         for name, job in jobs:
             try:
@@ -222,3 +223,23 @@ async def video_search(case_id: str = Form(...), video_file: UploadFile = File(.
         except ValueError:
             raise HTTPException(400, "This file is not a readable video (try MP4).")
     return result
+
+
+
+# ---------------------------------------------------------------------
+# Delete my account (the user asks for it themselves, from Profile)
+# ---------------------------------------------------------------------
+@app.post("/account/delete")
+async def account_delete(authorization: str = Header(default="")):
+    user = await db.get_user_from_token(authorization.removeprefix("Bearer ").strip())
+    if not user:
+        raise HTTPException(401, "Please log in.")
+    _rate_limit(user["id"], max_per_minute=2)
+    await privacy.delete_account(user["id"])
+    return {"deleted": True}
+
+
+@app.get("/health")
+async def health():
+    """A tiny check the app uses to show "AI server offline" when it isn't running."""
+    return {"ok": True}
