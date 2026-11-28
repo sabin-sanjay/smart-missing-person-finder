@@ -7,14 +7,13 @@
 //   large     text 12% bigger
 //   xl        text 25% bigger
 //   contrast  plain black and white with strong borders, plus large text
-//   light     a light theme (white glass on a soft blush page)
 //
 // INSTANT THEME SWITCH: while a theme changes, all transitions are paused for
 // one frame, so the new look appears at once instead of slowly fading colour
 // by colour.
 
 const KEY = 'lumen-a11y'
-export const A11Y_MODES = ['normal', 'large', 'xl', 'contrast', 'light']
+export const A11Y_MODES = ['normal', 'large', 'xl', 'contrast']
 
 export function getA11yMode() {
   try {
@@ -28,7 +27,7 @@ export function getA11yMode() {
 export function applyA11yMode(mode = getA11yMode()) {
   const html = document.documentElement
   html.classList.add('theme-switching') // pause transitions so the switch is instant
-  html.classList.toggle('theme-light', mode === 'light')
+  html.classList.remove('theme-light') // (light theme removed: original colours only)
   html.classList.toggle('text-large', mode === 'large' || mode === 'contrast')
   html.classList.toggle('text-xl', mode === 'xl')
   html.classList.toggle('high-contrast', mode === 'contrast')
