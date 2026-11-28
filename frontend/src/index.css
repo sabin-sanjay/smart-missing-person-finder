@@ -729,3 +729,73 @@ html.high-contrast .bk-liquid-orange, html.high-contrast .bk-chip:not(.bk-chip-b
   background: #ff1a24 !important; color: #fff !important; box-shadow: none !important; text-shadow: none !important;
 }
 html.high-contrast .shape-ring, html.high-contrast .shape-dot { display: none; }
+
+/* ===================================================================
+   CONCENTRIC CORNERS + LAYERED SHADOWS
+   Inner radius = outer radius - padding, so every curve inside a card
+   runs parallel to the card's own curve.
+     card:  radius 28px, padding 18px
+     inside: radius 28 - 18 = 10px (buttons, inputs, tiles, photos)
+   Pill rows and the menu are already concentric (round icons inside
+   a round bar with even padding).
+   Shadows are stacked in layers (contact, mid, ambient), tinted with the
+   dark red of the background, so cards sit naturally on the page.
+   =================================================================== */
+:root {
+  --r-card: 28px;
+  --pad-card: 18px;
+  --r-inner: calc(var(--r-card) - var(--pad-card)); /* = 10px */
+  --shadow-layers:
+    0 1px 1px rgb(20 2 4 / 0.28),
+    0 3px 6px rgb(30 3 6 / 0.26),
+    0 10px 20px rgb(45 4 8 / 0.28),
+    0 26px 48px -14px rgb(90 8 14 / 0.45);
+}
+
+@layer components {
+  .bk-panel, .bk-sheet, .bk-stack > .bk-panel, .bk-stack > .bk-panel:first-child, .bk-stack > .bk-panel:last-child {
+    border-radius: var(--r-card);
+  }
+  .bk-panel, .bk-sheet { padding: var(--pad-card); }
+
+  /* everything rounded that sits inside a card follows the card's curve */
+  :is(.bk-panel, .bk-sheet) :is(.bk-btn, .bk-input, .call-tile, img, select, textarea),
+  :is(.bk-panel, .bk-sheet) .rounded-2xl,
+  :is(.bk-panel, .bk-sheet) .rounded-xl,
+  :is(.bk-panel, .bk-sheet) .rounded-lg {
+    border-radius: var(--r-inner);
+  }
+  /* round things stay round (profile photos, icon circles, badges) */
+  :is(.bk-panel, .bk-sheet) :is(.rounded-full, .icon-circle, .badge, .bk-chip) { border-radius: 9999px; }
+
+  /* layered shadows: glass highlight on top, then contact + mid + ambient */
+  .bk-panel, .bk-liquid, .bk-stack > .bk-panel:not(:first-child), .bk-sheet {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      inset 0 -1px 0 rgb(255 255 255 / 0.04),
+      var(--shadow-layers);
+  }
+  .bk-row, .search-pill {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.2),
+      0 1px 1px rgb(20 2 4 / 0.25),
+      0 4px 10px rgb(35 3 6 / 0.25),
+      0 14px 28px -12px rgb(90 8 14 / 0.4);
+  }
+  .nav-bar {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.14),
+      0 2px 4px rgb(10 1 2 / 0.4),
+      0 12px 24px rgb(20 2 4 / 0.45),
+      0 30px 60px -20px rgb(90 8 14 / 0.55);
+  }
+  /* red buttons: layered red glow under the glass */
+  .bk-btn-orange, .bk-btn-ink, .bk-liquid-orange {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.45),
+      inset 0 -3px 8px rgb(80 0 6 / 0.35),
+      0 1px 2px rgb(60 0 6 / 0.45),
+      0 4px 10px rgb(150 10 20 / 0.35),
+      0 12px 24px -8px rgb(225 20 28 / 0.55);
+  }
+}
